@@ -1,6 +1,7 @@
 package com.pands.dev.pands;
 
 import android.content.pm.ActivityInfo;
+import android.graphics.Matrix;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
@@ -10,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.pands.dev.pands.asynctasks.FetchProductsAsyncTask;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -18,15 +20,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements FetchProductsAsyncTask.ProductsRequestCallback {
 
     MenuFunctions menuFunctions;
     private Gson mGson;
-    List<Product> productsList= new ArrayList<Product>();
+    List<Product> productsList= new ArrayList<>();
 
-    String list_20_products = "https://www.primpandstyle.com/wc-api/v3/products?filter[limit]=1&consumer_key=ck_962b3c0e86f61ebef52ddb90f5721dcc5d2c5fc8&consumer_secret=cs_fe0ba2a0f443603553f9e30b0112644d03ff22ac";
+    String list_20_products = "https://www.primpandstyle.com/wc-api/v3/" +
+            "products" +
+            "?filter[limit]=10" +
+            "&consumer_key=ck_962b3c0e86f61ebef52ddb90f5721dcc5d2c5fc8" +
+            "&consumer_secret=cs_fe0ba2a0f443603553f9e30b0112644d03ff22ac";
+    private List<Product> mItems;
+    private ArrayAdapter<Product> mAdapter;
 
-    //https://www.primpandstyle.com/wc-api/v3/products?filter[limit]=1&consumer_key=ck_962b3c0e86f61ebef52ddb90f5721dcc5d2c5fc8&consumer_secret=cs_fe0ba2a0f443603553f9e30b0112644d03ff22ac";
+    //https://www.primpandstyle.com/wc-api/v3/products?filter[limit]=1&consumer_key=ck_962b3c0e86f61ebef52ddb90f5721dcc5d2c5fc8&consumer_secret=cs_fe0ba2a0f443603553f9e30b0112644d03ff22ac
     //https://www.primpandstyle.com/wc-api/v3/products/categories&consumer_key=ck_962b3c0e86f61ebef52ddb90f5721dcc5d2c5fc8&consumer_secret=cs_fe0ba2a0f443603553f9e30b0112644d03ff22ac
 
     @Override
@@ -39,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
 
         mGson = new Gson();
 
+
+
     }
 
     /**
@@ -48,48 +58,36 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        ArrayAdapter<Product> adapter = new ArrayAdapter<Product>(this,android.R.layout.simple_list_item_1,fetchProducts(list_20_products));
+        mItems = new ArrayList<>();
+        mAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, mItems);
         ListView listViewTest = (ListView) findViewById(R.id.listViewTest);
-        listViewTest.setAdapter(adapter);
+        listViewTest.setAdapter(mAdapter);
 
 
-//        fetchProducts(list_20_products);
-
-
-
-    }
-
-    public static class GetProduct {
-        OkHttpClient client = new OkHttpClient();
-
-        String run(String url) throws IOException {
-
-            Request request = new Request.Builder().url(url).build();
-            Response response = client.newCall(request).execute();
-            return response.body().string();
-        }
+        fetchProducts(list_20_products);
     }
 
     /**
      *
      * @return - Returns a list of products
      */
-    public List<Product> fetchProducts(String JSONInputString) {
-        List<Product> productsList = new ArrayList<>();
+    public List<Product> fetchProducts(String url) {
+        new FetchProductsAsyncTask(url, this).execute();
 
-        GetProduct getProduct = new GetProduct();
-
-        try {
-            String response = getProduct.run(JSONInputString);
-            String jsonStr = response;
-
-            Products product = mGson.fromJson(jsonStr, Products.class);
-            productsList = product.getProductList();
-        } catch (Exception e) {
-            // something went wrong! omg!
-        }
 
         return productsList;
     }
 
+    @Override
+    public void onSuccess(List<Product> products) {
+        mItems.clear();
+        mItems.addAll(products);
+
+        mAdapter.notifyDataSetChanged(); // Observer - Observable pattern
+    }
+
+    @Override
+    public void onError() {
+
+    }
 }
