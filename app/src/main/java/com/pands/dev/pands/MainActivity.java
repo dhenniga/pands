@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements FetchProductsAsyn
     private Gson mGson;
     List<Product> productsList= new ArrayList<>();
 
-    String list_20_products = "http://primpandstyle.com/wc-api/v3/products?oauth_version=1.0&oauth_nonce=9ea0c90b77c49343b2fe715079312f65&oauth_timestamp=1457650444&oauth_consumer_key=ck_962b3c0e86f61ebef52ddb90f5721dcc5d2c5fc8&filter=&oauth_signature_method=HMAC-SHA1&oauth_signature=PDp7a4a1WuxMGgce8Hz7ld2SqI0%3D";
+    String list_20_products = "http://primpandstyle.com/wc-api/v3/";
 
     private List<Product> mItems;
     private ArrayAdapter<Product> mAdapter;
@@ -43,8 +43,6 @@ public class MainActivity extends AppCompatActivity implements FetchProductsAsyn
         setContentView(R.layout.activity_main);
 
         mGson = new Gson();
-
-
 
     }
 
