@@ -9,14 +9,21 @@
 
     <include layout="@layout/menubar"/>
 
-    <ListView
-        android:id="@+id/listViewTest"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvProducts"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
-        android:background="@color/background"
-        android:elevation="-1dp">
-    </ListView>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp">
+    </android.support.v7.widget.RecyclerView>
+
+    <!--<ListView-->
+        <!--android:id="@+id/listViewTest"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_marginTop="50dp"-->
+        <!--android:background="@color/background"-->
+        <!--android:elevation="-1dp">-->
+    <!--</ListView>-->
 
     <TextView
         android:padding="20dp"

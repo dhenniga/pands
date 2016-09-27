@@ -2,7 +2,7 @@ package com.pands.dev.pands;
 
 public class PostValue {
 
-    private String ID;
+    private String ID, title;
 
     public String getID() {
         return ID;
@@ -12,5 +12,11 @@ public class PostValue {
         this.ID = ID;
     }
 
+    public String getTitle() {
+        return title;
+    }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
 }

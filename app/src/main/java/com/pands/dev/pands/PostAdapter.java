@@ -29,11 +29,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvID;
+        TextView tvID, tvTitle;
 
         public ViewHolder(View itemView) {
             super(itemView);
             tvID = (TextView) itemView.findViewById(R.id.tvID);
+            tvTitle= (TextView) itemView.findViewById(R.id.tvTitle);
         }
     }
 
@@ -48,6 +49,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         PostValue currentPost = postList.get(position);
         holder.tvID.setText(currentPost.getID());
+        holder.tvTitle.setText(currentPost.getTitle());
+
     }
 
     @Override
