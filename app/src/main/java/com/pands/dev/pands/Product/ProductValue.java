@@ -1,4 +1,6 @@
-package com.pands.dev.pands;
+package com.pands.dev.pands.product;
+
+import java.net.URL;
 
 public class ProductValue {
 

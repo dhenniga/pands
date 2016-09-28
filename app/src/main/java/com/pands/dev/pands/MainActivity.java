@@ -9,6 +9,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.pands.dev.pands.product.ProductAdapter;
+import com.pands.dev.pands.product.ProductParser;
+import com.pands.dev.pands.product.ProductValue;
+
 import org.json.JSONObject;
 import java.util.List;
 
@@ -62,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params) {
             JSONObject jsonObject = new JSONHelper().getJSONFromUrl();
-            productList = new JSONParser().parse(jsonObject);
+            productList = new ProductParser().parse(jsonObject);
             return null;
         }
 

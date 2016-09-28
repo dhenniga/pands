@@ -1,4 +1,4 @@
-package com.pands.dev.pands;
+package com.pands.dev.pands.product;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -7,7 +7,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JSONParser {
+public class ProductParser {
 
     public List<ProductValue> parse(JSONObject jsonObject) {
 
@@ -21,18 +21,17 @@ public class JSONParser {
 
             for (int i = 0; i < postsArray.length(); i++) {
 
-
-
                 JSONObject posts = postsArray.getJSONObject(i);
-//                JSONObject post = posts.getJSONObject("product_categories");
 
                 productValue = new ProductValue();
 
-                int id = posts.getInt("id");
-                String title = posts.getString("permalink");
+                int id = posts.getInt("price");
+                String title = posts.getString("title");
+                String featured_src = posts.getString("featured_src");
 
                 productValue.setId(id);
                 productValue.setTitle(title);
+                productValue.setFeatured_src(featured_src);
 
                 postList.add(productValue);
             }
@@ -46,17 +45,4 @@ public class JSONParser {
         return postList;
 
     }
-
 }
-
-
-//JSONArray jsonarray = new JSONArray(json);
-//
-//for (int i = 0; i < jsonarray.length(); i++) {
-//
-//        JSONObject jsonobj = jsonarray.getJSONObject(i);
-//
-//        System.out.println("categoryId : " + i + " = " + jsonobj.getString("categoryId"));
-//        System.out.println("Title : " + i + " = " + jsonobj.getString("Title"));
-//        System.out.println("songs : " + i + " = " + jsonobj.getString("songs"));
-//        }

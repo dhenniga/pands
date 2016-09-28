@@ -13,17 +13,9 @@
         android:id="@+id/rvProducts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="50dp"
+        android:elevation="-20dp">
     </android.support.v7.widget.RecyclerView>
-
-    <!--<ListView-->
-        <!--android:id="@+id/listViewTest"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_marginTop="50dp"-->
-        <!--android:background="@color/background"-->
-        <!--android:elevation="-1dp">-->
-    <!--</ListView>-->
 
     <TextView
         android:padding="20dp"
