@@ -9,30 +9,32 @@ import java.util.List;
 
 public class JSONParser {
 
-    public List<PostValue> parse(JSONObject jsonObject) {
+    public List<ProductValue> parse(JSONObject jsonObject) {
 
-        List<PostValue> postList = new ArrayList<>();
+        List<ProductValue> postList = new ArrayList<>();
 
-        PostValue postValue;
+        ProductValue productValue;
 
         try {
 
-            JSONArray postsArray = new JSONArray(postList);
+            JSONArray postsArray = jsonObject.getJSONArray("products");
 
             for (int i = 0; i < postsArray.length(); i++) {
 
+
+
                 JSONObject posts = postsArray.getJSONObject(i);
-//                JSONObject post = posts.getJSONObject("");
+//                JSONObject post = posts.getJSONObject("product_categories");
 
-                postValue = new PostValue();
+                productValue = new ProductValue();
 
-                String id = posts.getString("id");
-                String title = posts.getString("title");
+                int id = posts.getInt("id");
+                String title = posts.getString("permalink");
 
-                postValue.setID(id);
-                postValue.setTitle(title);
+                productValue.setId(id);
+                productValue.setTitle(title);
 
-                postList.add(postValue);
+                postList.add(productValue);
             }
 
         } catch (JSONException e) {

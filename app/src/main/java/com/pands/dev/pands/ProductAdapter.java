@@ -5,22 +5,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
+public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
 
 
     private Context mContext;
-    private List<PostValue> postList;
+    private List<ProductValue> postList;
     private LayoutInflater inflater;
 
 
-    public PostAdapter(Context context, List<PostValue> postList) {
+    public ProductAdapter(Context context, List<ProductValue> postList) {
         this.postList = postList;
         this.inflater = LayoutInflater.from(context);
         this.mContext = context;
@@ -47,8 +44,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        PostValue currentPost = postList.get(position);
-        holder.tvID.setText(currentPost.getID());
+        ProductValue currentPost = postList.get(position);
+        holder.tvID.setText(currentPost.getId());
         holder.tvTitle.setText(currentPost.getTitle());
 
     }

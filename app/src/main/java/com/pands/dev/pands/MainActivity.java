@@ -15,7 +15,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private AppCompatActivity activity = MainActivity.this;
-    private List<PostValue> productList;
+    private List<ProductValue> productList;
     private RecyclerView rvProducts;
 
     @Override
@@ -69,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
             protected void onPostExecute (Void result){
-                PostAdapter postAdapter = new PostAdapter(activity, productList);
-                rvProducts.setAdapter(postAdapter);
+                ProductAdapter productAdapter = new ProductAdapter(activity, productList);
+                rvProducts.setAdapter(productAdapter);
                 rvProducts.setSelected(false);
                 pd.dismiss();
             }
