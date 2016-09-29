@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Window;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private AppCompatActivity activity = MainActivity.this;
     private List<ProductValue> productList;
     private RecyclerView rvProducts;
+    public int numberOfColumns;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +42,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void initViews() {
+
+        numberOfColumns = 1;
         rvProducts = (RecyclerView) findViewById(R.id.rvProducts);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
-        rvProducts.setLayoutManager(layoutManager);
+        rvProducts.setLayoutManager(new GridLayoutManager(getApplicationContext(), numberOfColumns, GridLayoutManager.VERTICAL, false));
+
     }
 
     /**

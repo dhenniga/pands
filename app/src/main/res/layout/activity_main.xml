@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:textColor="#ffffff"
         android:gravity="center"
+        android:visibility="gone"
         android:text="Hello World!"
         android:elevation="-1dp"/>
 </RelativeLayout>

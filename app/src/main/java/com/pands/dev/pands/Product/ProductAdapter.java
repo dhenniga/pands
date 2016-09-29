@@ -1,6 +1,7 @@
 package com.pands.dev.pands.product;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +18,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
 
     private Context mContext;
-    private List<ProductValue> postList;
+    private List<com.pands.dev.pands.product.ProductValue> postList;
     private LayoutInflater inflater;
+    public View productView;
 
 
     public ProductAdapter(Context context, List<ProductValue> postList) {
@@ -35,24 +37,33 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
         public ViewHolder(View itemView) {
             super(itemView);
-            tvID = (TextView) itemView.findViewById(R.id.tvID);
-            tvTitle= (TextView) itemView.findViewById(R.id.tvTitle);
+            tvID = (TextView) itemView.findViewById(R.id.tvPrice);
+            tvTitle= (TextView) itemView.findViewById(R.id.tvProductTitle);
             ivProduct = (ImageView) itemView.findViewById(R.id.ivProduct);
         }
     }
 
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.list_item_post, parent, false);
-        return new ViewHolder(view);
+    public ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
+
+        productView = inflater.inflate(R.layout.list_item_post, parent, false);
+        final ViewHolder viewHolder = new ViewHolder(productView);
+
+        final Typeface RalewayExtraLight = Typeface.createFromAsset(mContext.getAssets(), "Raleway-ExtraLight.ttf");
+        final Typeface PlayFairDisplayItalic = Typeface.createFromAsset(mContext.getAssets(), "PlayfairDisplay-Italic.otf");
+
+        viewHolder.tvTitle.setTypeface(PlayFairDisplayItalic);
+        viewHolder.tvID.setTypeface(RalewayExtraLight);
+
+        return new ViewHolder(productView);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         ProductValue currentPost = postList.get(position);
         holder.tvID.setText("€" + ((String.valueOf(currentPost.getId()))));
-        holder.tvTitle.setText("\"" + currentPost.getTitle() + "\"");
+        holder.tvTitle.setText(currentPost.getTitle());
 
         String imageURL = currentPost.getFeatured_src();
         Picasso.with(mContext).load(imageURL).into(holder.ivProduct);
