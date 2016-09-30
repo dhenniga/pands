@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.pands.dev.pands.MainActivity;
 import com.pands.dev.pands.R;
 import com.squareup.picasso.Picasso;
 
@@ -32,12 +33,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvID, tvTitle;
+        TextView tvPrice, tvTitle;
         ImageView ivProduct;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            tvID = (TextView) itemView.findViewById(R.id.tvPrice);
+            tvPrice = (TextView) itemView.findViewById(R.id.tvPrice);
             tvTitle= (TextView) itemView.findViewById(R.id.tvProductTitle);
             ivProduct = (ImageView) itemView.findViewById(R.id.ivProduct);
         }
@@ -54,7 +55,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         final Typeface PlayFairDisplayItalic = Typeface.createFromAsset(mContext.getAssets(), "PlayfairDisplay-Italic.otf");
 
         viewHolder.tvTitle.setTypeface(PlayFairDisplayItalic);
-        viewHolder.tvID.setTypeface(RalewayExtraLight);
+        viewHolder.tvPrice.setTypeface(RalewayExtraLight);
 
         return new ViewHolder(productView);
     }
@@ -62,7 +63,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         ProductValue currentPost = postList.get(position);
-        holder.tvID.setText("€" + ((String.valueOf(currentPost.getId()))));
+        holder.tvPrice.setText("€" + ((String.valueOf(currentPost.getPrice()))));
         holder.tvTitle.setText(currentPost.getTitle());
 
         String imageURL = currentPost.getFeatured_src();

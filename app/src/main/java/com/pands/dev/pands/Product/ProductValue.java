@@ -16,7 +16,7 @@ public class ProductValue {
     String sku;
     int price;
     int regular_price;
-    int sale_price;
+//    int sale_price;
     String price_html;
     Boolean taxable;
     String tax_status;
@@ -30,7 +30,7 @@ public class ProductValue {
     Boolean purchaseable;
     Boolean featured;
     Boolean visible;
-    Boolean catalog_visibility;
+    String catalog_visibility;
     Boolean on_sale;
     String product_url;
     String button_text;
@@ -38,7 +38,7 @@ public class ProductValue {
     Boolean shipping_required;
     Boolean shipping_taxable;
     String shipping_class;
-    int shipping_class_id;
+//    int shipping_class_id;
     String description;
     String short_description;
     Boolean reviews_allowed;
@@ -149,13 +149,13 @@ public class ProductValue {
         this.regular_price = regular_price;
     }
 
-    public int getSale_price() {
-        return sale_price;
-    }
-
-    public void setSale_price(int sale_price) {
-        this.sale_price = sale_price;
-    }
+//    public int getSale_price() {
+//        return sale_price;
+//    }
+//
+//    public void setSale_price(int sale_price) {
+//        this.sale_price = sale_price;
+//    }
 
     public String getPrice_html() {
         return price_html;
@@ -261,11 +261,11 @@ public class ProductValue {
         this.visible = visible;
     }
 
-    public Boolean getCatalog_visibility() {
+    public String getCatalog_visibility() {
         return catalog_visibility;
     }
 
-    public void setCatalog_visibility(Boolean catalog_visibility) {
+    public void setCatalog_visibility(String catalog_visibility) {
         this.catalog_visibility = catalog_visibility;
     }
 
@@ -325,13 +325,13 @@ public class ProductValue {
         this.shipping_class = shipping_class;
     }
 
-    public int getShipping_class_id() {
-        return shipping_class_id;
-    }
-
-    public void setShipping_class_id(int shipping_class_id) {
-        this.shipping_class_id = shipping_class_id;
-    }
+//    public int getShipping_class_id() {
+//        return shipping_class_id;
+//    }
+//
+//    public void setShipping_class_id(int shipping_class_id) {
+//        this.shipping_class_id = shipping_class_id;
+//    }
 
     public String getDescription() {
         return description;
