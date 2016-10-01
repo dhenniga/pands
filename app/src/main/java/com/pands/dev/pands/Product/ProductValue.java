@@ -1,4 +1,4 @@
-package com.pands.dev.pands.product;
+package com.pands.dev.pands.Product;
 
 import java.net.URL;
 
@@ -14,7 +14,7 @@ public class ProductValue {
     Boolean virtual;
     String permalink;
     String sku;
-    int price;
+    String price;
     int regular_price;
 //    int sale_price;
     String price_html;
@@ -133,11 +133,11 @@ public class ProductValue {
         this.sku = sku;
     }
 
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 

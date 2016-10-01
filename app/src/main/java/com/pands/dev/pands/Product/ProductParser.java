@@ -1,4 +1,6 @@
-package com.pands.dev.pands.product;
+package com.pands.dev.pands.Product;
+
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -123,12 +125,21 @@ public class ProductParser {
 
 
                 String title = posts.getString("title");
-                int price = posts.getInt("price");
-                String featured_src = posts.getString("featured_src");
-
                 productValue.setTitle(title);
+
+                int id = posts.getInt("id");
+                productValue.setId(id);
+
+                String price = posts.getString("price");
+                Log.i("price", ((String.valueOf(price))));
                 productValue.setPrice(price);
+
+                String featured_src = posts.getString("featured_src");
                 productValue.setFeatured_src(featured_src);
+
+                String short_description = posts.getString("short_description");
+                productValue.setShort_description(short_description);
+
 
                 postList.add(productValue);
             }

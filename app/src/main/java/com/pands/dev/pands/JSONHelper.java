@@ -11,7 +11,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 public class JSONHelper {
-    private static final String URL_MAIN = "https://www.primpandstyle.com/wc-api/v3/products?consumer_key=ck_962b3c0e86f61ebef52ddb90f5721dcc5d2c5fc8&consumer_secret=cs_fe0ba2a0f443603553f9e30b0112644d03ff22ac";
+//    private static final String URL_MAIN = "https://www.primpandstyle.com/wc-api/v3/products?consumer_key=ck_962b3c0e86f61ebef52ddb90f5721dcc5d2c5fc8&consumer_secret=cs_fe0ba2a0f443603553f9e30b0112644d03ff22ac";
 
 
     private static final String URL_BASE = "https://www.primpandstyle.com/wc-api/v3/";
@@ -31,7 +31,7 @@ public class JSONHelper {
 
     public JSONObject getJSONFromUrl() {
         try {
-            URL url = new URL(URL_MAIN);
+            URL url = new URL(QUERY);
             URLConnection urlConnection = url.openConnection();
             BufferedReader in = new BufferedReader(new InputStreamReader(
                     urlConnection.getInputStream()));

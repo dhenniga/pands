@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_product_viewer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#ffffff"
+    tools:context="com.pands.dev.pands.ProductViewer">
+
+    <include layout="@layout/menubar" />
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <include layout="@layout/main_menu_slider_left"/>
+    </FrameLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:elevation="-2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#ffffff">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvProductGallery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:elevation="-1dp"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/ivProductFeaturedSrc"
+            android:contentDescription="@string/app_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:background="#ffffff"
+            />
+
+
+
+
+            <TextView
+                android:id="@+id/tvProductTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="20dp"
+                android:paddingTop="0dp"
+                android:text="Product_Title"
+                android:textSize="30sp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:lineSpacingExtra="-7dp"
+                android:letterSpacing="-0.05"
+                android:textColor="#000000" />
+
+            <TextView
+                android:id="@+id/tvProductPrice"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:background="@drawable/rounded_price_button"
+                android:gravity="center"
+                android:text="#100"
+                android:textColor="#ffffff"
+                android:textSize="25sp" />
+
+
+            <TextView
+                android:id="@+id/tvProductShortDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="26dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:text="Product_Short_Description"
+                android:textColor="#000000" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

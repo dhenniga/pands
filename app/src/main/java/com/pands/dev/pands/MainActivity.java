@@ -1,6 +1,7 @@
 package com.pands.dev.pands;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -9,22 +10,32 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.pands.dev.pands.product.ProductAdapter;
-import com.pands.dev.pands.product.ProductParser;
-import com.pands.dev.pands.product.ProductValue;
+import com.pands.dev.pands.listener.RecyclerClickListener;
+import com.pands.dev.pands.listener.RecyclerTouchListener;
+import com.pands.dev.pands.Product.ProductAdapter;
+import com.pands.dev.pands.Product.ProductParser;
+import com.pands.dev.pands.Product.ProductValue;
 
 import org.json.JSONObject;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String EXTRA_FEATURED_SRC = "EXTRA_FEATURED_SRC";
+    public static final String EXTRA_SHORT_DESCRIPTION = "EXTRA_SHORT_DESCRIPTION";
+    public static final String EXTRA_TITLE = "EXTRA_TITLE";
+    public static final String EXTRA_PRICE = "EXTRA_PRICE";
+
+
     private AppCompatActivity activity = MainActivity.this;
     private List<ProductValue> productList;
     private RecyclerView rvProducts;
-    public int numberOfColumns;
+    public static int numberOfColumns;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +57,26 @@ public class MainActivity extends AppCompatActivity {
         numberOfColumns = 1;
         rvProducts = (RecyclerView) findViewById(R.id.rvProducts);
         rvProducts.setLayoutManager(new GridLayoutManager(getApplicationContext(), numberOfColumns, GridLayoutManager.VERTICAL, false));
+
+        rvProducts.addOnItemTouchListener(new RecyclerTouchListener(MainActivity.this, rvProducts, new RecyclerClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+
+                if (productList != null) {
+
+                    Log.i("recyclerActivity", ((String.valueOf(productList.get(position).getId()))));
+
+                    Intent intent = new Intent(getApplicationContext(), ProductViewer.class);
+
+                    intent.putExtra(EXTRA_FEATURED_SRC, productList.get(position).getFeatured_src());
+                    intent.putExtra(EXTRA_SHORT_DESCRIPTION, productList.get(position).getShort_description());
+                    intent.putExtra(EXTRA_TITLE, productList.get(position).getTitle());
+                    intent.putExtra(EXTRA_PRICE, productList.get(position).getPrice());
+
+                    startActivity(intent);
+                }
+            }
+        }));
 
     }
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="wrap_content"
     android:background="@null"
     android:gravity="center_horizontal"
     tools:context=".MenuFunctions"
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#ffffff"
-        android:elevation="7dp">
+        android:elevation="10dp">
 
 
     </FrameLayout>
@@ -27,7 +27,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_height="75dp"
         android:layout_marginTop="-5dp"
-        android:elevation="7dp"
+        android:layout_marginBottom="10dp"
+        android:elevation="10dp"
         />
 
     <ImageButton
@@ -37,7 +38,7 @@
         android:layout_width="50dp"
         android:layout_gravity="left|center_horizontal"
         android:layout_height="50dp"
-        android:elevation="7dp"
+        android:elevation="10dp"
         />
 
     <ImageButton
@@ -47,7 +48,7 @@
         android:layout_width="50dp"
         android:layout_gravity="right|center_horizontal"
         android:layout_height="50dp"
-        android:elevation="7dp"
+        android:elevation="10dp"
         />
 
     <ImageButton
@@ -58,7 +59,7 @@
         android:layout_gravity="left|center_horizontal"
         android:layout_height="50dp"
         android:layout_marginLeft="50dp"
-        android:elevation="7dp"
+        android:elevation="10dp"
         />
 
 
@@ -70,7 +71,7 @@
         android:layout_gravity="right|center_horizontal"
         android:layout_marginRight="50dp"
         android:layout_height="50dp"
-        android:elevation="7dp"
+        android:elevation="10dp"
         />
 
 
@@ -85,7 +86,7 @@
         android:layout_gravity="right|center_horizontal"
         android:textSize="10dp"
         android:textColor="#000000"
-        android:elevation="7dp"/>
+        android:elevation="10dp"/>
 
 
 </FrameLayout>
