@@ -1,6 +1,7 @@
-package com.pands.dev.pands.Product;
+package com.pands.dev.pands.product;
 
 import android.util.Log;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -139,6 +140,42 @@ public class ProductParser {
 
                 String short_description = posts.getString("short_description");
                 productValue.setShort_description(short_description);
+
+
+                JSONArray categoriesArray = posts.getJSONArray("categories");
+                ArrayList<String> categoriesList = new ArrayList<String>();
+                for( int j=0; j<categoriesArray.length(); j++)
+                {
+                    String item = categoriesArray.getString(j);
+                    categoriesList.add(item);
+                }
+                String categoriesProcessed = categoriesList.toString().replaceAll("\\[", "").replaceAll("\\]","");
+                productValue.setCategories(categoriesProcessed);
+
+
+                JSONArray tagsArray = posts.getJSONArray("tags");
+                ArrayList<String> tagsList = new ArrayList<String>();
+                for( int j=0; j<tagsArray.length(); j++)
+                {
+                    String item = tagsArray.getString(j);
+                    tagsList.add(item);
+                }
+                String tagsProcessed = tagsList.toString().replaceAll("\\[", "").replaceAll("\\]","");
+                productValue.setTags(tagsProcessed);
+
+
+
+                JSONArray imagesArray = posts.getJSONArray("images");
+                ArrayList<String> imageList = new ArrayList<String>();
+                for( int j=0; j<imagesArray.length(); j++)
+                {
+                    String item = imagesArray.getString(j);
+                    imageList.add(item);
+                }
+                String imagesProcessed = imageList.toString().replaceAll("\\[", "").replaceAll("\\]","");
+                productValue.setTags(imagesProcessed);
+
+
 
 
                 postList.add(productValue);

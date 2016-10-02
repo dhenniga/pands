@@ -3,12 +3,10 @@ package com.pands.dev.pands;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +20,7 @@ import com.pands.dev.pands.product.ProductParser;
 import com.pands.dev.pands.product.ProductValue;
 
 import org.json.JSONObject;
+
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_TITLE = "EXTRA_TITLE";
     public static final String EXTRA_PRICE = "EXTRA_PRICE";
     public static final String EXTRA_CATEGORIES = "EXTRA_CATEGORIES";
+    public static final String EXTRA_TAGS = "EXTRA_TAGS";
+    public static final String EXTRA_IMAGES = "EXTRA_IMAGES";
 
 
     private AppCompatActivity activity = MainActivity.this;
@@ -74,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra(EXTRA_TITLE, productList.get(position).getTitle());
                     intent.putExtra(EXTRA_PRICE, productList.get(position).getPrice());
                     intent.putExtra(EXTRA_CATEGORIES, productList.get(position).getCategories());
+                    intent.putExtra(EXTRA_TAGS, productList.get(position).getTags());
+                    intent.putExtra(EXTRA_IMAGES, productList.get(position).getImages());
 
                     startActivity(intent);
                 }
@@ -89,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
     }
-
 
 
     class JSONAsync extends AsyncTask<Void, Void, Void> {
@@ -111,12 +113,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         @Override
-            protected void onPostExecute (Void result){
-                ProductAdapter productAdapter = new ProductAdapter(activity, productList);
-                rvProducts.setAdapter(productAdapter);
-                rvProducts.setSelected(false);
-                pd.dismiss();
-            }
+        protected void onPostExecute(Void result) {
+            ProductAdapter productAdapter = new ProductAdapter(activity, productList);
+            rvProducts.setAdapter(productAdapter);
+            rvProducts.setSelected(false);
+            pd.dismiss();
         }
     }
+}
+
 

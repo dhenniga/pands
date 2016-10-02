@@ -10,6 +10,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -32,6 +33,8 @@ public class ProductViewer extends AppCompatActivity {
     public static final String EXTRA_TITLE = "EXTRA_TITLE";
     public static final String EXTRA_PRICE = "EXTRA_PRICE";
     public static final String EXTRA_CATEGORIES = "EXTRA_CATEGORIES";
+    public static final String EXTRA_TAGS = "EXTRA_TAGS";
+    public static final String EXTRA_IMAGES = "EXTRA_IMAGES";
 
 
     private AppCompatActivity activity = ProductViewer.this;
@@ -48,6 +51,7 @@ public class ProductViewer extends AppCompatActivity {
         setContentView(R.layout.activity_product_viewer);
 
         final Typeface RalewayExtraLight = Typeface.createFromAsset(activity.getAssets(), "Raleway-ExtraLight.ttf");
+        final Typeface RalewayBold = Typeface.createFromAsset(activity.getAssets(), "Raleway-Bold.ttf");
         final Typeface PlayFairDisplayItalic = Typeface.createFromAsset(activity.getAssets(), "PlayfairDisplay-Italic.otf");
 
         TextView tvProductTitle = (TextView) findViewById(R.id.tvProductTitle);
@@ -61,8 +65,23 @@ public class ProductViewer extends AppCompatActivity {
         TextView tvProductPrice = (TextView) findViewById(R.id.tvProductPrice);
         tvProductPrice.setTypeface(RalewayExtraLight);
 
+        TextView tvProductCategoriesHeader = (TextView) findViewById(R.id.tvProductCategoriesHeader);
+        tvProductCategoriesHeader.setTypeface(RalewayBold);
+
         TextView tvProductCategories = (TextView) findViewById(R.id.tvProductCategories);
         tvProductCategories.setTypeface(RalewayExtraLight);
+
+        TextView tvProductTagsHeader = (TextView) findViewById(R.id.tvProductTagsHeader);
+        tvProductTagsHeader.setTypeface(RalewayBold);
+
+        TextView tvProductTags = (TextView) findViewById(R.id.tvProductTags);
+        tvProductTags.setTypeface(RalewayExtraLight);
+
+        TextView tvProductImagesHeader = (TextView) findViewById(R.id.tvProductImagesHeader);
+        tvProductImagesHeader.setTypeface(RalewayBold);
+
+        TextView tvProductImages = (TextView) findViewById(R.id.tvProductImages);
+        tvProductImages.setTypeface(RalewayExtraLight);
 
         initViews();
 
@@ -77,9 +96,21 @@ public class ProductViewer extends AppCompatActivity {
             String updated = stripHtml(extras.getString(EXTRA_SHORT_DESCRIPTION));
             tvProductShortDescription.setText(updated);
 
-            tvProductPrice.setText("€" + extras.getString(EXTRA_PRICE));
+            if (EXTRA_PRICE != null) {
+                tvProductPrice.setText("€" + extras.getString(EXTRA_PRICE));
+            } else { tvProductPrice.setVisibility(View.GONE);}
 
-            tvProductCategories.setText(extras.getString(EXTRA_CATEGORIES));
+            if (EXTRA_CATEGORIES != null) {
+                tvProductCategories.setText(extras.getString(EXTRA_CATEGORIES));
+            } else { tvProductCategories.setVisibility(View.GONE); tvProductCategoriesHeader.setVisibility(View.GONE);}
+
+
+            if (EXTRA_TAGS != null) {
+                tvProductTags.setText(extras.getString(EXTRA_TAGS));
+            } else { tvProductTags.setVisibility(View.GONE); tvProductTagsHeader.setVisibility(View.GONE);}
+
+            tvProductImages.setText("€" + extras.getString(EXTRA_IMAGES));
+
 
         }
 

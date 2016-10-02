@@ -93,7 +93,7 @@
                 android:gravity="center"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:text="Tags"
+                android:text="Categories"
                 android:textStyle="bold"
                 android:textColor="#000000" />
 
@@ -104,7 +104,49 @@
                 android:gravity="center"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:text="Product_Short_Description"
+                android:text="Categories List"
+                android:textColor="#000000" />
+
+            <TextView
+            android:id="@+id/tvProductTagsHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="Tags"
+            android:textStyle="bold"
+            android:textColor="#000000" />
+
+            <TextView
+                android:id="@+id/tvProductTags"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:text="Tags List"
+                android:textColor="#000000" />
+
+            <TextView
+                android:id="@+id/tvProductImagesHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:text="Images"
+                android:textStyle="bold"
+                android:textColor="#000000" />
+
+            <TextView
+                android:id="@+id/tvProductImages"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:text="Image List"
                 android:textColor="#000000" />
 
 
@@ -114,6 +156,7 @@
                 android:background="@drawable/cart_icon"
                 android:text="ADD"
                 android:textSize="8dp"
+                android:layout_marginTop="30dp"
                 android:textColor="#000000"
                 android:layout_gravity="center"/>
 

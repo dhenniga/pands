@@ -2,6 +2,7 @@ package com.pands.dev.pands.product;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProductValue {
 
@@ -53,17 +54,35 @@ public class ProductValue {
     int total_sales;
     int menu_order;
 
+    public String getImages() {
+        return images;
+    }
 
-    public ArrayList<String> getCategories() {
+    public void setImages(String images) {
+        this.images = images;
+    }
+
+    String images;
+
+    public String getCategories() {
         return categories;
     }
 
-    public void setCategories(ArrayList<String> categories) {
+    public void setCategories(String categories) {
         this.categories = categories;
     }
 
-    ArrayList<String> categories;
+    String categories;
 
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    String tags;
 
     public String getTitle() {
         return title;
