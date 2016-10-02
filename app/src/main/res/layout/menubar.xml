@@ -80,7 +80,7 @@
         android:layout_marginTop="5dp"
         android:layout_width="50dp"
         android:layout_height="48dp"
-        android:text="0"
+        android:text="2"
         android:textStyle="bold"
         android:gravity="center"
         android:layout_gravity="right|center_horizontal"

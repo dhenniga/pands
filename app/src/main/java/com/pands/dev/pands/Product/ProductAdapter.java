@@ -1,4 +1,4 @@
-package com.pands.dev.pands.Product;
+package com.pands.dev.pands.product;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -74,6 +74,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
         MainActivity mainActivity = new MainActivity();
         int colNum = mainActivity.numberOfColumns;
+
         if (colNum == 2) {
             viewHolder.fragment_container.setVisibility(View.GONE);
             viewHolder.rlProductColTwoGalleryView.setVisibility(View.VISIBLE);

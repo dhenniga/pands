@@ -15,9 +15,9 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.pands.dev.pands.Product.ProductAdapter;
-import com.pands.dev.pands.Product.ProductParser;
-import com.pands.dev.pands.Product.ProductValue;
+import com.pands.dev.pands.product.ProductAdapter;
+import com.pands.dev.pands.product.ProductParser;
+import com.pands.dev.pands.product.ProductValue;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
@@ -31,6 +31,7 @@ public class ProductViewer extends AppCompatActivity {
     public static final String EXTRA_SHORT_DESCRIPTION = "EXTRA_SHORT_DESCRIPTION";
     public static final String EXTRA_TITLE = "EXTRA_TITLE";
     public static final String EXTRA_PRICE = "EXTRA_PRICE";
+    public static final String EXTRA_CATEGORIES = "EXTRA_CATEGORIES";
 
 
     private AppCompatActivity activity = ProductViewer.this;
@@ -60,26 +61,25 @@ public class ProductViewer extends AppCompatActivity {
         TextView tvProductPrice = (TextView) findViewById(R.id.tvProductPrice);
         tvProductPrice.setTypeface(RalewayExtraLight);
 
+        TextView tvProductCategories = (TextView) findViewById(R.id.tvProductCategories);
+        tvProductCategories.setTypeface(RalewayExtraLight);
+
         initViews();
 
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
 
-            String productTitle = extras.getString(EXTRA_TITLE);
-            tvProductTitle.setText(productTitle);
+            tvProductTitle.setText(extras.getString(EXTRA_TITLE));
 
-            String productFeaturedSrc = extras.getString(EXTRA_FEATURED_SRC);
-            Picasso.with(getApplicationContext()).load(productFeaturedSrc).into(ivProductFeaturedSrc);
+            Picasso.with(getApplicationContext()).load(extras.getString(EXTRA_FEATURED_SRC)).into(ivProductFeaturedSrc);
 
-            String productShortDescription = extras.getString(EXTRA_SHORT_DESCRIPTION);
-            String updated = stripHtml(productShortDescription);
+            String updated = stripHtml(extras.getString(EXTRA_SHORT_DESCRIPTION));
             tvProductShortDescription.setText(updated);
 
-            String productPrice = extras.getString(EXTRA_PRICE);
-            tvProductPrice.setText("€" + productPrice);
+            tvProductPrice.setText("€" + extras.getString(EXTRA_PRICE));
 
-            tvProductShortDescription.setText(updated);
+            tvProductCategories.setText(extras.getString(EXTRA_CATEGORIES));
 
         }
 

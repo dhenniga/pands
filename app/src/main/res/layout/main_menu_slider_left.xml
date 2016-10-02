@@ -27,7 +27,7 @@
             android:layout_height="fill_parent"
             android:rotation="180"
             android:orientation="horizontal"
-            android:background="#ddffffff">
+            android:background="#eeffffff">
 
             <!-- DEFINE ALL YOUR CONTENT,WIDGETS HERE WHICH YOU WANT TO ADD IN SLIDING DRAWER LAYOUT. -->
 

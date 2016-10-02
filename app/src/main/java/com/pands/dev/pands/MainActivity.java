@@ -17,9 +17,9 @@ import android.view.WindowManager;
 
 import com.pands.dev.pands.listener.RecyclerClickListener;
 import com.pands.dev.pands.listener.RecyclerTouchListener;
-import com.pands.dev.pands.Product.ProductAdapter;
-import com.pands.dev.pands.Product.ProductParser;
-import com.pands.dev.pands.Product.ProductValue;
+import com.pands.dev.pands.product.ProductAdapter;
+import com.pands.dev.pands.product.ProductParser;
+import com.pands.dev.pands.product.ProductValue;
 
 import org.json.JSONObject;
 import java.util.List;
@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_SHORT_DESCRIPTION = "EXTRA_SHORT_DESCRIPTION";
     public static final String EXTRA_TITLE = "EXTRA_TITLE";
     public static final String EXTRA_PRICE = "EXTRA_PRICE";
+    public static final String EXTRA_CATEGORIES = "EXTRA_CATEGORIES";
 
 
     private AppCompatActivity activity = MainActivity.this;
@@ -72,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra(EXTRA_SHORT_DESCRIPTION, productList.get(position).getShort_description());
                     intent.putExtra(EXTRA_TITLE, productList.get(position).getTitle());
                     intent.putExtra(EXTRA_PRICE, productList.get(position).getPrice());
+                    intent.putExtra(EXTRA_CATEGORIES, productList.get(position).getCategories());
 
                     startActivity(intent);
                 }

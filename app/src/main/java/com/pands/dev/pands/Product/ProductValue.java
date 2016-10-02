@@ -1,6 +1,7 @@
-package com.pands.dev.pands.Product;
+package com.pands.dev.pands.product;
 
 import java.net.URL;
+import java.util.ArrayList;
 
 public class ProductValue {
 
@@ -51,6 +52,17 @@ public class ProductValue {
     String purchase_note;
     int total_sales;
     int menu_order;
+
+
+    public ArrayList<String> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(ArrayList<String> categories) {
+        this.categories = categories;
+    }
+
+    ArrayList<String> categories;
 
 
     public String getTitle() {
