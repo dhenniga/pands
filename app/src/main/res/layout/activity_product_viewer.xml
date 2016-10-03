@@ -78,14 +78,15 @@
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:layout_marginRight="5dp"
-                    android:background="@drawable/rounded_sale_price_button"
+                    android:background="@drawable/rounded_price_button"
                     android:gravity="center"
                     android:text="#100"
                     android:textColor="#ffffff"
+                    android:alpha="0.3"
                     android:textSize="16sp"
-                    android:visibility="visible"/>
+                    android:visibility="gone"/>
 
-            <TextView
+                <TextView
                 android:id="@+id/tvProductPrice"
                 android:layout_width="70dp"
                 android:layout_height="70dp"

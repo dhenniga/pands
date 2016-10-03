@@ -121,6 +121,7 @@ public class ProductViewer extends AppCompatActivity {
 
                 tvProductSalePrice.setVisibility(View.VISIBLE);
                 tvProductSalePrice.setText("€" + extras.getInt(EXTRA_ON_SALE_PRICE));
+            tvProductPrice.setBackground(getResources().getDrawable(R.drawable.rounded_sale_price_button));
                 tvProductSalePrice.setPaintFlags(tvProductSalePrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 //            }
 
