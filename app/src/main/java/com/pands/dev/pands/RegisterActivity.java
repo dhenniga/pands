@@ -33,7 +33,7 @@ import java.nio.charset.MalformedInputException;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    String NONCE_RETURN;
+    public static String NONCE_RETURN;
 
     EditText etRegisterFirstName, etRegisterLastName, etRegisterEmail, etRegisterPassword;
     Button btnRegister;
@@ -107,11 +107,11 @@ String start = "https://www.primpandstyle.com/api/user/register/?first_name=john
                 request.connect();
 
                 // Convert to a JSON object to print data
-                JsonParser jp = new JsonParser(); //from gson
+                JsonParser jp = new JsonParser();
                 JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent())); //Convert the input stream to a json element
                 JsonObject rootobj = root.getAsJsonObject(); //May be an array, may be an object.
-                NONCE_RETURN = rootobj.get("nonce").getAsString(); //just grab the zipcode
-//                Log.i("nonce_retrun", NONCE_RETURN);
+                NONCE_RETURN = rootobj.get("nonce").getAsString();
+                Log.i("nonce_retrunZZX", NONCE_RETURN);
 
             } catch (IOException e){
 
@@ -140,9 +140,10 @@ String start = "https://www.primpandstyle.com/api/user/register/?first_name=john
             String displayName = "display_name=" + firstName;
             String notify = "notify=both";
             String nonce = "nonce=" + NONCE_RETURN;
+            String seconds = "seconds=2";
             String userPassword = "user_pass=" + password;
 
-            String putTogether = base + "?" + username + "&" + first_name + "&" + last_name  + "&" + email + "&" + nonce + "&" + displayName + "&" + notify + "&" + userPassword;
+            String putTogether = base + "?" + username + "&" + first_name + "&" + last_name  + "&" + email + "&" + nonce + "&" + seconds + "&" + displayName + "&" + notify + "&" + userPassword;
             Log.i("output", putTogether);
 
 
