@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_register"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.pands.dev.pands.RegisterActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <ImageView
+            android:id="@+id/ivRegisterPandsLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/pands_logo" />
+
+        <TextView
+            android:id="@+id/tvRegisterHeaderText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivRegisterPandsLogo"
+            android:padding="30dp"
+            android:text="Register to Primp &amp; Style and be able to browse and buy from this application or directly from our online stone at www.primpandstyle.com." />
+
+        <EditText
+            android:id="@+id/etRegisterFirstName"
+            android:inputType="textPersonName"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/tvRegisterHeaderText"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:background="#f8f8f8"
+            android:hint="First Name" />
+
+        <EditText
+            android:id="@+id/etRegisterLastName"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:background="#f8f8f8"
+            android:inputType="textPersonName"
+            android:layout_centerHorizontal="true"
+            android:hint="Surname"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/etRegisterFirstName" />
+
+        <EditText
+            android:id="@+id/etRegisterEmail"
+            android:inputType="textEmailAddress"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/etRegisterLastName"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:background="#f8f8f8"
+            android:hint="Email Address" />
+
+
+        <EditText
+            android:id="@+id/etRegisterPassword"
+            android:inputType="textPassword"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/etRegisterEmail"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:background="#f8f8f8"
+            android:hint="Password" />
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etRegisterPassword"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="20dp"
+            android:background="#000000"
+            android:text="Register"
+            android:textColor="#ffffff" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

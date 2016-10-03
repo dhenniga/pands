@@ -27,19 +27,19 @@
             android:orientation="vertical"
             android:background="#ffffff">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvProductGallery"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#ffffff"
-            android:elevation="-1dp"
-            android:visibility="gone" />
-
 <LinearLayout
     android:id="@+id/llImageContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvProductGallery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:elevation="-1dp"
+                android:visibility="gone" />
 
         <ImageView
             android:id="@+id/ivProductFeaturedSrc"
@@ -47,6 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:scaleType="centerCrop"
             android:background="#ffffff"
             />
 
