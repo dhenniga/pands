@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -19,10 +20,12 @@ import com.pands.dev.pands.product.ProductParser;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -30,13 +33,22 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.MalformedInputException;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    public static String NONCE_RETURN;
+    public static String REG_STATUS = null;
+    public static String NONCE_RETURN = null;
+    public static String COMPLETED_QUERY = null;
 
     EditText etRegisterFirstName, etRegisterLastName, etRegisterEmail, etRegisterPassword;
     Button btnRegister;
+    TextView tvRegisterHeaderText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +56,12 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
 
-        final Typeface RalewayLight = Typeface.createFromAsset(getAssets(), "Raleway-Light.ttf");
+        final Typeface RalewayLight = Typeface.createFromAsset(getAssets(), "Raleway-Regular.ttf");
         final Typeface RalewayBold = Typeface.createFromAsset(getAssets(), "Raleway-Bold.ttf");
-        final Typeface PlayFairDisplayItalic = Typeface.createFromAsset(getAssets(), "PlayfairDisplay-Italic.otf");
+        final Typeface PlayFairDisplayItalic = Typeface.createFromAsset(getAssets(), "PlayfairDisplay-Regular.otf");
+
+        tvRegisterHeaderText = (TextView) findViewById(R.id.tvRegisterHeaderText);
+        tvRegisterHeaderText.setTypeface(PlayFairDisplayItalic);
 
         etRegisterFirstName = (EditText) findViewById(R.id.etRegisterFirstName);
         etRegisterFirstName.setTypeface(RalewayLight);
@@ -100,20 +115,24 @@ String start = "https://www.primpandstyle.com/api/user/register/?first_name=john
 
             try {
 
-                String sURL = "https://www.primpandstyle.com/api/get_nonce/?controller=user&method=register"; //just a string
-                // Connect to the URL using java's native library
-                URL url = new URL(sURL);
+                URL url = new URL("https://www.primpandstyle.com/api/get_nonce/?json=get_nonce&controller=user&method=register");
+//                URL url = new URL("https://www.primpandstyle.com/api/get_nonce/?controller=user&method=register");
                 HttpURLConnection request = (HttpURLConnection) url.openConnection();
                 request.connect();
 
-                // Convert to a JSON object to print data
                 JsonParser jp = new JsonParser();
                 JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent())); //Convert the input stream to a json element
                 JsonObject rootobj = root.getAsJsonObject(); //May be an array, may be an object.
+
+                REG_STATUS = rootobj.get("status").getAsString();
+                Log.i("REG_STATUS", REG_STATUS);
+
                 NONCE_RETURN = rootobj.get("nonce").getAsString();
-                Log.i("nonce_retrunZZX", NONCE_RETURN);
+                Log.i("NONCE_RETURN", NONCE_RETURN);
 
             } catch (IOException e){
+
+                e.printStackTrace();
 
             }
 
@@ -124,8 +143,6 @@ String start = "https://www.primpandstyle.com/api/user/register/?first_name=john
 
         @Override
         protected void onPostExecute(Void result) {
-
-            Log.i("nonce_return", NONCE_RETURN);
 
             String firstName = etRegisterFirstName.getText().toString();
             String lastName = etRegisterLastName.getText().toString();
@@ -143,12 +160,15 @@ String start = "https://www.primpandstyle.com/api/user/register/?first_name=john
             String seconds = "seconds=2";
             String userPassword = "user_pass=" + password;
 
-            String putTogether = base + "?" + username + "&" + first_name + "&" + last_name  + "&" + email + "&" + nonce + "&" + seconds + "&" + displayName + "&" + notify + "&" + userPassword;
-            Log.i("output", putTogether);
+            COMPLETED_QUERY = base + "?" + username + "&" + first_name + "&" + last_name  + "&" + email + "&" + nonce + "&" + seconds + "&" + displayName + "&" + notify + "&" + userPassword;
+            Log.i("output", COMPLETED_QUERY);
 
 
-            pd.dismiss();
+            if (REG_STATUS != null) {
+
+                pd.dismiss();
+
+            }
         }
     }
-
 }
