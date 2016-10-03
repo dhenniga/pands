@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initViews() {
 
-        numberOfColumns = 1;
+        numberOfColumns = 2;
         rvProducts = (RecyclerView) findViewById(R.id.rvProducts);
         rvProducts.setLayoutManager(new GridLayoutManager(getApplicationContext(), numberOfColumns, GridLayoutManager.VERTICAL, false));
 

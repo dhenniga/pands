@@ -1,6 +1,11 @@
 package com.pands.dev.pands.product;
 
+import android.app.Activity;
+import android.content.Context;
+import android.graphics.Color;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -27,6 +32,7 @@ public class ProductParser {
                 JSONObject posts = postsArray.getJSONObject(i);
 
                 productValue = new ProductValue();
+
 
 //                String title = posts.getString("title");
 //                int id = posts.getInt("id");
@@ -169,16 +175,19 @@ public class ProductParser {
                 ArrayList<String> imageList = new ArrayList<String>();
                 for( int j=0; j<imagesArray.length(); j++)
                 {
-                    String item = imagesArray.getString(j);
-                    imageList.add(item);
+
+                    JSONObject json_obj = imagesArray.getJSONObject(j);
+                    String name = json_obj.getString("src");
+                    imageList.add(name + "\n\n");
                 }
-                String imagesProcessed = imageList.toString().replaceAll("\\[", "").replaceAll("\\]","");
-                productValue.setTags(imagesProcessed);
+                String imagesProcessed = imageList.toString().replaceAll("\\[", "").replaceAll("\\]","").replaceAll(",","");
+                productValue.setImages(imagesProcessed);
 
 
 
 
                 postList.add(productValue);
+
             }
 
         } catch (JSONException e) {

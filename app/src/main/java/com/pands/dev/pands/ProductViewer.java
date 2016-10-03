@@ -109,7 +109,7 @@ public class ProductViewer extends AppCompatActivity {
                 tvProductTags.setText(extras.getString(EXTRA_TAGS));
             } else { tvProductTags.setVisibility(View.GONE); tvProductTagsHeader.setVisibility(View.GONE);}
 
-            tvProductImages.setText("€" + extras.getString(EXTRA_IMAGES));
+            tvProductImages.setText(extras.getString(EXTRA_IMAGES));
 
 
         }
