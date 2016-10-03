@@ -16,9 +16,9 @@ public class ProductValue {
     Boolean virtual;
     String permalink;
     String sku;
-    String price;
+    int price;
     int regular_price;
-//    int sale_price;
+    int sale_price;
     String price_html;
     Boolean taxable;
     String tax_status;
@@ -164,11 +164,11 @@ public class ProductValue {
         this.sku = sku;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
@@ -180,13 +180,13 @@ public class ProductValue {
         this.regular_price = regular_price;
     }
 
-//    public int getSale_price() {
-//        return sale_price;
-//    }
-//
-//    public void setSale_price(int sale_price) {
-//        this.sale_price = sale_price;
-//    }
+    public int getSale_price() {
+        return sale_price;
+    }
+
+    public void setSale_price(int sale_price) {
+        this.sale_price = sale_price;
+    }
 
     public String getPrice_html() {
         return price_html;

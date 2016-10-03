@@ -2,6 +2,7 @@ package com.pands.dev.pands;
 
 import android.app.ProgressDialog;
 import android.content.pm.ActivityInfo;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +36,8 @@ public class ProductViewer extends AppCompatActivity {
     public static final String EXTRA_CATEGORIES = "EXTRA_CATEGORIES";
     public static final String EXTRA_TAGS = "EXTRA_TAGS";
     public static final String EXTRA_IMAGES = "EXTRA_IMAGES";
+    public static final String EXTRA_ON_SALE = "EXTRA_ON_SALE";
+    public static final String EXTRA_ON_SALE_PRICE = "EXTRA_ON_SALE_PRICE";
 
 
     private AppCompatActivity activity = ProductViewer.this;
@@ -83,6 +86,9 @@ public class ProductViewer extends AppCompatActivity {
         TextView tvProductImages = (TextView) findViewById(R.id.tvProductImages);
         tvProductImages.setTypeface(RalewayExtraLight);
 
+        TextView tvProductSalePrice = (TextView) findViewById(R.id.tvProductSalePrice);
+        tvProductSalePrice.setTypeface(RalewayExtraLight);
+
         initViews();
 
         Bundle extras = getIntent().getExtras();
@@ -96,9 +102,9 @@ public class ProductViewer extends AppCompatActivity {
             String updated = stripHtml(extras.getString(EXTRA_SHORT_DESCRIPTION));
             tvProductShortDescription.setText(updated);
 
-            if (EXTRA_PRICE != null) {
-                tvProductPrice.setText("€" + extras.getString(EXTRA_PRICE));
-            } else { tvProductPrice.setVisibility(View.GONE);}
+//            if (EXTRA_PRICE) {
+                tvProductPrice.setText("€" + extras.getInt(EXTRA_PRICE));
+//            } else { tvProductPrice.setVisibility(View.GONE);}
 
             if (EXTRA_CATEGORIES != null) {
                 tvProductCategories.setText(extras.getString(EXTRA_CATEGORIES));
@@ -110,6 +116,14 @@ public class ProductViewer extends AppCompatActivity {
             } else { tvProductTags.setVisibility(View.GONE); tvProductTagsHeader.setVisibility(View.GONE);}
 
             tvProductImages.setText(extras.getString(EXTRA_IMAGES));
+
+//            if (EXTRA_ON_SALE_PRICE > EXTRA_PRICE) {
+
+                tvProductSalePrice.setVisibility(View.VISIBLE);
+                tvProductSalePrice.setText("€" + extras.getInt(EXTRA_ON_SALE_PRICE));
+                tvProductSalePrice.setPaintFlags(tvProductSalePrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+//            }
+
 
 
         }

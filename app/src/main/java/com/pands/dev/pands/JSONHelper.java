@@ -16,13 +16,15 @@ public class JSONHelper {
 
     private static final String URL_BASE = "https://www.primpandstyle.com/wc-api/v3/";
     private static final String URL_MAIN_1 = "products";
-    private static final String URL_FILTER = "filter[limit]=90";
-    private static final String URL_FILTER_BAGS = "filter[categories]=handbags";
+    private static final String URL_FILTER_LIMIT = "filter[limit]=90";
+    private static final String URL_FILTER_BAGS = "filter[category]=handbags";
+    private static final String URL_FILTER_SCARVES = "filter[category]=scarves";
+    private static final String URL_FILTER_LAST_CHANCE_TO_BUY = "filter[category]=last-chance-to-buy";
 
     private static final String URL_CONSUMER_KEY = "consumer_key=ck_962b3c0e86f61ebef52ddb90f5721dcc5d2c5fc8";
     private static final String URL_CONSUMER_SECRET = "consumer_secret=cs_fe0ba2a0f443603553f9e30b0112644d03ff22ac";
 
-    private static final String QUERY = URL_BASE + URL_MAIN_1 + "?" + URL_FILTER + "&" +URL_CONSUMER_KEY + "&" + URL_CONSUMER_SECRET;
+    private static final String QUERY = URL_BASE + URL_MAIN_1 + "?" + URL_FILTER_LAST_CHANCE_TO_BUY + "&" + URL_FILTER_LIMIT + "&" +URL_CONSUMER_KEY + "&" + URL_CONSUMER_SECRET;
 
 
     private static final String TAG = JSONHelper.class.getSimpleName();

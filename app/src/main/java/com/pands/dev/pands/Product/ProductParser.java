@@ -8,6 +8,8 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -137,15 +139,23 @@ public class ProductParser {
                 int id = posts.getInt("id");
                 productValue.setId(id);
 
-                String price = posts.getString("price");
+                int price = posts.getInt("price");
                 Log.i("price", ((String.valueOf(price))));
                 productValue.setPrice(price);
+
+                int sale_price = posts.getInt("regular_price");
+                Log.i("sale_price", ((String.valueOf(sale_price))));
+                productValue.setSale_price(sale_price);
 
                 String featured_src = posts.getString("featured_src");
                 productValue.setFeatured_src(featured_src);
 
                 String short_description = posts.getString("short_description");
                 productValue.setShort_description(short_description);
+
+                Boolean on_sale = posts.getBoolean("on_sale");
+                productValue.setOn_sale(on_sale);
+
 
 
                 JSONArray categoriesArray = posts.getJSONArray("categories");
@@ -175,7 +185,6 @@ public class ProductParser {
                 ArrayList<String> imageList = new ArrayList<String>();
                 for( int j=0; j<imagesArray.length(); j++)
                 {
-
                     JSONObject json_obj = imagesArray.getJSONObject(j);
                     String name = json_obj.getString("src");
                     imageList.add(name + "\n\n");
