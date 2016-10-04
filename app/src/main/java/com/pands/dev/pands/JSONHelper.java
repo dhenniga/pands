@@ -20,9 +20,10 @@ public class JSONHelper {
     private static final String URL_FILTER_BAGS = "filter[category]=handbags";
     private static final String URL_FILTER_SCARVES = "filter[category]=scarves";
 
+    private static final String URL_FILTER_LAST_CHANCE_TO_BUY = "filter[category]=last-chance-to-buy";
+
     private static final String URL_BASE_FIELDS = "fields=id,title,price,regular_price,sale_price,featured_src,short_description,on_sale,categories,tags,images";
 
-    private static final String URL_FILTER_LAST_CHANCE_TO_BUY = "filter[category]=last-chance-to-buy";
 
     private static final String URL_CONSUMER_KEY = "consumer_key=ck_962b3c0e86f61ebef52ddb90f5721dcc5d2c5fc8";
     private static final String URL_CONSUMER_SECRET = "consumer_secret=cs_fe0ba2a0f443603553f9e30b0112644d03ff22ac";
