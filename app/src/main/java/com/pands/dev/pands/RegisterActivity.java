@@ -1,15 +1,25 @@
 package com.pands.dev.pands;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -17,6 +27,11 @@ import com.google.gson.JsonParser;
 import com.pands.dev.pands.product.ProductAdapter;
 import com.pands.dev.pands.product.ProductParser;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,6 +46,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLClassLoader;
 import java.nio.charset.Charset;
 import java.nio.charset.MalformedInputException;
 import java.security.KeyManagementException;
@@ -40,18 +56,24 @@ import java.security.cert.CertificateException;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends Activity {
 
     public static String REG_STATUS = null;
+    public static String FINAL_REG_STATUS = null;
     public static String NONCE_RETURN = null;
     public static String COMPLETED_QUERY = null;
 
-    EditText etRegisterFirstName, etRegisterLastName, etRegisterEmail, etRegisterPassword;
-    Button btnRegister;
-    TextView tvRegisterHeaderText;
+    private EditText etRegisterFirstName, etRegisterLastName, etRegisterEmail, etRegisterPassword;
+    private Button btnRegister;
+    private TextView tvRegisterHeaderText;
+    private WebView wvResponse;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
@@ -60,8 +82,10 @@ public class RegisterActivity extends AppCompatActivity {
         final Typeface RalewayBold = Typeface.createFromAsset(getAssets(), "Raleway-Bold.ttf");
         final Typeface PlayFairDisplayItalic = Typeface.createFromAsset(getAssets(), "PlayfairDisplay-Regular.otf");
 
+        wvResponse = (WebView) findViewById(R.id.wvResponse);
+
         tvRegisterHeaderText = (TextView) findViewById(R.id.tvRegisterHeaderText);
-        tvRegisterHeaderText.setTypeface(PlayFairDisplayItalic);
+        tvRegisterHeaderText.setTypeface(RalewayLight);
 
         etRegisterFirstName = (EditText) findViewById(R.id.etRegisterFirstName);
         etRegisterFirstName.setTypeface(RalewayLight);
@@ -79,26 +103,16 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister.setTypeface(RalewayBold);
 
 
-
-String start = "https://www.primpandstyle.com/api/user/register/?first_name=john&last_name=Stokes&email=johnStokes@crackpipes.com&nonce=8bdfeb4e16&display_name=John&notify=both&user_pass=YOUR-PASSWORD";
-
-
-        String nonce = "https://www.primpandstyle.com/api/get_nonce/?controller=user&method=register";
-
-
         btnRegister.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 new JSONAsync().execute();
 
-
-
-
-
             }
         });
 
     }
+
 
     class JSONAsync extends AsyncTask<Void, Void, Void> {
         ProgressDialog pd;
@@ -115,8 +129,7 @@ String start = "https://www.primpandstyle.com/api/user/register/?first_name=john
 
             try {
 
-                URL url = new URL("https://www.primpandstyle.com/api/get_nonce/?json=get_nonce&controller=user&method=register");
-//                URL url = new URL("https://www.primpandstyle.com/api/get_nonce/?controller=user&method=register");
+                URL url = new URL("https://www.primpandstyle.com/api/get_nonce/?controller=user&method=register");
                 HttpURLConnection request = (HttpURLConnection) url.openConnection();
                 request.connect();
 
@@ -130,7 +143,7 @@ String start = "https://www.primpandstyle.com/api/user/register/?first_name=john
                 NONCE_RETURN = rootobj.get("nonce").getAsString();
                 Log.i("NONCE_RETURN", NONCE_RETURN);
 
-            } catch (IOException e){
+            } catch (IOException e) {
 
                 e.printStackTrace();
 
@@ -160,7 +173,7 @@ String start = "https://www.primpandstyle.com/api/user/register/?first_name=john
             String seconds = "seconds=2";
             String userPassword = "user_pass=" + password;
 
-            COMPLETED_QUERY = base + "?" + username + "&" + first_name + "&" + last_name  + "&" + email + "&" + nonce + "&" + seconds + "&" + displayName + "&" + notify + "&" + userPassword;
+            COMPLETED_QUERY = base + "?" + username + "&" + first_name + "&" + last_name + "&" + email + "&" + nonce + "&" + seconds + "&" + displayName + "&" + notify + "&" + userPassword;
             Log.i("output", COMPLETED_QUERY);
 
 
@@ -168,7 +181,72 @@ String start = "https://www.primpandstyle.com/api/user/register/?first_name=john
 
                 pd.dismiss();
 
+                etRegisterFirstName.setText("");
+                etRegisterLastName.setText("");
+                etRegisterEmail.setText("");
+                etRegisterPassword.setText("");
+
+
+                wvResponse.setWebViewClient(new WebViewClient() {
+                    @Override
+                    public void onPageFinished(WebView view, String url) {
+                        wvResponse.loadUrl("javascript:window.HtmlViewer.showHTML" +
+                                "('<html>'+document.getElementsByTagName('html')[0].innerHTML+'</html>');");
+                    }
+                });
+
+
+//                wvResponse.loadUrl(COMPLETED_QUERY);
+
+//                WebViewClient yourWebClient = new WebViewClient() {
+//
+//                    @Override
+//                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//                        return false;
+//                    }
+//
+//                    @Override
+//                    public void onPageFinished(WebView view, String url) {
+////                        wvResponse.loadUrl(COMPLETED_QUERY);
+//                    }
+//                };
+
+
+
+
+
+
+
+
+//                wvResponse.getSettings().setJavaScriptEnabled(true);
+//                wvResponse.getSettings().setSupportZoom(true);
+//                wvResponse.getSettings().setBuiltInZoomControls(true);
+//                wvResponse.setWebViewClient(yourWebClient);
+//                wvResponse.loadUrl(COMPLETED_QUERY);
+//                wvResponse.addJavascriptInterface(new MyJavaScriptInterface(getApplicationContext()), "HtmlViewer");
+
+
+                wvResponse.loadUrl(COMPLETED_QUERY);
+                Toast.makeText(getApplicationContext(), wvResponse.toString(), Toast.LENGTH_SHORT).show();
+
             }
         }
     }
+
+
+//    class MyJavaScriptInterface {
+//
+//        private Context ctx;
+//
+//        MyJavaScriptInterface(Context ctx) {
+//            this.ctx = ctx;
+//        }
+//
+//        @JavascriptInterface
+//        public void showHTML(String html) {
+//            Log.d("response" , html);
+////            System.out.println(html);
+//
+//        }
+//    }
 }

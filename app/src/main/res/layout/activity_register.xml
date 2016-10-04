@@ -13,20 +13,10 @@
 
         <ImageView
             android:id="@+id/ivRegisterPandsLogo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_centerHorizontal="true"
             android:src="@drawable/pands_logo" />
-
-        <TextView
-            android:id="@+id/tvRegisterHeaderText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ivRegisterPandsLogo"
-            android:padding="30dp"
-            android:textSize="20sp"
-            android:gravity="center"
-            android:text="Register to Primp &amp; Style and be able to browse and buy from this application or directly from our online stone at www.primpandstyle.com." />
 
         <EditText
             android:id="@+id/etRegisterFirstName"
@@ -35,12 +25,13 @@
             android:layout_height="30dp"
             android:layout_below="@+id/tvRegisterHeaderText"
             android:layout_centerHorizontal="true"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:background="#f8f8f8"
             android:textColor="#000000"
             android:paddingLeft="7dp"
             android:paddingRight="7dp"
-            android:textSize="12sp"
+            android:textColorHint="#66000000"
+            android:textSize="14sp"
             android:hint="First Name" />
 
         <EditText
@@ -54,8 +45,9 @@
             android:paddingLeft="7dp"
             android:paddingRight="7dp"
             android:textColor="#000000"
-            android:layout_marginTop="10dp"
-            android:textSize="12sp"
+            android:layout_marginTop="5dp"
+            android:textColorHint="#66000000"
+            android:textSize="14sp"
             android:layout_below="@+id/etRegisterFirstName" />
 
         <EditText
@@ -65,9 +57,10 @@
             android:layout_height="30dp"
             android:layout_below="@+id/etRegisterLastName"
             android:layout_centerHorizontal="true"
-            android:layout_margin="10dp"
-            android:textSize="12sp"
+            android:layout_margin="5dp"
+            android:textSize="14sp"
             android:textColor="#000000"
+            android:textColorHint="#66000000"
             android:paddingLeft="7dp"
             android:paddingRight="7dp"
             android:background="#f8f8f8"
@@ -81,10 +74,11 @@
             android:layout_height="30dp"
             android:layout_below="@+id/etRegisterEmail"
             android:layout_centerHorizontal="true"
-            android:layout_margin="10dp"
-            android:textSize="12sp"
+            android:layout_margin="5dp"
+            android:textSize="14sp"
             android:paddingLeft="7dp"
             android:paddingRight="7dp"
+            android:textColorHint="#66000000"
             android:textColor="#000000"
             android:background="#f8f8f8"
             android:hint="Password" />
@@ -100,6 +94,38 @@
             android:text="Register"
             android:textColor="#ffffff" />
 
+        <ImageView
+            android:layout_below="@+id/btnRegister"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/footer_logo_white"/>
+
+        <TextView
+            android:id="@+id/tvRegisterHeaderText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="40dp"
+
+
+            android:textSize="14sp"
+            android:gravity="center"
+            android:text="Register to Primp &amp; Style and be able to browse and buy from this application or directly from our online stone at www.primpandstyle.com."
+            android:layout_below="@+id/ivRegisterPandsLogo"
+            android:layout_alignParentStart="true" />
+
     </RelativeLayout>
+
+    <WebView
+        android:id="@+id/wvResponse"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:background="#555555"
+        android:layout_height="50dp"></WebView>
 
 </RelativeLayout>
