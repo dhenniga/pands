@@ -120,12 +120,4 @@
 
     </RelativeLayout>
 
-    <WebView
-        android:id="@+id/wvResponse"
-        android:visibility="visible"
-        android:layout_width="match_parent"
-        android:layout_alignParentTop="true"
-        android:background="#555555"
-        android:layout_height="50dp"></WebView>
-
 </RelativeLayout>

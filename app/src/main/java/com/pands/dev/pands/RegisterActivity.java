@@ -2,20 +2,14 @@ package com.pands.dev.pands;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
-import android.os.StrictMode;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.webkit.JavascriptInterface;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -24,49 +18,35 @@ import android.widget.Toast;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.pands.dev.pands.product.ProductAdapter;
-import com.pands.dev.pands.product.ProductParser;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.io.Reader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLClassLoader;
-import java.nio.charset.Charset;
-import java.nio.charset.MalformedInputException;
-import java.security.KeyManagementException;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.CertificateException;
 
-import javax.net.ssl.HttpsURLConnection;
 
 public class RegisterActivity extends Activity {
 
-    public static String REG_STATUS = null;
-    public static String FINAL_REG_STATUS = null;
-    public static String NONCE_RETURN = null;
-    public static String COMPLETED_QUERY = null;
+    private static String REG_STATUS = null;
+    private static String NONCE_RETURN = null;
+    private static String COMPLETED_QUERY = null;
+    private static String SUBMIT_STATUS = null;
+
+    String firstName, lastName, emailAddress, password;
+
+
+    String response = null;
+
+    private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+    private OkHttpClient client = new OkHttpClient();
 
     private EditText etRegisterFirstName, etRegisterLastName, etRegisterEmail, etRegisterPassword;
     private Button btnRegister;
     private TextView tvRegisterHeaderText;
-    private WebView wvResponse;
 
 
     @Override
@@ -81,8 +61,6 @@ public class RegisterActivity extends Activity {
         final Typeface RalewayLight = Typeface.createFromAsset(getAssets(), "Raleway-Regular.ttf");
         final Typeface RalewayBold = Typeface.createFromAsset(getAssets(), "Raleway-Bold.ttf");
         final Typeface PlayFairDisplayItalic = Typeface.createFromAsset(getAssets(), "PlayfairDisplay-Regular.otf");
-
-        wvResponse = (WebView) findViewById(R.id.wvResponse);
 
         tvRegisterHeaderText = (TextView) findViewById(R.id.tvRegisterHeaderText);
         tvRegisterHeaderText.setTypeface(RalewayLight);
@@ -113,13 +91,21 @@ public class RegisterActivity extends Activity {
 
     }
 
-
+    /**
+     *
+     */
     class JSONAsync extends AsyncTask<Void, Void, Void> {
         ProgressDialog pd;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+
+            firstName = etRegisterFirstName.getText().toString();
+            lastName = etRegisterLastName.getText().toString();
+            emailAddress = etRegisterEmail.getText().toString();
+            password = etRegisterPassword.getText().toString();
+
             pd = ProgressDialog.show(RegisterActivity.this, null, "Registering...", true, false);
         }
 
@@ -143,6 +129,20 @@ public class RegisterActivity extends Activity {
                 NONCE_RETURN = rootobj.get("nonce").getAsString();
                 Log.i("NONCE_RETURN", NONCE_RETURN);
 
+                String base = "https://www.primpandstyle.com/api/user/register/";
+                String username = "username=" + firstName + lastName;
+                String first_name = "first_name=" + firstName;
+                String last_name = "last_name=" + lastName;
+                String email = "email=" + emailAddress;
+                String displayName = "display_name=" + firstName;
+                String notify = "notify=both";
+                String nonce = "nonce=" + NONCE_RETURN;
+                String seconds = "seconds=2";
+                String userPassword = "user_pass=" + password;
+
+                COMPLETED_QUERY = base + "?" + username + "&" + first_name + "&" + last_name + "&" + email + "&" + nonce + "&" + seconds + "&" + displayName + "&" + notify + "&" + userPassword;
+                Log.i("output", COMPLETED_QUERY);
+
             } catch (IOException e) {
 
                 e.printStackTrace();
@@ -157,96 +157,65 @@ public class RegisterActivity extends Activity {
         @Override
         protected void onPostExecute(Void result) {
 
-            String firstName = etRegisterFirstName.getText().toString();
-            String lastName = etRegisterLastName.getText().toString();
-            String emailAddress = etRegisterEmail.getText().toString();
-            String password = etRegisterPassword.getText().toString();
-
-            String base = "https://www.primpandstyle.com/api/user/register/";
-            String username = "username=" + firstName + lastName;
-            String first_name = "first_name=" + firstName;
-            String last_name = "last_name=" + lastName;
-            String email = "email=" + emailAddress;
-            String displayName = "display_name=" + firstName;
-            String notify = "notify=both";
-            String nonce = "nonce=" + NONCE_RETURN;
-            String seconds = "seconds=2";
-            String userPassword = "user_pass=" + password;
-
-            COMPLETED_QUERY = base + "?" + username + "&" + first_name + "&" + last_name + "&" + email + "&" + nonce + "&" + seconds + "&" + displayName + "&" + notify + "&" + userPassword;
-            Log.i("output", COMPLETED_QUERY);
-
-
             if (REG_STATUS != null) {
 
-                pd.dismiss();
+                new Thread(new Runnable() {
+                    public void run() {
+                        try {
+                            String getResponse = doGetRequest(COMPLETED_QUERY);
+                            response = getResponse;
+                            Log.i("getResponse", getResponse);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
 
-                etRegisterFirstName.setText("");
-                etRegisterLastName.setText("");
-                etRegisterEmail.setText("");
-                etRegisterPassword.setText("");
+                        pd.dismiss();
+
+                        try {
+
+                            JsonParser jp = new JsonParser();
+                            JsonElement root = jp.parse(response);
+                            JsonObject rootobj = root.getAsJsonObject();
+                            SUBMIT_STATUS = rootobj.get("status").getAsString();
+
+                        } catch (Throwable t) {
+                            Log.e("My App", "Could not parse malformed JSON: \"" + response + "\"");
+                        }
 
 
-                wvResponse.setWebViewClient(new WebViewClient() {
-                    @Override
-                    public void onPageFinished(WebView view, String url) {
-                        wvResponse.loadUrl("javascript:window.HtmlViewer.showHTML" +
-                                "('<html>'+document.getElementsByTagName('html')[0].innerHTML+'</html>');");
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+
+//                        etRegisterFirstName.setText("");
+//                        etRegisterLastName.setText("");
+//                        etRegisterEmail.setText("");
+//                        etRegisterPassword.setText("");
+
                     }
-                });
-
-
-//                wvResponse.loadUrl(COMPLETED_QUERY);
-
-//                WebViewClient yourWebClient = new WebViewClient() {
-//
-//                    @Override
-//                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
-//                        return false;
-//                    }
-//
-//                    @Override
-//                    public void onPageFinished(WebView view, String url) {
-////                        wvResponse.loadUrl(COMPLETED_QUERY);
-//                    }
-//                };
-
-
-
-
-
-
-
-
-//                wvResponse.getSettings().setJavaScriptEnabled(true);
-//                wvResponse.getSettings().setSupportZoom(true);
-//                wvResponse.getSettings().setBuiltInZoomControls(true);
-//                wvResponse.setWebViewClient(yourWebClient);
-//                wvResponse.loadUrl(COMPLETED_QUERY);
-//                wvResponse.addJavascriptInterface(new MyJavaScriptInterface(getApplicationContext()), "HtmlViewer");
-
-
-                wvResponse.loadUrl(COMPLETED_QUERY);
-                Toast.makeText(getApplicationContext(), wvResponse.toString(), Toast.LENGTH_SHORT).show();
+                }).start();
 
             }
         }
     }
 
 
-//    class MyJavaScriptInterface {
-//
-//        private Context ctx;
-//
-//        MyJavaScriptInterface(Context ctx) {
-//            this.ctx = ctx;
-//        }
-//
-//        @JavascriptInterface
-//        public void showHTML(String html) {
-//            Log.d("response" , html);
-////            System.out.println(html);
-//
-//        }
-//    }
+
+    /**
+     *
+     * @param url
+     * @return
+     * @throws IOException
+     */
+    String doGetRequest(String url) throws IOException {
+        Request request = new Request.Builder().url(url).build();
+        Response response = client.newCall(request).execute();
+        return response.body().string();
+    }
+
 }
