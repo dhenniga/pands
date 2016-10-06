@@ -17,8 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
-        android:scaleType="centerInside"
-        android:src="@drawable/pands_logo"
+        android:layout_margin="0dp"
+        android:padding="0dp"
         />
 
         <RelativeLayout

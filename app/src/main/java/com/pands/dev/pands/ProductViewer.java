@@ -29,15 +29,16 @@ import java.util.List;
 public class ProductViewer extends AppCompatActivity {
 
     private static final String TAG = ProductViewer.class.getSimpleName();
-    public static final String EXTRA_FEATURED_SRC = "EXTRA_FEATURED_SRC";
-    public static final String EXTRA_SHORT_DESCRIPTION = "EXTRA_SHORT_DESCRIPTION";
-    public static final String EXTRA_TITLE = "EXTRA_TITLE";
-    public static final String EXTRA_PRICE = "EXTRA_PRICE";
-    public static final String EXTRA_CATEGORIES = "EXTRA_CATEGORIES";
-    public static final String EXTRA_TAGS = "EXTRA_TAGS";
-    public static final String EXTRA_IMAGES = "EXTRA_IMAGES";
-    public static final String EXTRA_ON_SALE = "EXTRA_ON_SALE";
-    public static final String EXTRA_ON_SALE_PRICE = "EXTRA_ON_SALE_PRICE";
+
+    private String EXTRA_FEATURED_SRC = "EXTRA_FEATURED_SRC";
+    private String EXTRA_SHORT_DESCRIPTION = "EXTRA_SHORT_DESCRIPTION";
+    private String EXTRA_TITLE = "EXTRA_TITLE";
+    private String EXTRA_PRICE = "EXTRA_PRICE";
+    private String EXTRA_CATEGORIES = "EXTRA_CATEGORIES";
+    private String EXTRA_TAGS = "EXTRA_TAGS";
+    private String EXTRA_IMAGES = "EXTRA_IMAGES";
+    private String EXTRA_ON_SALE = "EXTRA_ON_SALE";
+    private String EXTRA_ON_SALE_PRICE = "EXTRA_ON_SALE_PRICE";
 
 
     private AppCompatActivity activity = ProductViewer.this;
@@ -52,6 +53,10 @@ public class ProductViewer extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_viewer);
+
+        Log.i(TAG, "start");
+
+        Bundle extras = getIntent().getExtras();
 
         final Typeface RalewayExtraLight = Typeface.createFromAsset(activity.getAssets(), "Raleway-ExtraLight.ttf");
         final Typeface RalewayBold = Typeface.createFromAsset(activity.getAssets(), "Raleway-Bold.ttf");
@@ -89,11 +94,19 @@ public class ProductViewer extends AppCompatActivity {
         TextView tvProductSalePrice = (TextView) findViewById(R.id.tvProductSalePrice);
         tvProductSalePrice.setTypeface(RalewayExtraLight);
 
-        initViews();
-
-        Bundle extras = getIntent().getExtras();
+        TextView tvInvisibleSpacer = (TextView) findViewById(R.id.tvInvisibleSpacer);
 
         if (extras != null) {
+
+            Log.d("DEXTRA_FEATURED_SRC", extras.getString(EXTRA_FEATURED_SRC));
+            Log.d("DXTRA_SHORT_DESCRIPTION", extras.getString(EXTRA_SHORT_DESCRIPTION));
+            Log.d("DEXTRA_TITLE", extras.getString(EXTRA_TITLE));
+            Log.d("DEXTRA_PRICE", ((String.valueOf(extras.getInt(EXTRA_PRICE)))));
+            Log.d("DEXTRA_CATEGORIES", extras.getString(EXTRA_CATEGORIES));
+            Log.d("DEXTRA_TAGS", extras.getString(EXTRA_TAGS));
+            Log.d("DEXTRA_IMAGES", extras.getString(EXTRA_IMAGES));
+            Log.d("DEXTRA_ON_SALE", ((String.valueOf(extras.getBoolean(EXTRA_ON_SALE)))));
+            Log.d("DEXTRA_ON_SALE_PRICE", ((String.valueOf(extras.getInt(EXTRA_ON_SALE_PRICE)))));
 
             tvProductTitle.setText(extras.getString(EXTRA_TITLE));
 
@@ -117,13 +130,16 @@ public class ProductViewer extends AppCompatActivity {
 
             tvProductImages.setText(extras.getString(EXTRA_IMAGES));
 
-//            if (EXTRA_ON_SALE_PRICE > EXTRA_PRICE) {
+            boolean boolean2 = extras.getBoolean(EXTRA_ON_SALE);
+
+            if (boolean2 != false) {
 
                 tvProductSalePrice.setVisibility(View.VISIBLE);
+                tvInvisibleSpacer.setVisibility(View.INVISIBLE);
                 tvProductSalePrice.setText("€" + extras.getInt(EXTRA_ON_SALE_PRICE));
-            tvProductPrice.setBackground(getResources().getDrawable(R.drawable.rounded_sale_price_button));
-                tvProductSalePrice.setPaintFlags(tvProductSalePrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-//            }
+//            tvProductPrice.setBackground(getResources().getDrawable(R.drawable.rounded_sale_price_button));
+//                tvProductSalePrice.setPaintFlags(tvProductSalePrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            }
 
 
 
@@ -137,14 +153,6 @@ public class ProductViewer extends AppCompatActivity {
         return Html.fromHtml(html).toString();
     }
 
-
-    private void initViews() {
-
-        numberOfColumns = 1;
-        rvProductGallery = (RecyclerView) findViewById(R.id.rvProductGallery);
-        rvProductGallery.setLayoutManager(new GridLayoutManager(getApplicationContext(), numberOfColumns, GridLayoutManager.VERTICAL, false));
-
-    }
 
     /**
      *

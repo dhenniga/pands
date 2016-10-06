@@ -33,7 +33,9 @@ public class ProductValue {
     Boolean featured;
     Boolean visible;
     String catalog_visibility;
+
     Boolean on_sale;
+
     String product_url;
     String button_text;
     String weight;

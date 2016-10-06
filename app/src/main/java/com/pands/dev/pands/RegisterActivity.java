@@ -2,6 +2,7 @@ package com.pands.dev.pands;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -45,7 +46,7 @@ public class RegisterActivity extends Activity {
     private OkHttpClient client = new OkHttpClient();
 
     private EditText etRegisterFirstName, etRegisterLastName, etRegisterEmail, etRegisterPassword;
-    private Button btnRegister;
+    private Button btnRegister, btnRegisterClose, btnLoginFromRegister;
     private TextView tvRegisterHeaderText;
 
 
@@ -80,11 +81,34 @@ public class RegisterActivity extends Activity {
         btnRegister = (Button) findViewById(R.id.btnRegister);
         btnRegister.setTypeface(RalewayBold);
 
+        btnLoginFromRegister = (Button) findViewById(R.id.btnLoginFromRegister);
+        btnLoginFromRegister.setTypeface(RalewayBold);
+
+        btnRegisterClose = (Button) findViewById(R.id.btnRegisterClose);
+
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 new JSONAsync().execute();
+
+            }
+        });
+
+        btnRegisterClose.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+       btnLoginFromRegister .setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
 
             }
         });
@@ -106,7 +130,7 @@ public class RegisterActivity extends Activity {
             emailAddress = etRegisterEmail.getText().toString();
             password = etRegisterPassword.getText().toString();
 
-            pd = ProgressDialog.show(RegisterActivity.this, null, "Registering...", true, false);
+            pd = ProgressDialog.show(RegisterActivity.this, null, "Registering " + firstName + " " + lastName, true, false);
         }
 
 
@@ -170,6 +194,9 @@ public class RegisterActivity extends Activity {
                         }
 
                         pd.dismiss();
+
+//                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                        startActivity(intent);
 
                         try {
 

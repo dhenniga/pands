@@ -18,8 +18,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:elevation="-2dp">
+        android:elevation="-2dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,13 +34,13 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"/>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvProductGallery"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:elevation="-1dp"
-                android:visibility="gone" />
+            <!--<android.support.v7.widget.RecyclerView-->
+                <!--android:id="@+id/rvProductGallery"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="#ffffff"-->
+                <!--android:elevation="-1dp"-->
+                <!--android:visibility="gone" />-->
 
         <ImageView
             android:id="@+id/ivProductFeaturedSrc"
@@ -47,8 +48,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:scaleType="centerCrop"
+            android:scaleType="centerInside"
             android:background="#ffffff"
+            android:layout_marginTop="65dp"
             />
 
 
@@ -79,11 +81,10 @@
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:layout_marginRight="5dp"
-                    android:background="@drawable/rounded_price_button"
+                    android:background="@drawable/outlined_circle"
                     android:gravity="center"
                     android:text="#100"
-                    android:textColor="#ffffff"
-                    android:alpha="0.3"
+                    android:textColor="#99000000"
                     android:textSize="16sp"
                     android:visibility="gone"/>
 
@@ -98,6 +99,19 @@
                 android:textColor="#ffffff"
                 android:textSize="25sp" />
 
+                <TextView
+                    android:id="@+id/tvInvisibleSpacer"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/rounded_price_button"
+                    android:gravity="center"
+                    android:text="#100"
+                    android:textColor="#ffffff"
+                    android:alpha="0.2"
+                    android:textSize="16sp"
+                    android:visibility="gone"/>
+
             </LinearLayout>
 
             <TextView
@@ -105,8 +119,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
                 android:paddingTop="26dp"
                 android:textSize="14sp"
                 android:text="Product_Short_Description"

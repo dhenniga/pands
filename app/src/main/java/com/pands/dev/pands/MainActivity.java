@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.pands.dev.pands.listener.RecyclerClickListener;
 import com.pands.dev.pands.listener.RecyclerTouchListener;
@@ -34,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_IMAGES = "EXTRA_IMAGES";
     public static final String EXTRA_ON_SALE = "EXTRA_ON_SALE";
     public static final String EXTRA_ON_SALE_PRICE = "EXTRA_ON_SALE_PRICE";
-
 
     private AppCompatActivity activity = MainActivity.this;
     private List<ProductValue> productList;
@@ -73,33 +74,17 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), ProductViewer.class);
 
                     intent.putExtra(EXTRA_FEATURED_SRC, productList.get(position).getFeatured_src());
-                    Log.i("EXTRA_FEATURED_SRC", productList.get(position).getFeatured_src().toString());
-
                     intent.putExtra(EXTRA_SHORT_DESCRIPTION, productList.get(position).getShort_description());
-                    Log.i("EXTRA_SHORT_DESCRIPTION", productList.get(position).getShort_description().toString());
-
                     intent.putExtra(EXTRA_TITLE, productList.get(position).getTitle());
-                    Log.i("EXTRA_TITLE", productList.get(position).getTitle().toString());
-
                     intent.putExtra(EXTRA_PRICE, productList.get(position).getPrice());
-                    Log.i("EXTRA_PRICE", ((String.valueOf(productList.get(position).getPrice()))));
-
                     intent.putExtra(EXTRA_CATEGORIES, productList.get(position).getCategories());
-                    Log.i("EXTRA_CATEGORIES", productList.get(position).getCategories().toString());
-
                     intent.putExtra(EXTRA_TAGS, productList.get(position).getTags());
-                    Log.i("EXTRA_TAGS", productList.get(position).getTags().toString());
-
                     intent.putExtra(EXTRA_IMAGES, productList.get(position).getImages());
-                    Log.i("EXTRA_IMAGES", productList.get(position).getImages().toString());
-
                     intent.putExtra(EXTRA_ON_SALE, productList.get(position).getOn_sale());
-                    Log.i("EXTRA_ON_SALE", productList.get(position).getOn_sale().toString());
-
                     intent.putExtra(EXTRA_ON_SALE_PRICE, productList.get(position).getSale_price());
-                    Log.i("EXTRA_ON_SALE_PRICE", ((String.valueOf(productList.get(position).getSale_price()))));
 
                     startActivity(intent);
+
                 }
             }
         }));
