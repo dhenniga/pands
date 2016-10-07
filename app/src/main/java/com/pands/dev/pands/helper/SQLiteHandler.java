@@ -19,7 +19,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     // Database Name
-    private static final String DATABASE_NAME = "android_api";
+    private static final String DATABASE_NAME = "pands_login";
 
     // Login table name
     private static final String TABLE_USER = "user";
@@ -27,18 +27,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     // Login Table Columns names
     private static final String KEY_ID = "id";
     private static final String KEY_USERID = "userID";
-    private static final String KEY_NAME = "name";
-    private static final String KEY_EMAIL = "email";
-    private static final String KEY_CREATED_AT = "created_at";
-
-
-    // Comment Table name
-    private static final String TABLE_COMMENT = "comment";
-
-    // Comments
-    private static final String KEY_COMMENT_TEXT = "commentText";
-    private static final String KEY_TRIPTIK_ID = "triptikID";
-    private static final String KEY_USER_ID = "userID";
+    private static final String KEY_USERNAME = "name";
 
 
     public SQLiteHandler(Context context) {
@@ -51,8 +40,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_USER + "("
                 + KEY_ID + " INTEGER PRIMARY KEY,"
                 + KEY_USERID + " TEXT,"
-                + KEY_NAME + " TEXT,"
-                + KEY_EMAIL + " TEXT" + ")";
+                + KEY_USERNAME + " TEXT" + ")";
         db.execSQL(CREATE_LOGIN_TABLE);
 
         Log.d(TAG, "Database tables created");
@@ -71,13 +59,12 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     /**
      * Storing user details in database
      * */
-    public void addUser(String userID, String name, String email) {
+    public void addUser(String userID, String userName) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(KEY_USERID, userID); // userID
-        values.put(KEY_NAME, name); // Name
-        values.put(KEY_EMAIL, email); // Email
+        values.put(KEY_USERNAME, userName); // Name
 
         // Inserting Row
         long id = db.insert(TABLE_USER, null, values);
@@ -85,25 +72,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
         Log.d(TAG, "New user inserted into sqlite: " + id);
     }
-
-    /**
-     * Storing a comment in database
-     * */
-    public void addComment(String commentText, String triptikID, String userID) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(KEY_COMMENT_TEXT, commentText); // commentText
-        values.put(KEY_TRIPTIK_ID, triptikID); // triptikID
-        values.put(KEY_USER_ID, userID); // userID
-
-        // Inserting Row
-        long id = db.insert(TABLE_COMMENT, null, values);
-        db.close(); // Closing database connection
-
-        Log.d(TAG, "New comment inserted into sqlite: " + id);
-    }
-
 
 
     /**
@@ -119,8 +87,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         cursor.moveToFirst();
         if (cursor.getCount() > 0) {
             user.put("userID", cursor.getString(1));
-            user.put("name", cursor.getString(2));
-            user.put("email", cursor.getString(3));
+            user.put("userName", cursor.getString(2));
         }
         cursor.close();
         db.close();
