@@ -8,6 +8,7 @@
     android:background="@null"
     android:gravity="center_horizontal"
     tools:context=".MenuFunctions"
+    android:id="@+id/flMenuBarContainer"
     >
 
     <FrameLayout

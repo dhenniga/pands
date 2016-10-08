@@ -179,7 +179,8 @@ public class LoginActivity extends AppCompatActivity {
                     JsonElement rootDetails = jpDetails.parse(new InputStreamReader((InputStream) requestDetails.getContent())); //Convert the input stream to a json element
                     JsonObject rootobjDetails = rootDetails.getAsJsonObject();
                     JsonObject customerDetails = rootobjDetails.getAsJsonObject("customer");
-                    JsonObject billingAddressDetails = customerDetails.getAsJsonObject("billing_address");
+                    JsonObject CustomerBillingAddressDetails = customerDetails.getAsJsonObject("billing_address");
+                    JsonObject CustomerShippingAddressDetails = customerDetails.getAsJsonObject("shipping_address");
 
                     String created_at = customerDetails.get("created_at").getAsString();
                     Log.i("created_at", created_at);
@@ -208,69 +209,73 @@ public class LoginActivity extends AppCompatActivity {
                     String avatar_url = customerDetails.get("avatar_url").getAsString();
                     Log.i("avatar_url", avatar_url);
 
+
+
                     //  BILLING ADDRESS
 
-                    String billing_first_name = billingAddressDetails.get("first_name").getAsString();
+                    String billing_first_name = CustomerBillingAddressDetails.get("first_name").getAsString();
                     Log.i("billing_first_name", billing_first_name);
 
-                    String billing_last_name = billingAddressDetails.get("last_name").getAsString();
+                    String billing_last_name = CustomerBillingAddressDetails.get("last_name").getAsString();
                     Log.i("billing_last_name", billing_last_name);
 
-                    String billing_company = billingAddressDetails.get("company").getAsString();
+                    String billing_company = CustomerBillingAddressDetails.get("company").getAsString();
                     Log.i("billing_company", billing_company);
 
-                    String billing_address_1 = billingAddressDetails.get("address_1").getAsString();
+                    String billing_address_1 = CustomerBillingAddressDetails.get("address_1").getAsString();
                     Log.i("billing_address_1", billing_address_1);
 
-                    String billing_address_2 = billingAddressDetails.get("address_2").getAsString();
+                    String billing_address_2 = CustomerBillingAddressDetails.get("address_2").getAsString();
                     Log.i("billing_address_2", billing_address_2);
 
-                    String billing_city = billingAddressDetails.get("city").getAsString();
+                    String billing_city = CustomerBillingAddressDetails.get("city").getAsString();
                     Log.i("billing_city", billing_city);
 
-                    String billing_state = billingAddressDetails.get("state").getAsString();
+                    String billing_state = CustomerBillingAddressDetails.get("state").getAsString();
                     Log.i("billing_state", billing_state);
 
-                    String billing_postcode = billingAddressDetails.get("postcode").getAsString();
+                    String billing_postcode = CustomerBillingAddressDetails.get("postcode").getAsString();
                     Log.i("billing_postcode", billing_postcode);
 
-                    String billing_country = billingAddressDetails.get("country").getAsString();
+                    String billing_country = CustomerBillingAddressDetails.get("country").getAsString();
                     Log.i("billing_country", billing_country);
 
 
-                    String billing_email = billingAddressDetails.get("email").getAsString();
+                    String billing_email = CustomerBillingAddressDetails.get("email").getAsString();
                     Log.i("billing_email", billing_email);
 
-                    String billing_phone = billingAddressDetails.get("phone").getAsString();
+                    String billing_phone = CustomerBillingAddressDetails.get("phone").getAsString();
                     Log.i("billing_phone", billing_phone);
+
+
 
                     //  SHIPPING ADDRESS
 
-                    String shipping_first_name = billingAddressDetails.get("first_name").getAsString();
+                    String shipping_first_name = CustomerShippingAddressDetails.get("first_name").getAsString();
                     Log.i("shipping_first_name", shipping_first_name);
 
-                    String shipping_last_name = billingAddressDetails.get("last_name").getAsString();
+                    String shipping_last_name = CustomerShippingAddressDetails.get("last_name").getAsString();
                     Log.i("shipping_last_name", shipping_last_name);
 
-                    String shipping_company = billingAddressDetails.get("company").getAsString();
+                    String shipping_company = CustomerShippingAddressDetails.get("company").getAsString();
                     Log.i("shipping_company", shipping_company);
 
-                    String shipping_address_1 = billingAddressDetails.get("address_1").getAsString();
+                    String shipping_address_1 = CustomerShippingAddressDetails.get("address_1").getAsString();
                     Log.i("shipping_address_1", shipping_address_1);
 
-                    String shipping_address_2 = billingAddressDetails.get("address_2").getAsString();
+                    String shipping_address_2 = CustomerShippingAddressDetails.get("address_2").getAsString();
                     Log.i("shipping_address_2", shipping_address_2);
 
-                    String shipping_city = billingAddressDetails.get("city").getAsString();
+                    String shipping_city = CustomerShippingAddressDetails.get("city").getAsString();
                     Log.i("shipping_city", shipping_city);
 
-                    String shipping_state = billingAddressDetails.get("state").getAsString();
+                    String shipping_state = CustomerShippingAddressDetails.get("state").getAsString();
                     Log.i("shipping_state", shipping_state);
 
-                    String shipping_postcode = billingAddressDetails.get("postcode").getAsString();
+                    String shipping_postcode = CustomerShippingAddressDetails.get("postcode").getAsString();
                     Log.i("shipping_postcode", shipping_postcode);
 
-                    String shipping_country = billingAddressDetails.get("country").getAsString();
+                    String shipping_country = CustomerShippingAddressDetails.get("country").getAsString();
                     Log.i("shipping_country", shipping_country);
 
 

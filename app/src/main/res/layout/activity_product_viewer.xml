@@ -9,11 +9,11 @@
     tools:context="com.pands.dev.pands.ProductViewer">
 
     <include layout="@layout/menubar" />
-    <!--<FrameLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content">-->
-    <!--<include layout="@layout/main_menu_slider_left"/>-->
-    <!--</FrameLayout>-->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <include layout="@layout/main_menu_slider_left"/>
+    </FrameLayout>
 
     <ScrollView
         android:layout_width="match_parent"
