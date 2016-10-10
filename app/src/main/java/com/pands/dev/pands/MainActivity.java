@@ -1,5 +1,7 @@
 package com.pands.dev.pands;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -12,12 +14,15 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import com.pands.dev.pands.listener.RecyclerClickListener;
 import com.pands.dev.pands.listener.RecyclerTouchListener;
 import com.pands.dev.pands.product.ProductAdapter;
 import com.pands.dev.pands.product.ProductParser;
 import com.pands.dev.pands.product.ProductValue;
+import com.squareup.otto.Subscribe;
 
 import org.json.JSONObject;
 
@@ -53,6 +58,27 @@ public class MainActivity extends AppCompatActivity {
         new JSONAsync().execute();
 
     }
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        App.getBus().register(this);
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+        App.getBus().unregister(this);
+    }
+
+    @Subscribe
+    public void OnFirstItemClicked(FirstItemClicked firstItemClicked)
+    {
+        Log.d("FirstItem", "Clicked !!");
+    }
+
 
 
     private void initViews() {

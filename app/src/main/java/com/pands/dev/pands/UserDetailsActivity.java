@@ -2,6 +2,7 @@ package com.pands.dev.pands;
 
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
@@ -10,7 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class UserDetailsActivity extends AppCompatActivity {
+public class UserDetailsActivity extends FragmentActivity{
 
     ImageView ivCustomerProfileImage;
 

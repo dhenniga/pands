@@ -6,20 +6,19 @@
     <SlidingDrawer
         android:id="@+id/drawer"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_height="500dp"
+        android:orientation="vertical"
         android:handle="@+id/handle"
         android:rotation="180"
         android:content="@+id/content">
 
 
-        <ImageView
+
+
+        <include
             android:id="@id/handle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/pands_logo"
-            android:rotation="180"
-            />
+            android:rotation="360"
+            layout="@layout/menubar"/>
 
         <LinearLayout
             android:id="@id/content"
@@ -27,22 +26,13 @@
             android:layout_height="fill_parent"
             android:rotation="180"
             android:orientation="horizontal"
-            android:background="#eeffffff">
+            android:background="#ffffff">
 
             <!-- DEFINE ALL YOUR CONTENT,WIDGETS HERE WHICH YOU WANT TO ADD IN SLIDING DRAWER LAYOUT. -->
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:text="Search"
-                android:textColor="#dddddd"/>
 
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:src="@drawable/member_icon"
-                android:scaleType="fitXY"/>
+            <include layout="@layout/activity_user_details"/>
+
 
             <!-- DEFINE ALL YOUR CONTENT WIDGETS HERE WHICH YOU WANT TO ADD IN SLIDING DRAWER LAYOUT. -->
 

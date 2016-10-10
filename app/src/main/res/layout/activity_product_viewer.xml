@@ -8,12 +8,40 @@
     android:background="#ffffff"
     tools:context="com.pands.dev.pands.ProductViewer">
 
-    <include layout="@layout/menubar" />
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    <include layout="@layout/main_menu_slider_left"/>
-    </FrameLayout>
+    <!--<include layout="@layout/menubar" />-->
+    <!--<FrameLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content">-->
+    <!--<include layout="@layout/main_menu_slider_left"/>-->
+    <!--</FrameLayout>-->
+
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.pands.dev.pands.MenuFunctions
+            android:id="@+id/activity_actionbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:actionBarSize"/>
+
+        <FrameLayout
+            android:id="@+id/container"
+            android:layout_below="@+id/activity_actionbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".MainActivity"
+            tools:ignore="MergeRootFrame" />
+
+    </RelativeLayout>
+
+
+
+
+
+
 
     <ScrollView
         android:layout_width="match_parent"

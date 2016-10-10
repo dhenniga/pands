@@ -1,63 +1,69 @@
 package com.pands.dev.pands;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
+import android.content.Context;
+import android.util.AttributeSet;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 
-/**
- * Created by David on 07/03/2016.
- */
-public class MenuFunctions extends Activity implements View.OnClickListener {
-
+public class MenuFunctions extends FrameLayout {
     private ImageButton menuButton, searchButton, memberButton, cartButton, pandsLogoButton;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.menubar);
+    public MenuFunctions(Context context) {
+        super(context);
+        init(context);
+    }
 
-        menuButton = (ImageButton) findViewById(R.id.menu_button);
-        searchButton = (ImageButton) findViewById(R.id.search_button);
-        memberButton = (ImageButton) findViewById(R.id.member_button);
-        cartButton = (ImageButton) findViewById(R.id.cart_button);
-        pandsLogoButton = (ImageButton) findViewById(R.id.pands_logo);
+    public MenuFunctions(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init(context);
+    }
+
+    public MenuFunctions(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        init(context);
+    }
+
+    private void init(final Context context) {
+        final View rootView = inflate(context, R.layout.menubar, this);
+
+        menuButton = (ImageButton) rootView.findViewById(R.id.menu_button);
+        searchButton = (ImageButton) rootView.findViewById(R.id.search_button);
+        memberButton = (ImageButton) rootView.findViewById(R.id.member_button);
+        cartButton = (ImageButton) rootView.findViewById(R.id.cart_button);
+        pandsLogoButton = (ImageButton) rootView.findViewById(R.id.pands_logo);
+
+        menuButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                App.getBus().post(new FirstItemClicked());
+
+            }
+        });
+
+
+        searchButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                App.getBus().post(new FirstItemClicked());
+            }
+        });
+
+        memberButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                App.getBus().post(new FirstItemClicked());
+            }
+        });
+
+        cartButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                App.getBus().post(new FirstItemClicked());
+            }
+        });
 
     }
 
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.menu_button:
-                menuButton.setVisibility(View.INVISIBLE);
-                break;
-
-            case R.id.search_button:
-                searchButton.setVisibility(View.INVISIBLE);
-                break;
-
-            case R.id.member_button:
-                memberButton.setVisibility(View.INVISIBLE);
-                Intent intent = new Intent(getApplicationContext(), UserDetailsActivity.class);
-                startActivity(intent);
-                break;
-
-            case R.id.cart_button:
-                cartButton.setVisibility(View.INVISIBLE);
-
-            case R.id.pands_logo:
-                pandsLogoButton.setVisibility(View.INVISIBLE);
-                break;
-
-            default:
-                break;
-        }
-
-    }
 }
 
