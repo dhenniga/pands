@@ -7,9 +7,27 @@
     android:background="@color/background"
     >
 
-    <!--<fragment android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--layout="@layout/menubar"/>-->
+    <include layout="@layout/main_menu_slider_left"/>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.pands.dev.pands.menubar.MenuFunctions
+            android:id="@+id/activity_actionbar"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"/>
+
+        <FrameLayout
+            android:id="@+id/container"
+            android:layout_below="@+id/activity_actionbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".MainActivity"
+            tools:ignore="MergeRootFrame" />
+
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvProducts"

@@ -1,10 +1,13 @@
-package com.pands.dev.pands;
+package com.pands.dev.pands.menubar;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+
+import com.pands.dev.pands.App;
+import com.pands.dev.pands.R;
 
 public class MenuFunctions extends FrameLayout {
     private ImageButton menuButton, searchButton, memberButton, cartButton, pandsLogoButton;
@@ -36,30 +39,28 @@ public class MenuFunctions extends FrameLayout {
         menuButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                App.getBus().post(new FirstItemClicked());
-
+                App.getBus().post(new SideNavMenu(context));
             }
         });
-
 
         searchButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                App.getBus().post(new FirstItemClicked());
+                App.getBus().post(new SearchMenu());
             }
         });
 
         memberButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                App.getBus().post(new FirstItemClicked());
+                App.getBus().post(new UserProfileMenu());
             }
         });
 
         cartButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                App.getBus().post(new FirstItemClicked());
+                App.getBus().post(new CartMenu());
             }
         });
 

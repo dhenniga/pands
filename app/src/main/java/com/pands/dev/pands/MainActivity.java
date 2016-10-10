@@ -1,11 +1,10 @@
 package com.pands.dev.pands;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -19,6 +18,10 @@ import android.widget.LinearLayout;
 
 import com.pands.dev.pands.listener.RecyclerClickListener;
 import com.pands.dev.pands.listener.RecyclerTouchListener;
+import com.pands.dev.pands.menubar.CartMenu;
+import com.pands.dev.pands.menubar.SearchMenu;
+import com.pands.dev.pands.menubar.SideNavMenu;
+import com.pands.dev.pands.menubar.UserProfileMenu;
 import com.pands.dev.pands.product.ProductAdapter;
 import com.pands.dev.pands.product.ProductParser;
 import com.pands.dev.pands.product.ProductValue;
@@ -44,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
     private List<ProductValue> productList;
     private RecyclerView rvProducts;
     public static int numberOfColumns;
+
+    public DrawerLayout mDrawerLayout;
+    public LinearLayout actContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,9 +80,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Subscribe
-    public void OnFirstItemClicked(FirstItemClicked firstItemClicked)
+    public void OnSideNavMenu(SideNavMenu sideNavMenu)
     {
-        Log.d("FirstItem", "Clicked !!");
+
+    }
+
+    @Subscribe
+    public void OnSearchMenu(SearchMenu searchMenu)
+    {
+        Log.d("SearchMenu", "Clicked !!");
+    }
+
+    @Subscribe
+    public void OnUserProfileMenu(UserProfileMenu userProfileMenu)
+    {
+        Log.d("UserProfileMenu", "Clicked !!");
+    }
+
+    @Subscribe
+    public void OnCartMenu(CartMenu cartMenu)
+    {
+        Log.d("CartMenu", "Clicked !!");
     }
 
 

@@ -22,10 +22,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.pands.dev.pands.MenuFunctions
+        <com.pands.dev.pands.menubar.MenuFunctions
             android:id="@+id/activity_actionbar"
             android:layout_width="match_parent"
-            android:layout_height="?android:actionBarSize"/>
+            android:layout_height="80dp"/>
 
         <FrameLayout
             android:id="@+id/container"
