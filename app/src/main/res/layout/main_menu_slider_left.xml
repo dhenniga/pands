@@ -6,7 +6,7 @@
     <SlidingDrawer
         android:id="@+id/drawer"
         android:layout_width="fill_parent"
-        android:layout_height="500dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:handle="@+id/handle"
         android:rotation="0"

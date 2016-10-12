@@ -1,9 +1,16 @@
 package com.pands.dev.pands.menubar;
 
-/**
- * Created by David on 10/10/2016.
- */
+import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
 
 public class SearchMenu {
+
+    public SearchMenu(Context context) {
+
+        Log.d("Header_menu", "SearchMenu");
+        Toast.makeText(context, "Header_menu: SearchMenu", Toast.LENGTH_SHORT).show();
+
+    }
 
 }

@@ -4,12 +4,15 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -31,7 +34,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener {
 
     public static final String EXTRA_FEATURED_SRC = "EXTRA_FEATURED_SRC";
     public static final String EXTRA_SHORT_DESCRIPTION = "EXTRA_SHORT_DESCRIPTION";
@@ -47,9 +50,6 @@ public class MainActivity extends AppCompatActivity {
     private List<ProductValue> productList;
     private RecyclerView rvProducts;
     public static int numberOfColumns;
-
-    public DrawerLayout mDrawerLayout;
-    public LinearLayout actContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,29 +79,17 @@ public class MainActivity extends AppCompatActivity {
         App.getBus().unregister(this);
     }
 
-    @Subscribe
-    public void OnSideNavMenu(SideNavMenu sideNavMenu)
-    {
-
-    }
-
-    @Subscribe
-    public void OnSearchMenu(SearchMenu searchMenu)
-    {
-        Log.d("SearchMenu", "Clicked !!");
-    }
-
-    @Subscribe
-    public void OnUserProfileMenu(UserProfileMenu userProfileMenu)
-    {
-        Log.d("UserProfileMenu", "Clicked !!");
-    }
-
-    @Subscribe
-    public void OnCartMenu(CartMenu cartMenu)
-    {
-        Log.d("CartMenu", "Clicked !!");
-    }
+//    @Subscribe
+//    public void OnSideNavMenu(SideNavMenu sideNavMenu) {}
+//
+//    @Subscribe
+//    public void OnSearchMenu(SearchMenu searchMenu) {}
+//
+//    @Subscribe
+//    public void OnUserProfileMenu(UserProfileMenu userProfileMenu) {}
+//
+//    @Subscribe
+//    public void OnCartMenu(CartMenu cartMenu) {}
 
 
 
@@ -145,6 +133,31 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_camera) {
+            // Handle the camera action
+        } else if (id == R.id.nav_gallery) {
+
+        } else if (id == R.id.nav_slideshow) {
+
+        } else if (id == R.id.nav_manage) {
+
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_send) {
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
 

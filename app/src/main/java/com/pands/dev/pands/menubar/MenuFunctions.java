@@ -10,6 +10,7 @@ import com.pands.dev.pands.App;
 import com.pands.dev.pands.R;
 
 public class MenuFunctions extends FrameLayout {
+
     private ImageButton menuButton, searchButton, memberButton, cartButton, pandsLogoButton;
 
     public MenuFunctions(Context context) {
@@ -39,28 +40,35 @@ public class MenuFunctions extends FrameLayout {
         menuButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                App.getBus().post(new SideNavMenu(context));
+                App.getBus().post(new SideNavMenu(getContext()));
             }
         });
 
         searchButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                App.getBus().post(new SearchMenu());
+                App.getBus().post(new SearchMenu(getContext()));
             }
         });
 
         memberButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                App.getBus().post(new UserProfileMenu());
+                App.getBus().post(new UserProfileMenu(getContext()));
             }
         });
 
         cartButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                App.getBus().post(new CartMenu());
+                App.getBus().post(new CartMenu(getContext()));
+            }
+        });
+
+        pandsLogoButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                App.getBus().post(new PandSButton(getContext()));
             }
         });
 
