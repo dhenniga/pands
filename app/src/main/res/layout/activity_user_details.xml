@@ -6,7 +6,6 @@
     android:orientation="vertical"
     tools:context="com.pands.dev.pands.UserDetailsActivity">
 
-
     <ScrollView
         android:id="@+id/activity_user_details"
         android:layout_width="match_parent"
@@ -31,8 +30,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
                 android:orientation="vertical"
                 android:padding="15dp">
 
@@ -51,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
                     android:paddingBottom="5dp"
-                    android:paddingLeft="6dp"
+                    android:paddingStart="6dp"
                     android:text="First Name"
                     android:textSize="11sp" />
 
@@ -75,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
                     android:paddingBottom="5dp"
-                    android:paddingLeft="6dp"
+                    android:paddingStart="6dp"
                     android:text="Last Name"
                     android:textSize="11sp" />
 
@@ -119,7 +116,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
                     android:paddingBottom="5dp"
-                    android:paddingLeft="6dp"
+                    android:paddingStart="6dp"
                     android:text="Email Address"
                     android:textSize="11sp" />
 
@@ -137,7 +134,6 @@
 
             </LinearLayout>
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -153,8 +149,8 @@
                     android:layout_alignParentTop="true"
                     android:layout_weight="1"
                     android:orientation="vertical"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="7dp">
+                    android:paddingStart="15dp"
+                    android:paddingEnd="7dp">
 
                     <TextView
                         android:id="@+id/tvBillingHeader"
@@ -170,7 +166,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="25dp"
                         android:paddingBottom="5dp"
-                        android:paddingLeft="6dp"
+                        android:paddingStart="6dp"
                         android:text="First Name"
                         android:textAllCaps="true"
                         android:textSize="9sp" />
@@ -196,7 +192,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="25dp"
                         android:paddingBottom="5dp"
-                        android:paddingLeft="6dp"
+                        android:paddingStart="6dp"
                         android:text="Last Name"
                         android:textAllCaps="true"
                         android:textSize="9sp" />
@@ -218,13 +214,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="25dp"
                         android:paddingBottom="5dp"
-                        android:paddingLeft="6dp"
+                        android:paddingStart="6dp"
                         android:text="Company"
                         android:textAllCaps="true"
                         android:textSize="9sp" />
 
                     <EditText
-
                         android:id="@+id/etBillingCompany"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -242,13 +237,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="25dp"
                         android:paddingBottom="5dp"
-                        android:paddingLeft="6dp"
+                        android:paddingStart="6dp"
                         android:text="Billing Address #1"
                         android:textAllCaps="true"
                         android:textSize="9sp" />
 
                     <EditText
-
                         android:id="@+id/etBillingAddress1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -265,13 +259,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="25dp"
                         android:paddingBottom="5dp"
-                        android:paddingLeft="6dp"
+                        android:paddingStart="6dp"
                         android:text="Billing Address #2"
                         android:textAllCaps="true"
                         android:textSize="9sp" />
 
                     <EditText
-
                         android:id="@+id/etBillingAddress2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -289,13 +282,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="25dp"
                         android:paddingBottom="5dp"
-                        android:paddingLeft="6dp"
+                        android:paddingStart="6dp"
                         android:text="City"
                         android:textAllCaps="true"
                         android:textSize="9sp" />
 
                     <EditText
-
                         android:id="@+id/etBillingCity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -312,13 +304,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="25dp"
                         android:paddingBottom="5dp"
-                        android:paddingLeft="6dp"
+                        android:paddingStart="6dp"
                         android:text="State"
                         android:textAllCaps="true"
                         android:textSize="9sp" />
 
                     <EditText
-
                         android:id="@+id/etBillingState"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -336,13 +327,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="25dp"
                         android:paddingBottom="5dp"
-                        android:paddingLeft="6dp"
+                        android:paddingStart="6dp"
                         android:text="Postcode"
                         android:textAllCaps="true"
                         android:textSize="9sp" />
 
                     <EditText
-
                         android:id="@+id/etBillingPostcode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -360,13 +350,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="25dp"
                         android:paddingBottom="5dp"
-                        android:paddingLeft="6dp"
+                        android:paddingStart="6dp"
                         android:text="Country"
                         android:textAllCaps="true"
                         android:textSize="9sp" />
 
                     <EditText
-
                         android:id="@+id/etBillingCountry"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -384,13 +373,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="25dp"
                         android:paddingBottom="5dp"
-                        android:paddingLeft="6dp"
+                        android:paddingStart="6dp"
                         android:text="Email Address"
                         android:textAllCaps="true"
                         android:textSize="9sp" />
 
                     <EditText
-
                         android:id="@+id/etBillingEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -408,7 +396,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="25dp"
                         android:paddingBottom="5dp"
-                        android:paddingLeft="6dp"
+                        android:paddingStart="6dp"
                         android:text="Phone"
                         android:textAllCaps="true"
                         android:textSize="9sp" />
@@ -434,8 +422,8 @@
                     android:layout_alignParentTop="true"
                     android:layout_weight="1"
                     android:orientation="vertical"
-                    android:paddingLeft="7dp"
-                    android:paddingRight="15dp">
+                    android:paddingStart="7dp"
+                    android:paddingEnd="15dp">
 
                     <TextView
                         android:id="@+id/tvShippingHeader"
@@ -451,7 +439,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="25dp"
                         android:paddingBottom="5dp"
-                        android:paddingLeft="6dp"
+                        android:paddingStart="6dp"
                         android:text="First Name"
                         android:textAllCaps="true"
                         android:textSize="9sp" />
@@ -477,7 +465,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="25dp"
                         android:paddingBottom="5dp"
-                        android:paddingLeft="6dp"
+                        android:paddingStart="6dp"
                         android:text="Last Name"
                         android:textAllCaps="true"
                         android:textSize="9sp" />
@@ -499,13 +487,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="25dp"
                         android:paddingBottom="5dp"
-                        android:paddingLeft="6dp"
+                        android:paddingStart="6dp"
                         android:text="Company"
                         android:textAllCaps="true"
                         android:textSize="9sp" />
 
                     <EditText
-
                         android:id="@+id/etShippingCompany"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -523,13 +510,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="25dp"
                         android:paddingBottom="5dp"
-                        android:paddingLeft="6dp"
+                        android:paddingStart="6dp"
                         android:text="Billing Address #1"
                         android:textAllCaps="true"
                         android:textSize="9sp" />
 
                     <EditText
-
                         android:id="@+id/etShippingAddress1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -546,13 +532,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="25dp"
                         android:paddingBottom="5dp"
-                        android:paddingLeft="6dp"
+                        android:paddingStart="6dp"
                         android:text="Billing Address #2"
                         android:textAllCaps="true"
                         android:textSize="9sp" />
 
                     <EditText
-
                         android:id="@+id/etShippingAddress2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -570,13 +555,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="25dp"
                         android:paddingBottom="5dp"
-                        android:paddingLeft="6dp"
+                        android:paddingStart="6dp"
                         android:text="City"
                         android:textAllCaps="true"
                         android:textSize="9sp" />
 
                     <EditText
-
                         android:id="@+id/etShippingCity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -593,13 +577,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="25dp"
                         android:paddingBottom="5dp"
-                        android:paddingLeft="6dp"
+                        android:paddingStart="6dp"
                         android:text="State"
                         android:textAllCaps="true"
                         android:textSize="9sp" />
 
                     <EditText
-
                         android:id="@+id/etShippingState"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -617,13 +600,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="25dp"
                         android:paddingBottom="5dp"
-                        android:paddingLeft="6dp"
+                        android:paddingStart="6dp"
                         android:text="Postcode"
                         android:textAllCaps="true"
                         android:textSize="9sp" />
 
                     <EditText
-
                         android:id="@+id/etShippingPostcode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -641,13 +623,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="25dp"
                         android:paddingBottom="5dp"
-                        android:paddingLeft="6dp"
+                        android:paddingStart="6dp"
                         android:text="Country"
                         android:textAllCaps="true"
                         android:textSize="9sp" />
 
                     <EditText
-
                         android:id="@+id/etShippingCountry"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

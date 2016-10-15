@@ -8,14 +8,11 @@
     android:background="#ffffff"
     tools:context="com.pands.dev.pands.ProductViewer">
 
-    <!--<include layout="@layout/menubar" />-->
     <!--<FrameLayout-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content">-->
     <!--<include layout="@layout/main_menu_slider_left"/>-->
     <!--</FrameLayout>-->
-
-
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -25,7 +22,8 @@
         <com.pands.dev.pands.menubar.MenuFunctions
             android:id="@+id/activity_actionbar"
             android:layout_width="match_parent"
-            android:layout_height="80dp"/>
+            android:layout_height="80dp"
+            tools:context=""/>
 
         <FrameLayout
             android:id="@+id/container"
@@ -36,12 +34,6 @@
             tools:ignore="MergeRootFrame" />
 
     </RelativeLayout>
-
-
-
-
-
-
 
     <ScrollView
         android:layout_width="match_parent"
@@ -70,19 +62,25 @@
                 <!--android:elevation="-1dp"-->
                 <!--android:visibility="gone" />-->
 
+            <LinearLayout
+                android:id="@+id/llImageContainerBottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:layout_marginTop="65dp"
+                android:orientation="vertical"/>
+
         <ImageView
             android:id="@+id/ivProductFeaturedSrc"
             android:contentDescription="@string/app_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:scaleType="centerCrop"
+            android:scaleType="centerInside"
             android:background="#ffffff"
             android:layout_marginTop="65dp"
+            android:visibility="gone"
             />
-
-
-
 
             <TextView
                 android:id="@+id/tvProductTitle"
@@ -108,7 +106,7 @@
                     android:id="@+id/tvProductSalePrice"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
                     android:background="@drawable/outlined_circle"
                     android:gravity="center"
                     android:text="#100"
@@ -120,7 +118,7 @@
                 android:id="@+id/tvProductPrice"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:background="@drawable/rounded_price_button"
                 android:gravity="center"
                 android:text="#100"
@@ -131,7 +129,7 @@
                     android:id="@+id/tvInvisibleSpacer"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:background="@drawable/rounded_price_button"
                     android:gravity="center"
                     android:text="#100"
@@ -253,6 +251,7 @@
                 android:layout_marginRight="20dp"
                 android:text="Image List"
                 android:textColor="#000000" />
+
 
             <include layout="@layout/footer"/>
 

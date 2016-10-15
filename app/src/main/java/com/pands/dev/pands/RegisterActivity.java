@@ -59,8 +59,8 @@ public class RegisterActivity extends Activity {
         setContentView(R.layout.activity_register);
 
 
-        final Typeface RalewayLight = Typeface.createFromAsset(getAssets(), "Raleway-Regular.ttf");
-        final Typeface RalewayBold = Typeface.createFromAsset(getAssets(), "Raleway-Bold.ttf");
+        final Typeface RalewayLight = Typeface.createFromAsset(getAssets(), "Raleway-Regular.otf");
+        final Typeface RalewayBold = Typeface.createFromAsset(getAssets(), "Raleway-Bold.otf");
         final Typeface PlayFairDisplayItalic = Typeface.createFromAsset(getAssets(), "PlayfairDisplay-Regular.otf");
 
         tvRegisterHeaderText = (TextView) findViewById(R.id.tvRegisterHeaderText);

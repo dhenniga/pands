@@ -2,9 +2,12 @@ package com.pands.dev.pands;
 
 import android.app.ProgressDialog;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -14,7 +17,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Gallery;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pands.dev.pands.product.ProductAdapter;
@@ -24,6 +29,9 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 
 public class ProductViewer extends AppCompatActivity {
@@ -44,7 +52,6 @@ public class ProductViewer extends AppCompatActivity {
     private AppCompatActivity activity = ProductViewer.this;
     private List<ProductValue> productList;
     private RecyclerView rvProductGallery;
-    public int numberOfColumns;
 
 
     @Override
@@ -55,12 +62,15 @@ public class ProductViewer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_viewer);
 
+
+
+
         Log.i(TAG, "start");
 
         Bundle extras = getIntent().getExtras();
 
-        final Typeface RalewayExtraLight = Typeface.createFromAsset(activity.getAssets(), "Raleway-ExtraLight.ttf");
-        final Typeface RalewayBold = Typeface.createFromAsset(activity.getAssets(), "Raleway-Bold.ttf");
+        final Typeface RalewayExtraLight = Typeface.createFromAsset(activity.getAssets(), "Raleway-ExtraLight.otf");
+        final Typeface RalewayBold = Typeface.createFromAsset(activity.getAssets(), "Raleway-Bold.otf");
         final Typeface PlayFairDisplayItalic = Typeface.createFromAsset(activity.getAssets(), "PlayfairDisplay-Italic.otf");
 
         TextView tvProductTitle = (TextView) findViewById(R.id.tvProductTitle);
@@ -97,6 +107,7 @@ public class ProductViewer extends AppCompatActivity {
 
         TextView tvInvisibleSpacer = (TextView) findViewById(R.id.tvInvisibleSpacer);
 
+
         if (extras != null) {
 
             Log.d("DEXTRA_FEATURED_SRC", extras.getString(EXTRA_FEATURED_SRC));
@@ -129,7 +140,24 @@ public class ProductViewer extends AppCompatActivity {
                 tvProductTags.setText(extras.getString(EXTRA_TAGS));
             } else { tvProductTags.setVisibility(View.GONE); tvProductTagsHeader.setVisibility(View.GONE);}
 
-            tvProductImages.setText(extras.getString(EXTRA_IMAGES));
+//            tvProductImages.setText(extras.getString(EXTRA_IMAGES));
+
+//            List<String> items = Arrays.asList(extras.getString(EXTRA_IMAGES).split("\\s*,\\s*"));
+
+
+            LinearLayout layout = (LinearLayout)findViewById(R.id.llImageContainerBottom);
+            String[] items = extras.getString(EXTRA_IMAGES).split(",");
+
+            for (final String item : items)
+            {
+                ImageView iv = new ImageView(this);
+                Picasso.with(this).load(item).into(iv);
+                layout.addView(iv);
+
+            }
+
+
+
 
             boolean boolean2 = extras.getBoolean(EXTRA_ON_SALE);
 
@@ -138,8 +166,8 @@ public class ProductViewer extends AppCompatActivity {
                 tvProductSalePrice.setVisibility(View.VISIBLE);
                 tvInvisibleSpacer.setVisibility(View.INVISIBLE);
                 tvProductSalePrice.setText("€" + extras.getInt(EXTRA_ON_SALE_PRICE));
-//            tvProductPrice.setBackground(getResources().getDrawable(R.drawable.rounded_sale_price_button));
-//                tvProductSalePrice.setPaintFlags(tvProductSalePrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                tvProductSalePrice.setPaintFlags(tvProductSalePrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
             }
 
 
@@ -165,30 +193,30 @@ public class ProductViewer extends AppCompatActivity {
 
 
 
-    class JSONAsync extends AsyncTask<Void, Void, Void> {
-        ProgressDialog pd;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pd = ProgressDialog.show(ProductViewer.this, null, "Loading Product...", true, false);
-        }
-
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            JSONObject jsonObject = new JSONHelper().getJSONFromUrl();
-            productList = new ProductParser().parse(jsonObject);
-            return null;
-        }
-
-
-        @Override
-        protected void onPostExecute (Void result){
-            ProductAdapter productAdapter = new ProductAdapter(getApplicationContext(), productList);
-            rvProductGallery.setAdapter(productAdapter);
-            rvProductGallery.setSelected(false);
-            pd.dismiss();
-        }
-    }
+//    class JSONAsync extends AsyncTask<Void, Void, Void> {
+//        ProgressDialog pd;
+//
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            pd = ProgressDialog.show(ProductViewer.this, null, "Loading Product...", true, false);
+//        }
+//
+//
+//        @Override
+//        protected Void doInBackground(Void... params) {
+//            JSONObject jsonObject = new JSONHelper().getJSONFromUrl();
+//            productList = new ProductParser().parse(jsonObject);
+//            return null;
+//        }
+//
+//
+//        @Override
+//        protected void onPostExecute (Void result){
+//            ProductAdapter productAdapter = new ProductAdapter(getApplicationContext(), productList);
+//            rvProductGallery.setAdapter(productAdapter);
+//            rvProductGallery.setSelected(false);
+//            pd.dismiss();
+//        }
+//    }
 }

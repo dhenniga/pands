@@ -36,7 +36,7 @@ import java.net.URL;
 
 public class LoginActivity extends AppCompatActivity {
 
-    String userName, password, LOGIN_STATUS, NONCE_RETUR, tempAuthError;
+    String userName, password, LOGIN_STATUS, tempAuthError;
     EditText etLoginUsername, etLoginPassword;
     Button btnLogin, btnRegister;
 //    SessionManager session;
@@ -72,8 +72,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-        final Typeface RalewayLight = Typeface.createFromAsset(getAssets(), "Raleway-Regular.ttf");
-        final Typeface RalewayBold = Typeface.createFromAsset(getAssets(), "Raleway-Bold.ttf");
+        final Typeface RalewayLight = Typeface.createFromAsset(getAssets(), "Raleway-Regular.otf");
+        final Typeface RalewayBold = Typeface.createFromAsset(getAssets(), "Raleway-Bold.otf");
         final Typeface PlayFairDisplayItalic = Typeface.createFromAsset(getAssets(), "PlayfairDisplay-Regular.otf");
 
         etLoginUsername = (EditText) findViewById(R.id.etLoginUsername);
@@ -109,17 +109,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-//    public void AddData() {
-//        btnLogin.setOnClickListener(
-//                new View.OnClickListener() {
-//
-//                    @Override
-//                    public void onClick(View v) {
-//                        myDb.insertData()
-//                    }
-//                }
-//        );
-//    }
+
 
 
     /**
@@ -143,12 +133,6 @@ public class LoginActivity extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
 
             try {
-//
-//                https://www.primpandstyle.com/wc-api/v3/customers/55?consumer_key=ck_962b3c0e86f61ebef52ddb90f5721dcc5d2c5fc8&consumer_secret=cs_fe0ba2a0f443603553f9e30b0112644d03ff22ac
-
-//                https://www.primpandstyle.com/api/auth/get_currentuserinfo/?cookie=dd|1476962779|AETWuwOphWyaHXrS8BpkouflfOH3EUy2K9OWoy0yHZX|3d996039bf6fb42dbe3570cd923a17e80b24ab868b763debd7f90016506e3a4c
-//
-//                https://www.primpandstyle.com/wc-api/v3/customers/55?consumer_key=ck_962b3c0e86f61ebef52ddb90f5721dcc5d2c5fc8&consumer_secret=cs_fe0ba2a0f443603553f9e30b0112644d03ff22ac
 
                 URL urlValidate = new URL("https://www.primpandstyle.com/api/auth/generate_auth_cookie/?username=" + userName + "&password=" + password);
                 HttpURLConnection request = (HttpURLConnection) urlValidate.openConnection();
@@ -176,7 +160,7 @@ public class LoginActivity extends AppCompatActivity {
                     requestDetails.connect();
 
                     JsonParser jpDetails = new JsonParser();
-                    JsonElement rootDetails = jpDetails.parse(new InputStreamReader((InputStream) requestDetails.getContent())); //Convert the input stream to a json element
+                    JsonElement rootDetails = jpDetails.parse(new InputStreamReader((InputStream) requestDetails.getContent()));
                     JsonObject rootobjDetails = rootDetails.getAsJsonObject();
                     JsonObject customerDetails = rootobjDetails.getAsJsonObject("customer");
                     JsonObject CustomerBillingAddressDetails = customerDetails.getAsJsonObject("billing_address");

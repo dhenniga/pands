@@ -187,9 +187,9 @@ public class ProductParser {
                 {
                     JSONObject json_obj = imagesArray.getJSONObject(j);
                     String name = json_obj.getString("src");
-                    imageList.add(name + "\n\n");
+                    imageList.add(name);
                 }
-                String imagesProcessed = imageList.toString().replaceAll("\\[", "").replaceAll("\\]","").replaceAll(",","");
+                String imagesProcessed = imageList.toString().replaceAll("\\[", "").replaceAll("\\]","");
                 productValue.setImages(imagesProcessed);
 
 

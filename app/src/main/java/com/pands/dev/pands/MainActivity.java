@@ -34,7 +34,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_FEATURED_SRC = "EXTRA_FEATURED_SRC";
     public static final String EXTRA_SHORT_DESCRIPTION = "EXTRA_SHORT_DESCRIPTION";
@@ -79,23 +79,10 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         App.getBus().unregister(this);
     }
 
-//    @Subscribe
-//    public void OnSideNavMenu(SideNavMenu sideNavMenu) {}
-//
-//    @Subscribe
-//    public void OnSearchMenu(SearchMenu searchMenu) {}
-//
-//    @Subscribe
-//    public void OnUserProfileMenu(UserProfileMenu userProfileMenu) {}
-//
-//    @Subscribe
-//    public void OnCartMenu(CartMenu cartMenu) {}
-
-
 
     private void initViews() {
 
-        numberOfColumns = 1;
+        numberOfColumns = 2;
         rvProducts = (RecyclerView) findViewById(R.id.rvProducts);
         rvProducts.setLayoutManager(new GridLayoutManager(getApplicationContext(), numberOfColumns, GridLayoutManager.VERTICAL, false));
 
@@ -133,31 +120,6 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     @Override
     protected void onResume() {
         super.onResume();
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
 

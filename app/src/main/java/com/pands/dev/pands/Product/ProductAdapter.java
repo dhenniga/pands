@@ -62,8 +62,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         productView = inflater.inflate(R.layout.list_item_post, parent, false);
         final ViewHolder viewHolder = new ViewHolder(productView);
 
-        final Typeface RalewayExtraLight = Typeface.createFromAsset(mContext.getAssets(), "Raleway-ExtraLight.ttf");
-        final Typeface RalewayMedium = Typeface.createFromAsset(mContext.getAssets(), "Raleway-Medium.ttf");
+        final Typeface RalewayExtraLight = Typeface.createFromAsset(mContext.getAssets(), "Raleway-ExtraLight.otf");
+        final Typeface RalewayMedium = Typeface.createFromAsset(mContext.getAssets(), "Raleway-Medium.otf");
         final Typeface PlayFairDisplayItalic = Typeface.createFromAsset(mContext.getAssets(), "PlayfairDisplay-Italic.otf");
 
         viewHolder.tvTitle.setTypeface(PlayFairDisplayItalic);
@@ -96,7 +96,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.tvTitleColTwo.setText(currentPost.getTitle());
 
         String imageURL = currentPost.getFeatured_src();
-        Picasso.with(mContext).load(imageURL).into(holder.ivProduct);
+        Picasso.with(mContext).load(imageURL).resize(500, 500).centerInside().into(holder.ivProduct);
 
     }
 
