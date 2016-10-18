@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -45,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_IMAGES = "EXTRA_IMAGES";
     public static final String EXTRA_ON_SALE = "EXTRA_ON_SALE";
     public static final String EXTRA_ON_SALE_PRICE = "EXTRA_ON_SALE_PRICE";
+    public static final String EXTRA_STOCK_QUANTITY = "EXTRA_STOCK_QUANTITY";
 
     private AppCompatActivity activity = MainActivity.this;
     private List<ProductValue> productList;
@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra(EXTRA_IMAGES, productList.get(position).getImages());
                     intent.putExtra(EXTRA_ON_SALE, productList.get(position).getOn_sale());
                     intent.putExtra(EXTRA_ON_SALE_PRICE, productList.get(position).getSale_price());
+                    intent.putExtra(EXTRA_STOCK_QUANTITY, productList.get(position).getStock_quantity());
 
                     startActivity(intent);
 

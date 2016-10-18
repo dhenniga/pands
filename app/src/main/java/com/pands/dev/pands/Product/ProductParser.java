@@ -147,6 +147,10 @@ public class ProductParser {
                 Log.i("sale_price", ((String.valueOf(sale_price))));
                 productValue.setSale_price(sale_price);
 
+                int stock_quantity = posts.getInt("stock_quantity");
+                Log.i("stock_quantity", ((String.valueOf(stock_quantity))));
+                productValue.setStock_quantity(stock_quantity);
+
                 String featured_src = posts.getString("featured_src");
                 productValue.setFeatured_src(featured_src);
 
@@ -155,8 +159,6 @@ public class ProductParser {
 
                 Boolean on_sale = posts.getBoolean("on_sale");
                 productValue.setOn_sale(on_sale);
-
-
 
                 JSONArray categoriesArray = posts.getJSONArray("categories");
                 ArrayList<String> categoriesList = new ArrayList<String>();

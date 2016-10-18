@@ -1,37 +1,27 @@
 package com.pands.dev.pands;
 
-import android.app.ProgressDialog;
 import android.content.pm.ActivityInfo;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.os.AsyncTask;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.pands.dev.pands.product.ProductAdapter;
-import com.pands.dev.pands.product.ProductParser;
 import com.pands.dev.pands.product.ProductValue;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.Arrays;
 import java.util.List;
 
 public class ProductViewer extends AppCompatActivity {
@@ -47,11 +37,16 @@ public class ProductViewer extends AppCompatActivity {
     private String EXTRA_IMAGES = "EXTRA_IMAGES";
     private String EXTRA_ON_SALE = "EXTRA_ON_SALE";
     private String EXTRA_ON_SALE_PRICE = "EXTRA_ON_SALE_PRICE";
+    private String EXTRA_STOCK_QUANTITY = "EXTRA_STOCK_QUANTITY";
 
 
     private AppCompatActivity activity = ProductViewer.this;
     private List<ProductValue> productList;
     private RecyclerView rvProductGallery;
+    private ViewPager viewPager;
+    private PagerAdapter adapter;
+
+    private ImageView iv;
 
 
     @Override
@@ -93,6 +88,9 @@ public class ProductViewer extends AppCompatActivity {
         TextView tvProductTagsHeader = (TextView) findViewById(R.id.tvProductTagsHeader);
         tvProductTagsHeader.setTypeface(RalewayBold);
 
+        TextView tvStockQuantity = (TextView) findViewById(R.id.tvStockQuantity);
+        tvStockQuantity.setTypeface(RalewayBold);
+
         TextView tvProductTags = (TextView) findViewById(R.id.tvProductTags);
         tvProductTags.setTypeface(RalewayExtraLight);
 
@@ -119,6 +117,7 @@ public class ProductViewer extends AppCompatActivity {
             Log.d("DEXTRA_IMAGES", extras.getString(EXTRA_IMAGES));
             Log.d("DEXTRA_ON_SALE", ((String.valueOf(extras.getBoolean(EXTRA_ON_SALE)))));
             Log.d("DEXTRA_ON_SALE_PRICE", ((String.valueOf(extras.getInt(EXTRA_ON_SALE_PRICE)))));
+            Log.d("DEXTRA_STOCK_QUANTITY", ((String.valueOf(extras.getInt(EXTRA_STOCK_QUANTITY)))));
 
             tvProductTitle.setText(extras.getString(EXTRA_TITLE));
 
@@ -140,23 +139,28 @@ public class ProductViewer extends AppCompatActivity {
                 tvProductTags.setText(extras.getString(EXTRA_TAGS));
             } else { tvProductTags.setVisibility(View.GONE); tvProductTagsHeader.setVisibility(View.GONE);}
 
-//            tvProductImages.setText(extras.getString(EXTRA_IMAGES));
+            tvStockQuantity.setText(((String.valueOf(extras.getInt(EXTRA_STOCK_QUANTITY)))));
 
-//            List<String> items = Arrays.asList(extras.getString(EXTRA_IMAGES).split("\\s*,\\s*"));
+
+            tvProductImages.setText(extras.getString(EXTRA_IMAGES));
 
 
             LinearLayout layout = (LinearLayout)findViewById(R.id.llImageContainerBottom);
-            String[] items = extras.getString(EXTRA_IMAGES).split(",");
+            layout.setOrientation(LinearLayout.HORIZONTAL);
+            String[] items = extras.getString(EXTRA_IMAGES).split(", ");
 
-            for (final String item : items)
+            DisplayMetrics metrics = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+            for (String item : items)
             {
-                ImageView iv = new ImageView(this);
-                Picasso.with(this).load(item).into(iv);
+                iv = new ImageView(this);
+                iv.setMinimumWidth(metrics.widthPixels); iv.setMaxWidth(metrics.widthPixels);
+                iv.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                Picasso.with(this).load(item).resize(metrics.widthPixels, metrics.widthPixels).centerInside().into(iv);
                 layout.addView(iv);
 
             }
-
-
 
 
             boolean boolean2 = extras.getBoolean(EXTRA_ON_SALE);
@@ -169,17 +173,18 @@ public class ProductViewer extends AppCompatActivity {
                 tvProductSalePrice.setPaintFlags(tvProductSalePrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
             }
-
-
-
         }
-
-//        new JSONAsync.execute();
-
     }
 
+    /**
+     *
+     * @param html
+     * @return
+     */
     public String stripHtml(String html) {
+
         return Html.fromHtml(html).toString();
+
     }
 
 
@@ -188,35 +193,8 @@ public class ProductViewer extends AppCompatActivity {
      */
     @Override
     protected void onResume() {
+
         super.onResume();
     }
 
-
-
-//    class JSONAsync extends AsyncTask<Void, Void, Void> {
-//        ProgressDialog pd;
-//
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//            pd = ProgressDialog.show(ProductViewer.this, null, "Loading Product...", true, false);
-//        }
-//
-//
-//        @Override
-//        protected Void doInBackground(Void... params) {
-//            JSONObject jsonObject = new JSONHelper().getJSONFromUrl();
-//            productList = new ProductParser().parse(jsonObject);
-//            return null;
-//        }
-//
-//
-//        @Override
-//        protected void onPostExecute (Void result){
-//            ProductAdapter productAdapter = new ProductAdapter(getApplicationContext(), productList);
-//            rvProductGallery.setAdapter(productAdapter);
-//            rvProductGallery.setSelected(false);
-//            pd.dismiss();
-//        }
-//    }
 }

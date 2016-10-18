@@ -54,21 +54,21 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"/>
 
-            <!--<android.support.v7.widget.RecyclerView-->
-                <!--android:id="@+id/rvProductGallery"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:background="#ffffff"-->
-                <!--android:elevation="-1dp"-->
-                <!--android:visibility="gone" />-->
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp">
 
             <LinearLayout
                 android:id="@+id/llImageContainerBottom"
                 android:layout_width="match_parent"
+                android:layout_gravity="bottom"
+                android:gravity="bottom"
                 android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:layout_marginTop="65dp"
                 android:orientation="vertical"/>
+
+            </HorizontalScrollView>
+
 
         <ImageView
             android:id="@+id/ivProductFeaturedSrc"
@@ -151,6 +151,13 @@
                 android:textSize="14sp"
                 android:text="Product_Short_Description"
                 android:textColor="#000000" />
+
+            <TextView
+                android:id="@+id/tvStockQuantity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Stock Quantity"
+                android:gravity="center_horizontal"/>
 
             <Button
                 android:layout_width="50dp"
