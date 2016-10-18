@@ -65,6 +65,7 @@ public class ProductViewer extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
 
         final Typeface RalewayExtraLight = Typeface.createFromAsset(activity.getAssets(), "Raleway-ExtraLight.otf");
+        final Typeface RalewayRegular = Typeface.createFromAsset(activity.getAssets(), "Raleway-Regular.otf");
         final Typeface RalewayBold = Typeface.createFromAsset(activity.getAssets(), "Raleway-Bold.otf");
         final Typeface PlayFairDisplayItalic = Typeface.createFromAsset(activity.getAssets(), "PlayfairDisplay-Italic.otf");
 
@@ -89,7 +90,7 @@ public class ProductViewer extends AppCompatActivity {
         tvProductTagsHeader.setTypeface(RalewayBold);
 
         TextView tvStockQuantity = (TextView) findViewById(R.id.tvStockQuantity);
-        tvStockQuantity.setTypeface(RalewayBold);
+        tvStockQuantity.setTypeface(RalewayExtraLight);
 
         TextView tvProductTags = (TextView) findViewById(R.id.tvProductTags);
         tvProductTags.setTypeface(RalewayExtraLight);
@@ -139,8 +140,9 @@ public class ProductViewer extends AppCompatActivity {
                 tvProductTags.setText(extras.getString(EXTRA_TAGS));
             } else { tvProductTags.setVisibility(View.GONE); tvProductTagsHeader.setVisibility(View.GONE);}
 
-            tvStockQuantity.setText(((String.valueOf(extras.getInt(EXTRA_STOCK_QUANTITY)))));
 
+
+            tvStockQuantity.setText(((String.valueOf(extras.getInt(EXTRA_STOCK_QUANTITY)))));
 
             tvProductImages.setText(extras.getString(EXTRA_IMAGES));
 
