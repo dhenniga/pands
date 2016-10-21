@@ -48,7 +48,7 @@ public class ProductParser {
 //                String sku = posts.getString("sku");
 //                int price = posts.getInt("price");
 //                int regular_price = posts.getInt("regular_price");
-////                int sale_price = posts.getInt("sale_price");
+//                int sale_price = posts.getInt("sale_price");
 //                String price_html = posts.getString("price_html");
 //                Boolean taxable = posts.getBoolean("taxable");
 //                String tax_status = posts.getString("tax_status");
@@ -143,13 +143,19 @@ public class ProductParser {
                 Log.i("price", ((String.valueOf(price))));
                 productValue.setPrice(price);
 
-                int sale_price = posts.getInt("regular_price");
-                Log.i("sale_price", ((String.valueOf(sale_price))));
-                productValue.setSale_price(sale_price);
+                if (posts.getBoolean("on_sale")) {
+                    int sale_price = posts.getInt("regular_price");
+                    Log.i("sale_price", ((String.valueOf(sale_price))));
+                    productValue.setSale_price(sale_price);
+                }
 
                 int stock_quantity = posts.getInt("stock_quantity");
                 Log.i("stock_quantity", ((String.valueOf(stock_quantity))));
                 productValue.setStock_quantity(stock_quantity);
+
+                Boolean visible = posts.getBoolean("visible");
+                Log.i("visible", ((String.valueOf(visible))));
+                productValue.setVisible(visible);
 
                 String featured_src = posts.getString("featured_src");
                 productValue.setFeatured_src(featured_src);
@@ -195,7 +201,7 @@ public class ProductParser {
                 productValue.setImages(imagesProcessed);
 
 
-                if (posts.getInt("stock_quantity") != 0) {
+                if (posts.getBoolean("visible") != false) {
                     postList.add(productValue);
                 }
 

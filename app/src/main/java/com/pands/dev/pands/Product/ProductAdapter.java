@@ -3,6 +3,7 @@ package com.pands.dev.pands.product;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,12 +37,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvPrice, tvTitle, tvPriceColTwo,tvTitleColTwo;
-        LinearLayout fragment_container;
+        LinearLayout fragment_container, llProductDetailsContainer;
         RelativeLayout rlProductColTwoGalleryView;
         ImageView ivProduct;
 
         public ViewHolder(View itemView) {
             super(itemView);
+
+            llProductDetailsContainer = (LinearLayout) itemView.findViewById(R.id.llProductDetailsContainer);
+
             tvPrice = (TextView) itemView.findViewById(R.id.tvPrice);
             tvPriceColTwo = (TextView) itemView.findViewById(R.id.tvPriceColTwo);
 
@@ -95,8 +99,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.tvPriceColTwo.setText("€" + ((String.valueOf(currentPost.getPrice()))));
         holder.tvTitleColTwo.setText(currentPost.getTitle());
 
+        if (currentPost.getStock_quantity() == 0){
+            holder.llProductDetailsContainer.setAlpha(0.3f);
+        }
+
+
         String imageURL = currentPost.getFeatured_src();
-        Picasso.with(mContext).load(imageURL).resize(500, 500).centerInside().into(holder.ivProduct);
+        DisplayMetrics displayMetrics = mContext.getResources().getDisplayMetrics();
+        Picasso.with(mContext).load(imageURL).resize(displayMetrics.widthPixels/2, displayMetrics.widthPixels/2).centerInside().into(holder.ivProduct);
 
     }
 

@@ -8,11 +8,13 @@
         >
 
     <LinearLayout
+        android:id="@+id/llProductDetailsContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_gravity="bottom">
 
-    <ImageView
+        <ImageView
         android:id="@+id/ivProduct"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,11 +28,8 @@
             android:id="@+id/rlProductColTwoGalleryView"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:orientation="horizontal"
-            android:layout_gravity="center_vertical"
-            android:gravity="center_vertical"
             android:layout_marginBottom="50dp"
-            android:visibility="gone"
+            android:visibility="visible"
             >
 
             <TextView

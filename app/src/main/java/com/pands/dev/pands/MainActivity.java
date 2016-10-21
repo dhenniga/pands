@@ -4,33 +4,20 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-
 import com.pands.dev.pands.listener.RecyclerClickListener;
 import com.pands.dev.pands.listener.RecyclerTouchListener;
-import com.pands.dev.pands.menubar.CartMenu;
-import com.pands.dev.pands.menubar.SearchMenu;
-import com.pands.dev.pands.menubar.SideNavMenu;
-import com.pands.dev.pands.menubar.UserProfileMenu;
 import com.pands.dev.pands.product.ProductAdapter;
 import com.pands.dev.pands.product.ProductParser;
 import com.pands.dev.pands.product.ProductValue;
-import com.squareup.otto.Subscribe;
-
 import org.json.JSONObject;
-
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_ON_SALE = "EXTRA_ON_SALE";
     public static final String EXTRA_ON_SALE_PRICE = "EXTRA_ON_SALE_PRICE";
     public static final String EXTRA_STOCK_QUANTITY = "EXTRA_STOCK_QUANTITY";
+    public static final String EXTRA_VISIBLE = "EXTRA_VISIBLE";
 
     private AppCompatActivity activity = MainActivity.this;
     private List<ProductValue> productList;
@@ -106,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra(EXTRA_ON_SALE, productList.get(position).getOn_sale());
                     intent.putExtra(EXTRA_ON_SALE_PRICE, productList.get(position).getSale_price());
                     intent.putExtra(EXTRA_STOCK_QUANTITY, productList.get(position).getStock_quantity());
+                    intent.putExtra(EXTRA_VISIBLE, productList.get(position).getVisible());
 
                     startActivity(intent);
 

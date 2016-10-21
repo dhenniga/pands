@@ -1,7 +1,7 @@
 package com.pands.dev.pands;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.support.v4.view.PagerAdapter;
@@ -15,38 +15,33 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.pands.dev.pands.product.ProductValue;
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
 public class ProductViewer extends AppCompatActivity {
 
     private static final String TAG = ProductViewer.class.getSimpleName();
 
-    private String EXTRA_FEATURED_SRC = "EXTRA_FEATURED_SRC";
-    private String EXTRA_SHORT_DESCRIPTION = "EXTRA_SHORT_DESCRIPTION";
-    private String EXTRA_TITLE = "EXTRA_TITLE";
-    private String EXTRA_PRICE = "EXTRA_PRICE";
-    private String EXTRA_CATEGORIES = "EXTRA_CATEGORIES";
-    private String EXTRA_TAGS = "EXTRA_TAGS";
-    private String EXTRA_IMAGES = "EXTRA_IMAGES";
-    private String EXTRA_ON_SALE = "EXTRA_ON_SALE";
-    private String EXTRA_ON_SALE_PRICE = "EXTRA_ON_SALE_PRICE";
-    private String EXTRA_STOCK_QUANTITY = "EXTRA_STOCK_QUANTITY";
+    String EXTRA_FEATURED_SRC = "EXTRA_FEATURED_SRC";
+    String EXTRA_SHORT_DESCRIPTION = "EXTRA_SHORT_DESCRIPTION";
+    String EXTRA_TITLE = "EXTRA_TITLE";
+    String EXTRA_PRICE = "EXTRA_PRICE";
+    String EXTRA_CATEGORIES = "EXTRA_CATEGORIES";
+    String EXTRA_TAGS = "EXTRA_TAGS";
+    String EXTRA_IMAGES = "EXTRA_IMAGES";
+    String EXTRA_ON_SALE = "EXTRA_ON_SALE";
+    String EXTRA_ON_SALE_PRICE = "EXTRA_ON_SALE_PRICE";
+    String EXTRA_STOCK_QUANTITY = "EXTRA_STOCK_QUANTITY";
+    String EXTRA_VISIBLE = "EXTRA_VISIBLE";
 
 
     private AppCompatActivity activity = ProductViewer.this;
-    private List<ProductValue> productList;
-    private RecyclerView rvProductGallery;
-    private ViewPager viewPager;
-    private PagerAdapter adapter;
-
-    private ImageView iv;
+    ImageView iv;
 
 
     @Override
@@ -62,7 +57,7 @@ public class ProductViewer extends AppCompatActivity {
 
         Log.i(TAG, "start");
 
-        Bundle extras = getIntent().getExtras();
+        final Bundle extras = getIntent().getExtras();
 
         final Typeface RalewayExtraLight = Typeface.createFromAsset(activity.getAssets(), "Raleway-ExtraLight.otf");
         final Typeface RalewayRegular = Typeface.createFromAsset(activity.getAssets(), "Raleway-Regular.otf");
@@ -74,8 +69,6 @@ public class ProductViewer extends AppCompatActivity {
 
         TextView tvProductShortDescription = (TextView) findViewById(R.id.tvProductShortDescription);
         tvProductShortDescription.setTypeface(RalewayExtraLight);
-
-        ImageView ivProductFeaturedSrc = (ImageView) findViewById(R.id.ivProductFeaturedSrc);
 
         TextView tvProductPrice = (TextView) findViewById(R.id.tvProductPrice);
         tvProductPrice.setTypeface(RalewayExtraLight);
@@ -89,17 +82,11 @@ public class ProductViewer extends AppCompatActivity {
         TextView tvProductTagsHeader = (TextView) findViewById(R.id.tvProductTagsHeader);
         tvProductTagsHeader.setTypeface(RalewayBold);
 
-        TextView tvStockQuantity = (TextView) findViewById(R.id.tvStockQuantity);
+        final TextView tvStockQuantity = (TextView) findViewById(R.id.tvStockQuantity);
         tvStockQuantity.setTypeface(RalewayExtraLight);
 
         TextView tvProductTags = (TextView) findViewById(R.id.tvProductTags);
         tvProductTags.setTypeface(RalewayExtraLight);
-
-        TextView tvProductImagesHeader = (TextView) findViewById(R.id.tvProductImagesHeader);
-        tvProductImagesHeader.setTypeface(RalewayBold);
-
-        TextView tvProductImages = (TextView) findViewById(R.id.tvProductImages);
-        tvProductImages.setTypeface(RalewayExtraLight);
 
         TextView tvProductSalePrice = (TextView) findViewById(R.id.tvProductSalePrice);
         tvProductSalePrice.setTypeface(RalewayExtraLight);
@@ -119,10 +106,9 @@ public class ProductViewer extends AppCompatActivity {
             Log.d("DEXTRA_ON_SALE", ((String.valueOf(extras.getBoolean(EXTRA_ON_SALE)))));
             Log.d("DEXTRA_ON_SALE_PRICE", ((String.valueOf(extras.getInt(EXTRA_ON_SALE_PRICE)))));
             Log.d("DEXTRA_STOCK_QUANTITY", ((String.valueOf(extras.getInt(EXTRA_STOCK_QUANTITY)))));
+            Log.d("DEXTRA_STOCK_VISIBLE", ((String.valueOf(extras.getBoolean(EXTRA_VISIBLE)))));
 
             tvProductTitle.setText(extras.getString(EXTRA_TITLE));
-
-            Picasso.with(getApplicationContext()).load(extras.getString(EXTRA_FEATURED_SRC)).into(ivProductFeaturedSrc);
 
             String updated = stripHtml(extras.getString(EXTRA_SHORT_DESCRIPTION));
             tvProductShortDescription.setText(updated);
@@ -142,9 +128,7 @@ public class ProductViewer extends AppCompatActivity {
 
 
 
-            tvStockQuantity.setText(((String.valueOf(extras.getInt(EXTRA_STOCK_QUANTITY)))));
-
-            tvProductImages.setText(extras.getString(EXTRA_IMAGES));
+            tvStockQuantity.setText("1");
 
 
             LinearLayout layout = (LinearLayout)findViewById(R.id.llImageContainerBottom);
@@ -154,6 +138,8 @@ public class ProductViewer extends AppCompatActivity {
             DisplayMetrics metrics = new DisplayMetrics();
             getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
+
+            /**  QUICK IMAGE GALLERY  **/
             for (String item : items)
             {
                 iv = new ImageView(this);
@@ -165,6 +151,7 @@ public class ProductViewer extends AppCompatActivity {
             }
 
 
+            /**  PRODUCT ON SALE  **/
             boolean boolean2 = extras.getBoolean(EXTRA_ON_SALE);
 
             if (boolean2 != false) {
@@ -176,7 +163,49 @@ public class ProductViewer extends AppCompatActivity {
 
             }
         }
+
+
+        Button btnSubtractStock = ((Button)this.findViewById(R.id.btnSubtractStock));
+        btnSubtractStock.setTypeface(RalewayExtraLight);
+        Button btnAddStock = ((Button)this.findViewById(R.id.btnAddStock));
+        btnAddStock.setTypeface(RalewayExtraLight);
+
+
+        /**
+         *
+         */
+        btnSubtractStock.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+                int val = Integer.parseInt( tvStockQuantity.getText().toString() );
+
+                if (val <= extras.getInt(EXTRA_STOCK_QUANTITY) && val > 1) {
+
+                    Log.d("Button","btnSubtractStock");
+                    val--;
+                    tvStockQuantity.setText(((String.valueOf(val))));
+                }
+            }
+        });
+
+        btnAddStock.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+                int val = Integer.parseInt( tvStockQuantity.getText().toString() );
+
+                if (val < extras.getInt(EXTRA_STOCK_QUANTITY) && val >= 1) {
+
+                    Log.d("Button","btnAddStock");
+                    val++;
+                    tvStockQuantity.setText(((String.valueOf(val))));
+                }
+
+            }
+        });
+
     }
+
+
 
     /**
      *
@@ -188,6 +217,7 @@ public class ProductViewer extends AppCompatActivity {
         return Html.fromHtml(html).toString();
 
     }
+
 
 
     /**

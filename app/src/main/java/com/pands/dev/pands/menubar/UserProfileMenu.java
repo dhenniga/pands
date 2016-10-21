@@ -1,12 +1,10 @@
 package com.pands.dev.pands.menubar;
 
-import android.app.Activity;
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.widget.Toast;
 
-public class UserProfileMenu extends Activity {
+public class UserProfileMenu {
 
     public UserProfileMenu(Context context) {
 

@@ -12,10 +12,6 @@
         android:rotation="0"
         android:content="@+id/content">
 
-        <include
-            android:id="@id/handle"
-            android:rotation="360"
-            layout="@layout/menubar"/>
 
         <LinearLayout
             android:id="@id/content"

@@ -11,6 +11,8 @@ public class SideNavMenu {
         Log.d("Header_menu", "SideNavMenu");
         Toast.makeText(context, "Header_menu: SideBarNav", Toast.LENGTH_SHORT).show();
 
+
+
     }
 
 }
