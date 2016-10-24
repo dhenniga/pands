@@ -1,8 +1,11 @@
 package com.pands.dev.pands;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.database.Cursor;
 import android.graphics.Typeface;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
@@ -11,7 +14,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class UserDetailsActivity extends FragmentActivity{
+import com.pands.dev.pands.helper.DatabaseHelper;
+import com.pands.dev.pands.helper.SQLiteHandler;
+
+public class UserDetailsActivity extends FragmentActivity {
+
+    DatabaseHelper myDb = new DatabaseHelper(this);
 
     ImageView ivCustomerProfileImage;
 
@@ -39,7 +47,6 @@ public class UserDetailsActivity extends FragmentActivity{
         ivCustomerProfileImage = (ImageView) findViewById(R.id.ivCustomerProfileImage);
 
         // CUSTOMER DETAILS
-
         tvCustomerHeader = (TextView) findViewById(R.id.tvCustomerHeader);
         tvCustomerHeader.setTypeface(PlayFairDisplayItalic);
         tvUserFirstName = (TextView) findViewById(R.id.tvUserFirstName);
@@ -62,7 +69,6 @@ public class UserDetailsActivity extends FragmentActivity{
 
 
         // BILLING DETAILS
-
         tvBillingHeader = (TextView) findViewById(R.id.tvBillingHeader);
         tvBillingHeader.setTypeface(PlayFairDisplayItalic);
         tvBillingFirstName = (TextView) findViewById(R.id.tvBillingFirstName);
@@ -114,7 +120,6 @@ public class UserDetailsActivity extends FragmentActivity{
 
 
         // SHIPPING DETAILS
-
         tvShippingHeader = (TextView) findViewById(R.id.tvShippingHeader);
         tvShippingHeader.setTypeface(PlayFairDisplayItalic);
         tvShippingFirstName = (TextView) findViewById(R.id.tvShippingFirstName);
@@ -156,7 +161,52 @@ public class UserDetailsActivity extends FragmentActivity{
         etShippingCountry.setTypeface(RalewayExtraLight);
 
 
-        etUserFirstName.setText("David");
+        viewAll();
 
+    }
+
+
+    public void viewAll() {
+
+        Cursor res = myDb.getAllData();
+
+        if (res.getCount() == 0) {
+
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
+
+        while (res.moveToNext()) {
+            
+            etUserFirstName.setText(res.getString(4));
+            etUserLastName.setText(res.getString(5));
+            etUserName.setText(res.getString(6));
+            etUserEmail.setText(res.getString(3));
+
+            etBillingFirstName.setText(res.getString(11));
+            etBillingLastName.setText(res.getString(12));
+            etBillingCompany.setText(res.getString(13));
+            etBillingAddress1.setText(res.getString(14));
+            etBillingAddress2.setText(res.getString(15));
+            etBillingCity.setText(res.getString(16));
+            etBillingState.setText(res.getString(17));
+            etBillingPostcode.setText(res.getString(18));
+            etBillingCountry.setText(res.getString(19));
+            etBillingEmail.setText(res.getString(20));
+            etBillingPhone.setText(res.getString(21));
+
+            etShippingFirstName.setText(res.getString(22));
+            etShippingLastName.setText(res.getString(23));
+            etShippingCompany.setText(res.getString(24));
+            etShippingAddress1.setText(res.getString(25));
+            etShippingAddress2.setText(res.getString(26));
+            etShippingCity.setText(res.getString(27));
+            etShippingState.setText(res.getString(28));
+            etShippingPostcode.setText(res.getString(29));
+            etShippingCountry.setText(res.getString(30));
+
+        }
     }
 }

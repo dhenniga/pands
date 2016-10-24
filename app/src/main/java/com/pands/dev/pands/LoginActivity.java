@@ -48,12 +48,12 @@ public class LoginActivity extends AppCompatActivity {
 
 
     int customer_id, customer_last_order_id, customer_orders_count;
-    String customer_created_at, customer_last_update, customer_email, customer_first_name, customer_last_name, customer_username, customer_last_order_date, customer_total_spent, customer_avatar_url, billing_first_name, billing_last_name, billing_company, billing_address_1, billing_address_2, billing_city, billing_state, billing_postcode, billing_country, billing_email, billing_phone, shipping_first_name, shipping_last_name, shipping_company, shipping_address_1, shipping_address_2, shipping_city, shipping_state, shipping_postcode, shipping_country;
+    String customer_created_at, customer_last_update, customer_email, customer_first_name, customer_last_name, customer_username, customer_last_order_date, customer_avatar_url, billing_first_name, billing_last_name, billing_company, billing_address_1, billing_address_2, billing_city, billing_state, billing_postcode, billing_country, billing_email, billing_phone, shipping_first_name, shipping_last_name, shipping_company, shipping_address_1, shipping_address_2, shipping_city, shipping_state, shipping_postcode, shipping_country;
+//    String customer_total_spent;
 
 
-
-    private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-    private OkHttpClient client = new OkHttpClient();
+//    private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+//    private OkHttpClient client = new OkHttpClient();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -228,40 +228,6 @@ public class LoginActivity extends AppCompatActivity {
                     String tempCookieName = rootobj.get("cookie_name").getAsString();
                     String cookieAuth = "https://www.primpandstyle.com/api/auth/validate_auth_cookie/?cookie=" + cookie;
 
-                    Log.i("customer_id", ((String.valueOf(customer_id))));
-                    Log.i("customer_created_at", customer_created_at);
-                    Log.i("customer_last_update", customer_last_update);
-                    Log.i("customer_email", customer_email);
-                    Log.i("customer_first_name", customer_first_name);
-                    Log.i("customer_last_name", customer_last_name);
-                    Log.i("customer_username", customer_username);
-                    Log.i("customer_orders_count", ((String.valueOf(customer_orders_count))));
-//                    Log.i("customer_total_spent", customer_total_spent);
-                    Log.i("customer_avatar_url", customer_avatar_url);
-                    Log.i("billing_first_name", billing_first_name);
-                    Log.i("billing_last_name", billing_last_name);
-                    Log.i("billing_company", billing_company);
-                    Log.i("billing_address_1", billing_address_1);
-                    Log.i("billing_address_2", billing_address_2);
-                    Log.i("billing_city", billing_city);
-                    Log.i("billing_state", billing_state);
-                    Log.i("billing_postcode", billing_postcode);
-                    Log.i("billing_country", billing_country);
-                    Log.i("billing_email", billing_email);
-                    Log.i("billing_phone", billing_phone);
-                    Log.i("shipping_first_name", shipping_first_name);
-                    Log.i("shipping_last_name", shipping_last_name);
-                    Log.i("shipping_company", shipping_company);
-                    Log.i("shipping_address_1", shipping_address_1);
-                    Log.i("shipping_address_2", shipping_address_2);
-                    Log.i("shipping_city", shipping_city);
-                    Log.i("shipping_state", shipping_state);
-                    Log.i("shipping_postcode", shipping_postcode);
-                    Log.i("shipping_country", shipping_country);
-                    Log.i("cookie", cookie);
-                    Log.i("cookie_name", tempCookieName);
-                    Log.i("cookieAuth", cookieAuth);
-
                     myDb.insertData(
                             customer_id,
                             customer_created_at,
@@ -297,10 +263,10 @@ public class LoginActivity extends AppCompatActivity {
                             shipping_country
                     );
 
+                    myDb.close();
+
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
-
-
 
                         runOnUiThread(new Runnable() {
                             @Override
