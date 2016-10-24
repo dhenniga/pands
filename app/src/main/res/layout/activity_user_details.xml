@@ -6,12 +6,28 @@
     android:orientation="vertical"
     tools:context="com.pands.dev.pands.UserDetailsActivity">
 
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.pands.dev.pands.menubar.MenuFunctions
+            android:id="@+id/activity_actionbar"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            tools:context=""/>
+
+    </RelativeLayout>
+
+
     <ScrollView
         android:id="@+id/activity_user_details"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#f8f8f8"
         android:elevation="-1dp"
+        android:layout_marginTop="-30dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -57,12 +73,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#ffffff"
-                    android:hint="Enter your First Name"
                     android:padding="6dp"
-                    android:text="David"
                     android:textColor="#000000"
                     android:textColorHint="#44000000"
                     android:textIsSelectable="false"
+                    android:editable="false"
                     android:textSize="14sp" />
 
 
@@ -81,10 +96,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#ffffff"
-                    android:inputType="none"
                     android:padding="6dp"
-                    android:text="Hennigan"
                     android:textIsSelectable="false"
+                    android:editable="false"
                     android:textSize="14sp" />
 
                 <TextView
@@ -103,10 +117,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#ffffff"
-                    android:inputType="none"
                     android:padding="6dp"
-                    android:text="davidhennigan"
                     android:textIsSelectable="false"
+                    android:editable="false"
                     android:textSize="14sp" />
 
 
@@ -126,9 +139,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#ffffff"
-                    android:inputType="none"
                     android:padding="6dp"
-                    android:text="dhenniga@gmail.com"
+                    android:editable="false"
                     android:textIsSelectable="false"
                     android:textSize="14sp" />
 
@@ -176,10 +188,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#ffffff"
-                        android:hint="Enter your First Name"
                         android:inputType="none"
                         android:padding="6dp"
-                        android:text="David"
                         android:textColor="#000000"
                         android:textColorHint="#44000000"
                         android:textIsSelectable="false"
@@ -204,7 +214,6 @@
                         android:background="#ffffff"
                         android:inputType="none"
                         android:padding="6dp"
-                        android:text="Hennigan"
                         android:textIsSelectable="false"
                         android:textSize="12sp" />
 
@@ -226,7 +235,6 @@
                         android:background="#ffffff"
                         android:inputType="none"
                         android:padding="6dp"
-                        android:text="Fluid Motion Productions"
                         android:textIsSelectable="false"
                         android:textSize="12sp" />
 
@@ -249,7 +257,6 @@
                         android:background="#ffffff"
                         android:inputType="none"
                         android:padding="6dp"
-                        android:text="25 Stocking Wood Drive"
                         android:textIsSelectable="false"
                         android:textSize="12sp" />
 
@@ -271,7 +278,6 @@
                         android:background="#ffffff"
                         android:inputType="none"
                         android:padding="6dp"
-                        android:text="Rathfarnham"
                         android:textIsSelectable="false"
                         android:textSize="12sp" />
 
@@ -294,7 +300,6 @@
                         android:background="#ffffff"
                         android:inputType="none"
                         android:padding="6dp"
-                        android:text="Dublin"
                         android:textIsSelectable="false"
                         android:textSize="12sp" />
 
@@ -316,7 +321,6 @@
                         android:background="#ffffff"
                         android:inputType="none"
                         android:padding="6dp"
-                        android:text="Leinster"
                         android:textIsSelectable="false"
                         android:textSize="12sp" />
 
@@ -339,7 +343,6 @@
                         android:background="#ffffff"
                         android:inputType="none"
                         android:padding="6dp"
-                        android:text="D1 X634"
                         android:textIsSelectable="false"
                         android:textSize="12sp" />
 
@@ -362,7 +365,6 @@
                         android:background="#ffffff"
                         android:inputType="none"
                         android:padding="6dp"
-                        android:text="Ireland"
                         android:textIsSelectable="false"
                         android:textSize="12sp" />
 
@@ -383,9 +385,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#ffffff"
-                        android:inputType="none"
+                        android:inputType="textEmailAddress"
                         android:padding="6dp"
-                        android:text="david@fluidmotion.ie"
                         android:textIsSelectable="false"
                         android:textSize="12sp" />
 
@@ -406,9 +407,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#ffffff"
-                        android:inputType="none"
+                        android:inputType="phone"
                         android:padding="6dp"
-                        android:text="0868414541"
                         android:textIsSelectable="false"
                         android:textSize="12sp" />
 
@@ -449,10 +449,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#ffffff"
-                        android:hint="Enter your First Name"
                         android:inputType="none"
                         android:padding="6dp"
-                        android:text="David"
                         android:textColor="#000000"
                         android:textColorHint="#44000000"
                         android:textIsSelectable="false"
@@ -477,7 +475,6 @@
                         android:background="#ffffff"
                         android:inputType="none"
                         android:padding="6dp"
-                        android:text="Hennigan"
                         android:textIsSelectable="false"
                         android:textSize="12sp" />
 
@@ -499,7 +496,6 @@
                         android:background="#ffffff"
                         android:inputType="none"
                         android:padding="6dp"
-                        android:text="Fluid Motion Productions"
                         android:textIsSelectable="false"
                         android:textSize="12sp" />
 
@@ -522,7 +518,6 @@
                         android:background="#ffffff"
                         android:inputType="none"
                         android:padding="6dp"
-                        android:text="25 Stocking Wood Drive"
                         android:textIsSelectable="false"
                         android:textSize="12sp" />
 
@@ -544,7 +539,6 @@
                         android:background="#ffffff"
                         android:inputType="none"
                         android:padding="6dp"
-                        android:text="Rathfarnham"
                         android:textIsSelectable="false"
                         android:textSize="12sp" />
 
@@ -567,7 +561,6 @@
                         android:background="#ffffff"
                         android:inputType="none"
                         android:padding="6dp"
-                        android:text="Dublin"
                         android:textIsSelectable="false"
                         android:textSize="12sp" />
 
@@ -589,7 +582,6 @@
                         android:background="#ffffff"
                         android:inputType="none"
                         android:padding="6dp"
-                        android:text="Leinster"
                         android:textIsSelectable="false"
                         android:textSize="12sp" />
 
@@ -612,7 +604,6 @@
                         android:background="#ffffff"
                         android:inputType="none"
                         android:padding="6dp"
-                        android:text="D16 X634"
                         android:textIsSelectable="false"
                         android:textSize="12sp" />
 
@@ -635,7 +626,6 @@
                         android:background="#ffffff"
                         android:inputType="none"
                         android:padding="6dp"
-                        android:text="Ireland"
                         android:textIsSelectable="false"
                         android:textSize="12sp" />
 

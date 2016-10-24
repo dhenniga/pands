@@ -32,8 +32,8 @@ public class UserDetailsActivity extends FragmentActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_details);
 
-        final Typeface RalewayExtraLight = Typeface.createFromAsset(getAssets(), "Raleway-ExtraLight.ttf");
-        final Typeface RalewayBold = Typeface.createFromAsset(getAssets(), "Raleway-Bold.ttf");
+        final Typeface RalewayExtraLight = Typeface.createFromAsset(getAssets(), "Raleway-ExtraLight.otf");
+        final Typeface RalewayBold = Typeface.createFromAsset(getAssets(), "Raleway-Bold.otf");
         final Typeface PlayFairDisplayItalic = Typeface.createFromAsset(getAssets(), "PlayfairDisplay-Italic.otf");
 
         ivCustomerProfileImage = (ImageView) findViewById(R.id.ivCustomerProfileImage);
@@ -154,6 +154,9 @@ public class UserDetailsActivity extends FragmentActivity{
         etShippingPostcode.setTypeface(RalewayExtraLight);
         etShippingCountry = (EditText) findViewById(R.id.etShippingCountry);
         etShippingCountry.setTypeface(RalewayExtraLight);
+
+
+        etUserFirstName.setText("David");
 
     }
 }

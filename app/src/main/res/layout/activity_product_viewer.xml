@@ -129,16 +129,19 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:orientation="horizontal"
-                android:padding="20dp">
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="20dp">
 
                 <Button
                     android:id="@+id/btnSubtractStock"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:background="@drawable/outlined_circle_thin"
-                    android:textColor="#000000"
+                    android:background="@drawable/item_button_count_background"
+                    android:textColor="@drawable/item_count_button_text"
                     android:layout_marginRight="10dp"
                     android:textSize="25sp"
+                    style="?android:attr/borderlessButtonStyle"
                     android:text="@string/minus_symbol"/>
 
                 <TextView
@@ -155,10 +158,11 @@
                     android:id="@+id/btnAddStock"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:background="@drawable/outlined_circle_thin"
-                    android:textColor="#000000"
+                    android:background="@drawable/item_button_count_background"
+                    android:textColor="@drawable/item_count_button_text"
                     android:layout_marginLeft="10dp"
                     android:textSize="25sp"
+                    style="?android:attr/borderlessButtonStyle"
                     android:text="@string/plus_symbol"/>
 
             </LinearLayout>

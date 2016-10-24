@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.pands.dev.pands.helper.DatabaseHelper;
@@ -39,10 +40,15 @@ public class LoginActivity extends AppCompatActivity {
     String userName, password, LOGIN_STATUS, tempAuthError;
     EditText etLoginUsername, etLoginPassword;
     Button btnLogin, btnRegister;
-//    SessionManager session;
-//    SQLiteHandler db;
+    SessionManager session;
+    SQLiteHandler db;
     DatabaseHelper myDb;
     String response = null;
+
+
+
+    int customer_id, customer_last_order_id, customer_orders_count;
+    String customer_created_at, customer_last_update, customer_email, customer_first_name, customer_last_name, customer_username, customer_last_order_date, customer_total_spent, customer_avatar_url, billing_first_name, billing_last_name, billing_company, billing_address_1, billing_address_2, billing_city, billing_state, billing_postcode, billing_country, billing_email, billing_phone, shipping_first_name, shipping_last_name, shipping_company, shipping_address_1, shipping_address_2, shipping_city, shipping_state, shipping_postcode, shipping_country;
 
 
 
@@ -60,15 +66,15 @@ public class LoginActivity extends AppCompatActivity {
         myDb = new DatabaseHelper(this);
 
 
-//
-//        db = new SQLiteHandler(getApplicationContext());
-//        session = new SessionManager(getApplicationContext());
-//
-//        if (session.isLoggedIn()) {
-//            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//            startActivity(intent);
-//            finish();
-//        }
+
+        db = new SQLiteHandler(getApplicationContext());
+        session = new SessionManager(getApplicationContext());
+
+        if (session.isLoggedIn()) {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
 
 
@@ -166,118 +172,134 @@ public class LoginActivity extends AppCompatActivity {
                     JsonObject CustomerBillingAddressDetails = customerDetails.getAsJsonObject("billing_address");
                     JsonObject CustomerShippingAddressDetails = customerDetails.getAsJsonObject("shipping_address");
 
-                    String created_at = customerDetails.get("created_at").getAsString();
-                    Log.i("created_at", created_at);
 
-                    String last_update = customerDetails.get("last_update").getAsString();
-                    Log.i("last_update", last_update);
+                    customer_id = customerDetails.get("id").getAsInt();
+                    customer_created_at = customerDetails.get("created_at").getAsString();
+                    customer_last_update = customerDetails.get("last_update").getAsString();
+                    customer_email = customerDetails.get("email").getAsString();
+                    customer_first_name = customerDetails.get("first_name").getAsString();
+                    customer_last_name = customerDetails.get("last_name").getAsString();
+                    customer_username = customerDetails.get("username").getAsString();
 
-                    String email = customerDetails.get("email").getAsString();
-                    Log.i("email", email);
+                    Boolean customer_last_order_id_boolean = customerDetails.get("last_order_id").isJsonNull();
+                    if (!customer_last_order_id_boolean) {
+                        customer_last_order_id = customerDetails.get("last_order_id").getAsInt();
+                        Log.i("last_order_id", ((String.valueOf(customer_last_order_id))));
+                    }
 
-                    String first_name = customerDetails.get("first_name").getAsString();
-                    Log.i("first_name", first_name);
+                    Boolean customer_last_order_date_boolean = customerDetails.get("last_order_date").isJsonNull();
+                    if (!customer_last_order_date_boolean) {
+                        customer_last_order_date = customerDetails.get("last_order_date").getAsString();
+                        Log.i("last_order_date", customer_last_order_date);
+                    }
 
-                    String last_name = customerDetails.get("last_name").getAsString();
-                    Log.i("last_name", last_name);
-
-                    String username = customerDetails.get("username").getAsString();
-                    Log.i("username", username);
-
-                    String orders_count = customerDetails.get("orders_count").getAsString();
-                    Log.i("orders_count", orders_count);
-
-                    String total_spent = customerDetails.get("total_spent").getAsString();
-                    Log.i("total_spent", total_spent);
-
-                    String avatar_url = customerDetails.get("avatar_url").getAsString();
-                    Log.i("avatar_url", avatar_url);
-
-
+                    customer_orders_count = customerDetails.get("orders_count").getAsInt();
+//                    customer_total_spent = customerDetails.get("total_spent").getAsString();
+                    customer_avatar_url = customerDetails.get("avatar_url").getAsString();
 
                     //  BILLING ADDRESS
 
-                    String billing_first_name = CustomerBillingAddressDetails.get("first_name").getAsString();
-                    Log.i("billing_first_name", billing_first_name);
-
-                    String billing_last_name = CustomerBillingAddressDetails.get("last_name").getAsString();
-                    Log.i("billing_last_name", billing_last_name);
-
-                    String billing_company = CustomerBillingAddressDetails.get("company").getAsString();
-                    Log.i("billing_company", billing_company);
-
-                    String billing_address_1 = CustomerBillingAddressDetails.get("address_1").getAsString();
-                    Log.i("billing_address_1", billing_address_1);
-
-                    String billing_address_2 = CustomerBillingAddressDetails.get("address_2").getAsString();
-                    Log.i("billing_address_2", billing_address_2);
-
-                    String billing_city = CustomerBillingAddressDetails.get("city").getAsString();
-                    Log.i("billing_city", billing_city);
-
-                    String billing_state = CustomerBillingAddressDetails.get("state").getAsString();
-                    Log.i("billing_state", billing_state);
-
-                    String billing_postcode = CustomerBillingAddressDetails.get("postcode").getAsString();
-                    Log.i("billing_postcode", billing_postcode);
-
-                    String billing_country = CustomerBillingAddressDetails.get("country").getAsString();
-                    Log.i("billing_country", billing_country);
-
-
-                    String billing_email = CustomerBillingAddressDetails.get("email").getAsString();
-                    Log.i("billing_email", billing_email);
-
-                    String billing_phone = CustomerBillingAddressDetails.get("phone").getAsString();
-                    Log.i("billing_phone", billing_phone);
-
+                    billing_first_name = CustomerBillingAddressDetails.get("first_name").getAsString();
+                    billing_last_name = CustomerBillingAddressDetails.get("last_name").getAsString();
+                    billing_company = CustomerBillingAddressDetails.get("company").getAsString();
+                    billing_address_1 = CustomerBillingAddressDetails.get("address_1").getAsString();
+                    billing_address_2 = CustomerBillingAddressDetails.get("address_2").getAsString();
+                    billing_city = CustomerBillingAddressDetails.get("city").getAsString();
+                    billing_state = CustomerBillingAddressDetails.get("state").getAsString();
+                    billing_postcode = CustomerBillingAddressDetails.get("postcode").getAsString();
+                    billing_country = CustomerBillingAddressDetails.get("country").getAsString();
+                    billing_email = CustomerBillingAddressDetails.get("email").getAsString();
+                    billing_phone = CustomerBillingAddressDetails.get("phone").getAsString();
 
 
                     //  SHIPPING ADDRESS
 
-                    String shipping_first_name = CustomerShippingAddressDetails.get("first_name").getAsString();
-                    Log.i("shipping_first_name", shipping_first_name);
-
-                    String shipping_last_name = CustomerShippingAddressDetails.get("last_name").getAsString();
-                    Log.i("shipping_last_name", shipping_last_name);
-
-                    String shipping_company = CustomerShippingAddressDetails.get("company").getAsString();
-                    Log.i("shipping_company", shipping_company);
-
-                    String shipping_address_1 = CustomerShippingAddressDetails.get("address_1").getAsString();
-                    Log.i("shipping_address_1", shipping_address_1);
-
-                    String shipping_address_2 = CustomerShippingAddressDetails.get("address_2").getAsString();
-                    Log.i("shipping_address_2", shipping_address_2);
-
-                    String shipping_city = CustomerShippingAddressDetails.get("city").getAsString();
-                    Log.i("shipping_city", shipping_city);
-
-                    String shipping_state = CustomerShippingAddressDetails.get("state").getAsString();
-                    Log.i("shipping_state", shipping_state);
-
-                    String shipping_postcode = CustomerShippingAddressDetails.get("postcode").getAsString();
-                    Log.i("shipping_postcode", shipping_postcode);
-
-                    String shipping_country = CustomerShippingAddressDetails.get("country").getAsString();
-                    Log.i("shipping_country", shipping_country);
-
-
-
+                    shipping_first_name = CustomerShippingAddressDetails.get("first_name").getAsString();
+                    shipping_last_name = CustomerShippingAddressDetails.get("last_name").getAsString();
+                    shipping_company = CustomerShippingAddressDetails.get("company").getAsString();
+                    shipping_address_1 = CustomerShippingAddressDetails.get("address_1").getAsString();
+                    shipping_address_2 = CustomerShippingAddressDetails.get("address_2").getAsString();
+                    shipping_city = CustomerShippingAddressDetails.get("city").getAsString();
+                    shipping_state = CustomerShippingAddressDetails.get("state").getAsString();
+                    shipping_postcode = CustomerShippingAddressDetails.get("postcode").getAsString();
+                    shipping_country = CustomerShippingAddressDetails.get("country").getAsString();
 
                     String cookie = rootobj.get("cookie").getAsString();
-                    Log.i("cookie", cookie);
-
                     String tempCookieName = rootobj.get("cookie_name").getAsString();
-                    Log.i("cookie_name", tempCookieName);
-
                     String cookieAuth = "https://www.primpandstyle.com/api/auth/validate_auth_cookie/?cookie=" + cookie;
+
+                    Log.i("customer_id", ((String.valueOf(customer_id))));
+                    Log.i("customer_created_at", customer_created_at);
+                    Log.i("customer_last_update", customer_last_update);
+                    Log.i("customer_email", customer_email);
+                    Log.i("customer_first_name", customer_first_name);
+                    Log.i("customer_last_name", customer_last_name);
+                    Log.i("customer_username", customer_username);
+                    Log.i("customer_orders_count", ((String.valueOf(customer_orders_count))));
+//                    Log.i("customer_total_spent", customer_total_spent);
+                    Log.i("customer_avatar_url", customer_avatar_url);
+                    Log.i("billing_first_name", billing_first_name);
+                    Log.i("billing_last_name", billing_last_name);
+                    Log.i("billing_company", billing_company);
+                    Log.i("billing_address_1", billing_address_1);
+                    Log.i("billing_address_2", billing_address_2);
+                    Log.i("billing_city", billing_city);
+                    Log.i("billing_state", billing_state);
+                    Log.i("billing_postcode", billing_postcode);
+                    Log.i("billing_country", billing_country);
+                    Log.i("billing_email", billing_email);
+                    Log.i("billing_phone", billing_phone);
+                    Log.i("shipping_first_name", shipping_first_name);
+                    Log.i("shipping_last_name", shipping_last_name);
+                    Log.i("shipping_company", shipping_company);
+                    Log.i("shipping_address_1", shipping_address_1);
+                    Log.i("shipping_address_2", shipping_address_2);
+                    Log.i("shipping_city", shipping_city);
+                    Log.i("shipping_state", shipping_state);
+                    Log.i("shipping_postcode", shipping_postcode);
+                    Log.i("shipping_country", shipping_country);
+                    Log.i("cookie", cookie);
+                    Log.i("cookie_name", tempCookieName);
                     Log.i("cookieAuth", cookieAuth);
 
-//                    myDb.insertData()
+                    myDb.insertData(
+                            customer_id,
+                            customer_created_at,
+                            customer_last_update,
+                            customer_email,
+                            customer_first_name,
+                            customer_last_name,
+                            customer_username,
+                            customer_last_order_id,
+                            customer_last_order_date,
+                            customer_orders_count,
+//                            customer_total_spent,
+                            customer_avatar_url,
+                            billing_first_name,
+                            billing_last_name,
+                            billing_company,
+                            billing_address_1,
+                            billing_address_2,
+                            billing_city,
+                            billing_state,
+                            billing_postcode,
+                            billing_country,
+                            billing_email,
+                            billing_phone,
+                            shipping_first_name,
+                            shipping_last_name,
+                            shipping_company,
+                            shipping_address_1,
+                            shipping_address_2,
+                            shipping_city,
+                            shipping_state,
+                            shipping_postcode,
+                            shipping_country
+                    );
 
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
+
 
 
                         runOnUiThread(new Runnable() {
