@@ -5,17 +5,18 @@ import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pands.dev.pands.helper.DatabaseHelper;
-import com.pands.dev.pands.helper.SQLiteHandler;
+import com.squareup.picasso.Picasso;
 
 public class UserDetailsActivity extends FragmentActivity {
 
@@ -32,6 +33,8 @@ public class UserDetailsActivity extends FragmentActivity {
     TextView tvShippingHeader, tvShippingFirstName, tvShippingLastName, tvShippingCompany, tvShippingAddress1, tvShippingAddress2, tvShippingCity, tvShippingState, tvShippingPostcode, tvShippingCountry;
     EditText etShippingFirstName, etShippingLastName, etShippingCompany, etShippingAddress1, etShippingAddress2, etShippingCity, etShippingState, etShippingPostcode, etShippingCountry;
 
+    Button btnLogout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -43,6 +46,8 @@ public class UserDetailsActivity extends FragmentActivity {
         final Typeface RalewayExtraLight = Typeface.createFromAsset(getAssets(), "Raleway-ExtraLight.otf");
         final Typeface RalewayBold = Typeface.createFromAsset(getAssets(), "Raleway-Bold.otf");
         final Typeface PlayFairDisplayItalic = Typeface.createFromAsset(getAssets(), "PlayfairDisplay-Italic.otf");
+
+        btnLogout = (Button) findViewById(R.id.btnLogout);
 
         ivCustomerProfileImage = (ImageView) findViewById(R.id.ivCustomerProfileImage);
 
@@ -163,6 +168,28 @@ public class UserDetailsActivity extends FragmentActivity {
 
         viewAll();
 
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDb.logOutUser(getApplicationContext());
+                Toast.makeText(getApplicationContext(), "Logged Out", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
+
+    }
+
+    public String getAvatar() {
+
+        Cursor res = myDb.getAllData();
+        String output;
+
+        if (res.getCount() == 0) {
+            output = res.getString(9);
+            return output;
+        }
+
+        return null;
     }
 
 
@@ -185,27 +212,30 @@ public class UserDetailsActivity extends FragmentActivity {
             etUserName.setText(res.getString(6));
             etUserEmail.setText(res.getString(3));
 
-            etBillingFirstName.setText(res.getString(11));
-            etBillingLastName.setText(res.getString(12));
-            etBillingCompany.setText(res.getString(13));
-            etBillingAddress1.setText(res.getString(14));
-            etBillingAddress2.setText(res.getString(15));
-            etBillingCity.setText(res.getString(16));
-            etBillingState.setText(res.getString(17));
-            etBillingPostcode.setText(res.getString(18));
-            etBillingCountry.setText(res.getString(19));
-            etBillingEmail.setText(res.getString(20));
-            etBillingPhone.setText(res.getString(21));
+            Picasso.with(getApplicationContext()).load(res.getString(9)).into(ivCustomerProfileImage);
 
-            etShippingFirstName.setText(res.getString(22));
-            etShippingLastName.setText(res.getString(23));
-            etShippingCompany.setText(res.getString(24));
-            etShippingAddress1.setText(res.getString(25));
-            etShippingAddress2.setText(res.getString(26));
-            etShippingCity.setText(res.getString(27));
-            etShippingState.setText(res.getString(28));
-            etShippingPostcode.setText(res.getString(29));
-            etShippingCountry.setText(res.getString(30));
+
+            etBillingFirstName.setText(res.getString(10));
+            etBillingLastName.setText(res.getString(11));
+            etBillingCompany.setText(res.getString(12));
+            etBillingAddress1.setText(res.getString(13));
+            etBillingAddress2.setText(res.getString(14));
+            etBillingCity.setText(res.getString(15));
+            etBillingState.setText(res.getString(16));
+            etBillingPostcode.setText(res.getString(17));
+            etBillingCountry.setText(res.getString(18));
+            etBillingEmail.setText(res.getString(19));
+            etBillingPhone.setText(res.getString(20));
+
+            etShippingFirstName.setText(res.getString(21));
+            etShippingLastName.setText(res.getString(22));
+            etShippingCompany.setText(res.getString(23));
+            etShippingAddress1.setText(res.getString(24));
+            etShippingAddress2.setText(res.getString(25));
+            etShippingCity.setText(res.getString(26));
+            etShippingState.setText(res.getString(27));
+            etShippingPostcode.setText(res.getString(28));
+            etShippingCountry.setText(res.getString(29));
 
         }
     }

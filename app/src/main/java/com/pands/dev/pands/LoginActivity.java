@@ -15,20 +15,12 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.pands.dev.pands.helper.DatabaseHelper;
-import com.pands.dev.pands.helper.SQLiteHandler;
-import com.pands.dev.pands.helper.SessionManager;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -37,19 +29,17 @@ import java.net.URL;
 
 public class LoginActivity extends AppCompatActivity {
 
+    DatabaseHelper myDb;
+
     String userName, password, LOGIN_STATUS, tempAuthError;
     EditText etLoginUsername, etLoginPassword;
     Button btnLogin, btnRegister;
-    SessionManager session;
-    SQLiteHandler db;
-    DatabaseHelper myDb;
     String response = null;
 
-
-
     int customer_id, customer_last_order_id, customer_orders_count;
-    String customer_created_at, customer_last_update, customer_email, customer_first_name, customer_last_name, customer_username, customer_last_order_date, customer_avatar_url, billing_first_name, billing_last_name, billing_company, billing_address_1, billing_address_2, billing_city, billing_state, billing_postcode, billing_country, billing_email, billing_phone, shipping_first_name, shipping_last_name, shipping_company, shipping_address_1, shipping_address_2, shipping_city, shipping_state, shipping_postcode, shipping_country;
+    String customer_created_at, customer_last_update, customer_email, customer_first_name, customer_last_name, customer_username, customer_last_order_date, billing_first_name, billing_last_name, billing_company, billing_address_1, billing_address_2, billing_city, billing_state, billing_postcode, billing_country, billing_email, billing_phone, shipping_first_name, shipping_last_name, shipping_company, shipping_address_1, shipping_address_2, shipping_city, shipping_state, shipping_postcode, shipping_country;
 //    String customer_total_spent;
+    public static String customer_avatar_url;
 
 
 //    private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
@@ -64,23 +54,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         myDb = new DatabaseHelper(this);
-
-
-
-        db = new SQLiteHandler(getApplicationContext());
-        session = new SessionManager(getApplicationContext());
-
-        if (session.isLoggedIn()) {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-
-
+        myDb.logOutUser(getApplicationContext());
 
         final Typeface RalewayLight = Typeface.createFromAsset(getAssets(), "Raleway-Regular.otf");
         final Typeface RalewayBold = Typeface.createFromAsset(getAssets(), "Raleway-Bold.otf");
-        final Typeface PlayFairDisplayItalic = Typeface.createFromAsset(getAssets(), "PlayfairDisplay-Regular.otf");
 
         etLoginUsername = (EditText) findViewById(R.id.etLoginUsername);
         etLoginUsername.setTypeface(RalewayLight);
@@ -193,9 +170,13 @@ public class LoginActivity extends AppCompatActivity {
                         Log.i("last_order_date", customer_last_order_date);
                     }
 
-                    customer_orders_count = customerDetails.get("orders_count").getAsInt();
-//                    customer_total_spent = customerDetails.get("total_spent").getAsString();
-                    customer_avatar_url = customerDetails.get("avatar_url").getAsString();
+//                    customer_orders_count = customerDetails.get("orders_count").getAsInt();
+//                    customer_total_spent = customerDetails.get("total_spent").getAsBigDecimal();
+
+                    Boolean customer_avatar_url_boolean = customerDetails.get("avatar_url").isJsonNull();
+                    if (!customer_avatar_url_boolean) {
+                        customer_avatar_url = customerDetails.get("avatar_url").getAsString();
+                    }
 
                     //  BILLING ADDRESS
 
@@ -238,7 +219,7 @@ public class LoginActivity extends AppCompatActivity {
                             customer_username,
                             customer_last_order_id,
                             customer_last_order_date,
-                            customer_orders_count,
+//                            customer_orders_count,
 //                            customer_total_spent,
                             customer_avatar_url,
                             billing_first_name,

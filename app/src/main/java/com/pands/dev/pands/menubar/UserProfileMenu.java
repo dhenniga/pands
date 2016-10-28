@@ -19,7 +19,7 @@ public class UserProfileMenu {
     public UserProfileMenu(Context context) {
 
         Log.d("Header_menu", "UserProfileMenu");
-        Toast.makeText(context, "Header_menu: UserProfileMenu", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, "Header_menu: UserProfileMenu", Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(context, UserDetailsActivity.class);
         context.startActivity(intent);
