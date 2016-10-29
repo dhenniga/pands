@@ -14,6 +14,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import com.pands.dev.pands.listener.RecyclerClickListener;
 import com.pands.dev.pands.listener.RecyclerTouchListener;
+import com.pands.dev.pands.menubar.MenuFunctions;
 import com.pands.dev.pands.product.ProductAdapter;
 import com.pands.dev.pands.product.ProductParser;
 import com.pands.dev.pands.product.ProductValue;
@@ -67,6 +68,13 @@ public class MainActivity extends AppCompatActivity {
         App.getBus().unregister(this);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("onResume","OK");
+
+    }
+
 
     private void initViews() {
 
@@ -104,13 +112,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /**
-     *
-     */
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
 
 
     class JSONAsync extends AsyncTask<Void, Void, Void> {
@@ -120,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             pd = ProgressDialog.show(MainActivity.this, null, "Loading Products...", true, false);
+
         }
 
 

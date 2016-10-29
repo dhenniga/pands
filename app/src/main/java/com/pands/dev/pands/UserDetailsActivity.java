@@ -173,6 +173,8 @@ public class UserDetailsActivity extends FragmentActivity {
             public void onClick(View v) {
                 myDb.logOutUser(getApplicationContext());
                 Toast.makeText(getApplicationContext(), "Logged Out", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
                 finish();
             }
         });

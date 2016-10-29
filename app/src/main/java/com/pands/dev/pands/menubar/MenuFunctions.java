@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.graphics.drawable.Drawable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -22,10 +23,13 @@ import com.pands.dev.pands.helper.DatabaseHelper;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.io.InputStream;
+import java.net.URL;
 
 public class MenuFunctions extends FrameLayout {
 
     public ImageButton menuButton, searchButton, memberButton, cartButton, pandsLogoButton;
+    SQLiteDatabase db;
 
     public MenuFunctions(Context context) {
         super(context);
@@ -43,6 +47,11 @@ public class MenuFunctions extends FrameLayout {
     }
 
 
+
+    /**
+     *
+     * @param context
+     */
     private void init(final Context context) {
 
         final View rootView = inflate(context, R.layout.menubar, this);
@@ -56,9 +65,7 @@ public class MenuFunctions extends FrameLayout {
         memberButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
         memberButton.setPadding(30,30,30,30);
 
-        if (!doesDatabaseExist(context)) {
-            memberButton.setImageResource(R.drawable.member_icon);
-        } else {memberButton.setImageResource(R.drawable.search_icon);}
+        memberIconRefresh(context);
 
 //        Picasso.with(context).load(loginActivity.customer_avatar_url).resize(70, 70).into(memberButton);
 
@@ -99,32 +106,31 @@ public class MenuFunctions extends FrameLayout {
 
     }
 
+
+    /**
+     *
+     * @param context
+     */
+    public void memberIconRefresh(Context context) {
+        if (!doesDatabaseExist(context)) {
+            memberButton.setImageResource(R.drawable.member_icon);
+        } else {
+             memberButton.setImageResource(R.drawable.pands_logo);
+        }
+    }
+
+
+
+    /**
+     *
+     * @param context
+     * @return
+     */
     private static boolean doesDatabaseExist(Context context) {
         DatabaseHelper databaseHelper = new DatabaseHelper(context);
         File dbFile = context.getDatabasePath(databaseHelper.DATABASE_NAME);
         return dbFile.exists();
     }
-
-
-
-
-
-//    private void openAndQueryDatabase(Context context) {
-//        try {
-//            DatabaseHelper dbHelper = new DatabaseHelper(context);
-//            db = dbHelper.getWritableDatabase();
-//            Cursor c = db.rawQuery("SELECT customer_avatar_irl FROM LoggedInUser", null);
-//            String avatar_url = c.getString(c.getColumnIndex("customer_avatar_url"));
-//            Picasso.with(context).load(something).resize(70, 70).into(memberButton);
-//
-//        } catch (SQLiteException se ) {
-//
-//        } finally {
-//            if (db != null)
-//                db.execSQL("DELETE FROM LoggedInUser");
-//            db.close();
-//        }
-//    }
 
 }
 
