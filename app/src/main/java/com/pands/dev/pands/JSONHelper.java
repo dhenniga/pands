@@ -33,16 +33,20 @@ public class JSONHelper {
     private static final String URL_CONSUMER_KEY = "consumer_key=ck_962b3c0e86f61ebef52ddb90f5721dcc5d2c5fc8";
     private static final String URL_CONSUMER_SECRET = "consumer_secret=cs_fe0ba2a0f443603553f9e30b0112644d03ff22ac";
 
-    private static final String QUERY = URL_BASE + URL_MAIN_1 + "?" + URL_BASE_FIELDS + "&" + URL_FILTER_LIMIT_40 + "&" + URL_CONSUMER_KEY + "&" + URL_CONSUMER_SECRET;
+//    private static final String QUERY = URL_BASE + URL_MAIN_1 + "?" + URL_BASE_FIELDS + "&" + URL_FILTER_LIMIT_40 + "&" + URL_CONSUMER_KEY + "&" + URL_CONSUMER_SECRET;
+//
+//
+////    https://www.primpandstyle.com/wc-api/v3/products?filter[tag]=gold
+
 
 
     private static final String TAG = JSONHelper.class.getSimpleName();
     private JSONObject mJsonObject = null;
     private String json = "";
 
-    public JSONObject getJSONFromUrl() {
+    public JSONObject getJSONFromUrl(String filter) {
         try {
-            URL url = new URL(QUERY);
+            URL url = new URL(URL_BASE + URL_MAIN_1 + "?" + URL_BASE_FIELDS + "&" + filter + "&" + URL_FILTER_LIMIT_40 + "&" + URL_CONSUMER_KEY + "&" + URL_CONSUMER_SECRET);
             URLConnection urlConnection = url.openConnection();
             BufferedReader in = new BufferedReader(new InputStreamReader(
                     urlConnection.getInputStream()));

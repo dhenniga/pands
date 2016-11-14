@@ -2,6 +2,7 @@ package com.pands.dev.pands;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.support.v4.view.PagerAdapter;
@@ -12,15 +13,26 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AbsoluteLayout;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.pands.dev.pands.product.ProductValue;
 import com.squareup.picasso.Picasso;
+
+import org.apmem.tools.layouts.FlowLayout;
+
+import java.util.Arrays;
 import java.util.List;
 
 public class ProductViewer extends AppCompatActivity {
@@ -38,7 +50,7 @@ public class ProductViewer extends AppCompatActivity {
     String EXTRA_ON_SALE_PRICE = "EXTRA_ON_SALE_PRICE";
     String EXTRA_STOCK_QUANTITY = "EXTRA_STOCK_QUANTITY";
     String EXTRA_VISIBLE = "EXTRA_VISIBLE";
-
+    String EXTRA_FILTER = "EXTRA_FILTER";
 
     private AppCompatActivity activity = ProductViewer.this;
     ImageView iv;
@@ -51,8 +63,6 @@ public class ProductViewer extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_viewer);
-
-
 
 
         Log.i(TAG, "start");
@@ -76,17 +86,14 @@ public class ProductViewer extends AppCompatActivity {
         TextView tvProductCategoriesHeader = (TextView) findViewById(R.id.tvProductCategoriesHeader);
         tvProductCategoriesHeader.setTypeface(RalewayBold);
 
-        TextView tvProductCategories = (TextView) findViewById(R.id.tvProductCategories);
-        tvProductCategories.setTypeface(RalewayExtraLight);
-
         TextView tvProductTagsHeader = (TextView) findViewById(R.id.tvProductTagsHeader);
         tvProductTagsHeader.setTypeface(RalewayBold);
 
         final TextView tvStockQuantity = (TextView) findViewById(R.id.tvStockQuantity);
         tvStockQuantity.setTypeface(RalewayExtraLight);
 
-        TextView tvProductTags = (TextView) findViewById(R.id.tvProductTags);
-        tvProductTags.setTypeface(RalewayExtraLight);
+        FlowLayout flTagsContainer = (FlowLayout) findViewById(R.id.flTagsContainer);
+        FlowLayout flCategoriesContainer = (FlowLayout) findViewById(R.id.flCategoriesContainer);
 
         TextView tvProductSalePrice = (TextView) findViewById(R.id.tvProductSalePrice);
         tvProductSalePrice.setTypeface(RalewayExtraLight);
@@ -114,24 +121,75 @@ public class ProductViewer extends AppCompatActivity {
             tvProductShortDescription.setText(updated);
 
 //            if (EXTRA_PRICE) {
-                tvProductPrice.setText("€" + extras.getInt(EXTRA_PRICE));
+            tvProductPrice.setText("€" + extras.getInt(EXTRA_PRICE));
 //            } else { tvProductPrice.setVisibility(View.GONE);}
 
             if (EXTRA_CATEGORIES != null) {
-                tvProductCategories.setText(extras.getString(EXTRA_CATEGORIES));
-            } else { tvProductCategories.setVisibility(View.GONE); tvProductCategoriesHeader.setVisibility(View.GONE);}
+
+                final List<String> items = Arrays.asList(extras.getString(EXTRA_CATEGORIES).split("\\s*,\\s*"));
+
+                for (int i = 0; i < items.size(); i++) {
+                    Button btn = new Button(this);
+                    FlowLayout.LayoutParams params = new FlowLayout.LayoutParams(220, 60);
+                    params.setMargins(2, 2, 2, 2);
+                    btn.setPadding(0, 0, 0, 0);
+                    btn.setBackgroundColor(Color.parseColor("#05000000"));
+                    btn.setTextColor(Color.parseColor("#000000"));
+                    btn.setTransformationMethod(null);
+                    btn.setStateListAnimator(null);
+                    btn.setTypeface(RalewayExtraLight);
+                    btn.setTextSize(13);
+                    btn.setText(items.get(i));
+                    final String categoryName = "filter[category]=" + items.get(i);
+                    Log.d("DD_Tag", categoryName);
+                    flCategoriesContainer.addView(btn, params);
+                    btn.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View view) {
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            intent.putExtra(EXTRA_FILTER, categoryName);
+                            startActivity(intent);
+                        }
+                    });
+
+                }
+            }
 
 
             if (EXTRA_TAGS != null) {
-                tvProductTags.setText(extras.getString(EXTRA_TAGS));
-            } else { tvProductTags.setVisibility(View.GONE); tvProductTagsHeader.setVisibility(View.GONE);}
 
+                final List<String> items = Arrays.asList(extras.getString(EXTRA_TAGS).split("\\s*,\\s*"));
+
+                for (int i = 0; i < items.size(); i++) {
+                    Button btn = new Button(this);
+                    FlowLayout.LayoutParams params = new FlowLayout.LayoutParams(220, 60);
+                    params.setMargins(2, 2, 2, 2);
+                    btn.setPadding(0, 0, 0, 0);
+                    btn.setBackgroundColor(Color.parseColor("#05000000"));
+                    btn.setTextColor(Color.parseColor("#000000"));
+                    btn.setTransformationMethod(null);
+                    btn.setStateListAnimator(null);
+                    btn.setTypeface(RalewayExtraLight);
+                    btn.setTextSize(13);
+                    btn.setText(items.get(i));
+                    final String tagName = "filter[tag]=" + items.get(i);
+                    Log.d("DD_Tag", tagName);
+                    flTagsContainer.addView(btn, params);
+                    btn.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View view) {
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            intent.putExtra(EXTRA_FILTER, tagName);
+                            startActivity(intent);
+                        }
+                    });
+
+                }
+            }
 
 
             tvStockQuantity.setText("1");
 
 
-            LinearLayout layout = (LinearLayout)findViewById(R.id.llImageContainerBottom);
+            LinearLayout layout = (LinearLayout) findViewById(R.id.llImageContainerBottom);
             layout.setOrientation(LinearLayout.HORIZONTAL);
             String[] items = extras.getString(EXTRA_IMAGES).split(", ");
 
@@ -140,10 +198,10 @@ public class ProductViewer extends AppCompatActivity {
 
 
             /**  QUICK IMAGE GALLERY  **/
-            for (String item : items)
-            {
+            for (String item : items) {
                 iv = new ImageView(this);
-                iv.setMinimumWidth(metrics.widthPixels); iv.setMaxWidth(metrics.widthPixels);
+                iv.setMinimumWidth(metrics.widthPixels);
+                iv.setMaxWidth(metrics.widthPixels);
                 iv.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                 Picasso.with(this).load(item).resize(metrics.widthPixels, metrics.widthPixels).centerInside().into(iv);
                 layout.addView(iv);
@@ -165,9 +223,9 @@ public class ProductViewer extends AppCompatActivity {
         }
 
 
-        Button btnSubtractStock = ((Button)this.findViewById(R.id.btnSubtractStock));
+        Button btnSubtractStock = ((Button) this.findViewById(R.id.btnSubtractStock));
         btnSubtractStock.setTypeface(RalewayExtraLight);
-        Button btnAddStock = ((Button)this.findViewById(R.id.btnAddStock));
+        Button btnAddStock = ((Button) this.findViewById(R.id.btnAddStock));
         btnAddStock.setTypeface(RalewayExtraLight);
 
 
@@ -177,11 +235,11 @@ public class ProductViewer extends AppCompatActivity {
         btnSubtractStock.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 
-                int val = Integer.parseInt( tvStockQuantity.getText().toString() );
+                int val = Integer.parseInt(tvStockQuantity.getText().toString());
 
                 if (val <= extras.getInt(EXTRA_STOCK_QUANTITY) && val > 1) {
 
-                    Log.d("Button","btnSubtractStock");
+                    Log.d("Button", "btnSubtractStock");
                     val--;
                     tvStockQuantity.setText(((String.valueOf(val))));
                 }
@@ -191,11 +249,11 @@ public class ProductViewer extends AppCompatActivity {
         btnAddStock.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 
-                int val = Integer.parseInt( tvStockQuantity.getText().toString() );
+                int val = Integer.parseInt(tvStockQuantity.getText().toString());
 
                 if (val < extras.getInt(EXTRA_STOCK_QUANTITY) && val >= 1) {
 
-                    Log.d("Button","btnAddStock");
+                    Log.d("Button", "btnAddStock");
                     val++;
                     tvStockQuantity.setText(((String.valueOf(val))));
                 }
@@ -206,9 +264,7 @@ public class ProductViewer extends AppCompatActivity {
     }
 
 
-
     /**
-     *
      * @param html
      * @return
      */

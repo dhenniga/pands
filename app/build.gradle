@@ -37,9 +37,8 @@ dependencies {
     compile 'com.marshalchen.ultimaterecyclerview:library:0.7.0'
     compile 'com.android.support:design:23.4.0'
     testCompile 'junit:junit:4.12'
-
     compile('com.mikepenz:materialdrawer:5.6.0@aar') {
         transitive = true
     }
-
+    compile 'org.apmem.tools:layouts:1.10@aar'
 }

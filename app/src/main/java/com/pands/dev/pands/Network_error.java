@@ -1,0 +1,13 @@
+package com.pands.dev.pands;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
+public class Network_error extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_network_error);
+    }
+}

@@ -1,8 +1,11 @@
 package com.pands.dev.pands;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,7 +17,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import com.pands.dev.pands.listener.RecyclerClickListener;
 import com.pands.dev.pands.listener.RecyclerTouchListener;
-import com.pands.dev.pands.menubar.MenuFunctions;
 import com.pands.dev.pands.product.ProductAdapter;
 import com.pands.dev.pands.product.ProductParser;
 import com.pands.dev.pands.product.ProductValue;
@@ -40,13 +42,23 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView rvProducts;
     public static int numberOfColumns;
 
+    String EXTRA_FILTER;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        networkStatusCheck(getApplicationContext());
+
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            EXTRA_FILTER = extras.getString("EXTRA_FILTER");
+        }
 
         initViews();
 
@@ -59,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
     {
         super.onStart();
         App.getBus().register(this);
+
+        networkStatusCheck(getApplicationContext());
     }
 
     @Override
@@ -72,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         Log.d("onResume","OK");
-
     }
 
 
@@ -112,6 +125,38 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void networkStatusCheck(Context context) {
+
+        Boolean networkAvailabilityBoolean = isNetworkAvailable(context);
+
+        if (networkAvailabilityBoolean) {
+            String networkAvailability = ((String.valueOf(isNetworkAvailable(context))));
+            Log.i("Network Available", networkAvailability);
+        } else {
+            Intent intent = new Intent(context, Network_error.class);
+            startActivity(intent);
+        }
+    }
+
+
+    public static boolean isNetworkAvailable(Context context) {
+        int[] networkTypes = {ConnectivityManager.TYPE_MOBILE,
+                ConnectivityManager.TYPE_WIFI};
+        try {
+            ConnectivityManager connectivityManager =
+                    (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            for (int networkType : networkTypes) {
+                NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+                if (activeNetworkInfo != null &&
+                        activeNetworkInfo.getType() == networkType)
+                    return true;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return false;
+    }
+
 
 
     class JSONAsync extends AsyncTask<Void, Void, Void> {
@@ -127,7 +172,8 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            JSONObject jsonObject = new JSONHelper().getJSONFromUrl();
+            JSONObject jsonObject = new JSONHelper().getJSONFromUrl(EXTRA_FILTER);
+            System.out.println("Hello World" + EXTRA_FILTER);
             productList = new ProductParser().parse(jsonObject);
             return null;
         }
