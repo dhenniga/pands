@@ -27,6 +27,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.pands.dev.pands.product.ProductValue;
 import com.squareup.picasso.Picasso;
 
@@ -63,6 +64,8 @@ public class ProductViewer extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_viewer);
+
+        new DrawerBuilder().withActivity(this).build();
 
 
         Log.i(TAG, "start");

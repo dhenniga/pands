@@ -1,5 +1,6 @@
 package com.pands.dev.pands.menubar;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,7 +12,7 @@ import android.widget.Toast;
 import com.pands.dev.pands.RegisterActivity;
 import com.pands.dev.pands.UserDetailsActivity;
 
-public class UserProfileMenu {
+public class UserProfileMenu extends Activity{
 
 
 
