@@ -12,20 +12,14 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
-import com.mikepenz.iconics.IconicsDrawable;
-import com.mikepenz.materialdrawer.AccountHeader;
-import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.pands.dev.pands.listener.RecyclerClickListener;
 import com.pands.dev.pands.listener.RecyclerTouchListener;
@@ -35,31 +29,31 @@ import com.pands.dev.pands.product.ProductValue;
 import org.json.JSONObject;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Drawer.OnDrawerItemClickListener {
 
-    public static final String EXTRA_FEATURED_SRC = "EXTRA_FEATURED_SRC";
-    public static final String EXTRA_SHORT_DESCRIPTION = "EXTRA_SHORT_DESCRIPTION";
-    public static final String EXTRA_TITLE = "EXTRA_TITLE";
-    public static final String EXTRA_PRICE = "EXTRA_PRICE";
-    public static final String EXTRA_CATEGORIES = "EXTRA_CATEGORIES";
-    public static final String EXTRA_TAGS = "EXTRA_TAGS";
-    public static final String EXTRA_IMAGES = "EXTRA_IMAGES";
-    public static final String EXTRA_ON_SALE = "EXTRA_ON_SALE";
-    public static final String EXTRA_ON_SALE_PRICE = "EXTRA_ON_SALE_PRICE";
-    public static final String EXTRA_STOCK_QUANTITY = "EXTRA_STOCK_QUANTITY";
-    public static final String EXTRA_VISIBLE = "EXTRA_VISIBLE";
+    private static final String EXTRA_FEATURED_SRC = "EXTRA_FEATURED_SRC";
+    private static final String EXTRA_SHORT_DESCRIPTION = "EXTRA_SHORT_DESCRIPTION";
+    private static final String EXTRA_TITLE = "EXTRA_TITLE";
+    private static final String EXTRA_PRICE = "EXTRA_PRICE";
+    private static final String EXTRA_CATEGORIES = "EXTRA_CATEGORIES";
+    private static final String EXTRA_TAGS = "EXTRA_TAGS";
+    private static final String EXTRA_IMAGES = "EXTRA_IMAGES";
+    private static final String EXTRA_ON_SALE = "EXTRA_ON_SALE";
+    private static final String EXTRA_ON_SALE_PRICE = "EXTRA_ON_SALE_PRICE";
+    private static final String EXTRA_STOCK_QUANTITY = "EXTRA_STOCK_QUANTITY";
+    private static final String EXTRA_VISIBLE = "EXTRA_VISIBLE";
+
+    private static String EXTRA_FILTER = "EXTRA_FILTER";
 
     private AppCompatActivity activity = MainActivity.this;
     private List<ProductValue> productList;
     private RecyclerView rvProducts;
     public static int numberOfColumns;
 
-    String EXTRA_FILTER;
+    private Drawer mDrawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        networkStatusCheck(getApplicationContext());
 
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -67,103 +61,55 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
-
-
-        new DrawerBuilder().withActivity(this).withDrawerLayout(R.layout.material_drawer).build();
-
-        //if you want to update the items at a later time it is recommended to keep it in a variable
-        PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withIcon(R.drawable.pands_logo);
-
-        PrimaryDrawerItem item2 = new PrimaryDrawerItem().withIdentifier(2).withName("ACCESSORIES");
-        SecondaryDrawerItem item2_1 = new SecondaryDrawerItem().withIdentifier(3).withName("Handbags").withIcon(R.drawable.cart_icon);
-        SecondaryDrawerItem item2_2 = new SecondaryDrawerItem().withIdentifier(4).withName("Wallets").withIcon(R.drawable.cart_icon);
-        SecondaryDrawerItem item2_3 = new SecondaryDrawerItem().withIdentifier(5).withName("Hats").withIcon(R.drawable.cart_icon);
-        SecondaryDrawerItem item2_4 = new SecondaryDrawerItem().withIdentifier(6).withName("Scarves").withIcon(R.drawable.cart_icon);
-        SecondaryDrawerItem item2_5 = new SecondaryDrawerItem().withIdentifier(7).withName("Sunglasses").withIcon(R.drawable.cart_icon);
-
-        PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(8).withName("CLOTHES");
-        SecondaryDrawerItem item3_1 = new SecondaryDrawerItem().withIdentifier(9).withName("Outerwear").withIcon(R.drawable.cart_icon);
-
-        PrimaryDrawerItem item4 = new PrimaryDrawerItem().withIdentifier(10).withName("JEWELLERY");
-        SecondaryDrawerItem item4_1 = new SecondaryDrawerItem().withIdentifier(11).withName("Bracelet").withIcon(R.drawable.cart_icon);
-        SecondaryDrawerItem item4_2 = new SecondaryDrawerItem().withIdentifier(12).withName("Earrings").withIcon(R.drawable.cart_icon);
-        SecondaryDrawerItem item4_3 = new SecondaryDrawerItem().withIdentifier(13).withName("Necklace").withIcon(R.drawable.cart_icon);
-
-
-//create the drawer and remember the `Drawer` result object
-        Drawer result = new DrawerBuilder()
-                .withActivity(this)
-                .withDrawerLayout(R.layout.material_drawer)
-
-
-
-                .addDrawerItems(
-                        item1,
-                        new DividerDrawerItem(),
-                        item2, item2_1, item2_2, item2_3, item2_4, item2_5,
-                        new DividerDrawerItem(),
-                        item3, item3_1,
-                        new DividerDrawerItem(),
-                        item4, item4_1, item4_2, item4_3
-
-                )
-
-
-
-//                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-//                    @Override
-//                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-//                        return true;
-//                        // do something with the clicked item :D
-//                    }
-//                })
-                .build();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        networkStatusCheck(getApplicationContext());
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             EXTRA_FILTER = extras.getString("EXTRA_FILTER");
         }
 
+        CustomDrawerLayout cdl = new CustomDrawerLayout(getApplicationContext());
+
+        mDrawer = new DrawerBuilder().withActivity(this)
+                .withDrawerLayout(R.layout.material_drawer)
+                .withFireOnInitialOnClick(true)
+                .withSliderBackgroundColor(getResources().getColor(R.color.md_black_1000))
+                .addDrawerItems(
+                        cdl.item5,
+                        new DividerDrawerItem(),
+                        cdl.item2, cdl.item2_1, cdl.item2_2, cdl.item2_3, cdl.item2_4, cdl.item2_5,
+                        new DividerDrawerItem(),
+                        cdl.item3, cdl.item3_1,
+                        new DividerDrawerItem(),
+                        cdl.item4, cdl.item4_1, cdl.item4_2, cdl.item4_3
+
+                )
+
+                .build();
+
         initViews();
 
         new JSONAsync().execute();
-
     }
+
+    @Override
+    public void onBackPressed() {
+        if (mDrawer != null && mDrawer.isDrawerOpen()) {
+            mDrawer.closeDrawer();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
 
     @Override
     protected void onStart()
     {
         super.onStart();
         App.getBus().register(this);
-
+        mDrawer.closeDrawer();
         networkStatusCheck(getApplicationContext());
+
     }
 
     @Override
@@ -171,6 +117,8 @@ public class MainActivity extends AppCompatActivity {
     {
         super.onDestroy();
         App.getBus().unregister(this);
+        mDrawer.closeDrawer();
+        EXTRA_FILTER = "EXTRA_FILTER";
     }
 
     @Override
@@ -178,6 +126,16 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         Log.d("onResume","OK");
     }
+
+//    @Override
+//    protected void onRestart() {
+//        super.onRestart();
+//        Intent i = new Intent(MainActivity.this, MainActivity.class);
+//        startActivity(i);
+//        finish();
+//    }
+
+
 
 
     private void initViews() {
@@ -248,6 +206,121 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
+    @Override
+    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+
+        if(drawerItem != null) {
+
+            switch(((String.valueOf(drawerItem.getIdentifier())))) {
+
+                case "14":
+                    Intent last_chance_to_buy = new Intent(activity, MainActivity.class);
+                    Log.d("position", ((String.valueOf(position))));
+                    Toast.makeText(getApplicationContext(), "Loading Last Chance To Buy", Toast.LENGTH_SHORT).show();
+                    last_chance_to_buy.putExtra(EXTRA_FILTER, "filter[category]=last-chance-to-buy");
+                    startActivity(last_chance_to_buy);
+                    break;
+
+                case "2":
+                    Intent accessories = new Intent(activity, MainActivity.class);
+                    Log.d("position", ((String.valueOf(position))));
+                    Toast.makeText(getApplicationContext(), "Loading Accessories", Toast.LENGTH_SHORT).show();
+                    accessories.putExtra(EXTRA_FILTER, "filter[category]=accessories");
+                    startActivity(accessories);
+                    break;
+
+                case "3":
+                    Intent handbags = new Intent(activity, MainActivity.class);
+                    Log.d("position", ((String.valueOf(position))));
+                    Toast.makeText(getApplicationContext(), "Loading Handbags", Toast.LENGTH_SHORT).show();
+                    handbags.putExtra(EXTRA_FILTER, "filter[category]=handbags");
+                    startActivity(handbags);
+                    break;
+
+                case "4":
+                    Intent wallets = new Intent(activity, MainActivity.class);
+                    Log.d("position", ((String.valueOf(position))));
+                    wallets.putExtra(EXTRA_FILTER, "filter[category]=wallets");
+                    startActivity(wallets);
+                    break;
+
+                case "5":
+                    Intent hats = new Intent(activity, MainActivity.class);
+                    Log.d("position", ((String.valueOf(position))));
+                    Toast.makeText(getApplicationContext(), "Loading Hats", Toast.LENGTH_SHORT).show();
+                    hats.putExtra(EXTRA_FILTER, "filter[category]=hats");
+                    startActivity(hats);
+                    break;
+
+                case "6":
+                    Intent scarves = new Intent(activity, MainActivity.class);
+                    Log.d("position", ((String.valueOf(position))));
+                    Toast.makeText(getApplicationContext(), "Loading Scarves", Toast.LENGTH_SHORT).show();
+                    scarves.putExtra(EXTRA_FILTER, "filter[category]=scarves");
+                    startActivity(scarves);
+                    break;
+
+                case "7":
+                    Intent sunglasses = new Intent(activity, MainActivity.class);
+                    Log.d("position", ((String.valueOf(position))));
+                    Toast.makeText(getApplicationContext(), "Loading Sunglasses", Toast.LENGTH_SHORT).show();
+                    sunglasses.putExtra(EXTRA_FILTER, "filter[category]=sunglasses");
+                    startActivity(sunglasses);
+                    break;
+
+                case "8":
+                    Intent clothes = new Intent(activity, MainActivity.class);
+                    Log.d("position", ((String.valueOf(position))));
+                    Toast.makeText(getApplicationContext(), "Loading Clothes", Toast.LENGTH_SHORT).show();
+                    clothes.putExtra(EXTRA_FILTER, "filter[category]=clothes");
+                    startActivity(clothes);
+                    break;
+
+                case "9":
+                    Intent outerwear = new Intent(activity, MainActivity.class);
+                    Log.d("position", ((String.valueOf(position))));
+                    Toast.makeText(getApplicationContext(), "Loading Outerwear", Toast.LENGTH_SHORT).show();
+                    outerwear.putExtra(EXTRA_FILTER, "filter[category]=outerwear");
+                    startActivity(outerwear);
+                    break;
+
+                case "10":
+                    Intent jewellry = new Intent(getApplicationContext(), MainActivity.class);
+                    Log.d("position", ((String.valueOf(position))));
+                    Toast.makeText(getApplicationContext(), "Loading Jewellry", Toast.LENGTH_SHORT).show();
+                    jewellry.putExtra(EXTRA_FILTER, "filter[category]=jewellry");
+                    startActivity(jewellry);
+                    break;
+
+                case "11":
+                    Intent bracelet = new Intent(activity, MainActivity.class);
+                    Log.d("position", ((String.valueOf(position))));
+                    Toast.makeText(getApplicationContext(), "Loading Bracelets", Toast.LENGTH_SHORT).show();
+                    bracelet.putExtra(EXTRA_FILTER, "filter[category]=bracelet");
+                    startActivity(bracelet);
+                    break;
+
+                case "12":
+                    Intent earrings = new Intent(activity, MainActivity.class);
+                    Log.d("position", ((String.valueOf(position))));
+                    Toast.makeText(getApplicationContext(), "Loading Earrings", Toast.LENGTH_SHORT).show();
+                    earrings.putExtra(EXTRA_FILTER, "filter[category]=earrings");
+                    startActivity(earrings);
+                    break;
+
+                case "13":
+                    Intent necklace = new Intent(activity, MainActivity.class);
+                    Log.d("position", ((String.valueOf(position))));
+                    Toast.makeText(getApplicationContext(), "Loading Necklace", Toast.LENGTH_SHORT).show();
+                    necklace.putExtra(EXTRA_FILTER, "filter[category]=earrings");
+                    startActivity(necklace);
+                    break;
+            }
+        }
+
+
+        return false;
+    }
 
 
     class JSONAsync extends AsyncTask<Void, Void, Void> {
@@ -264,7 +337,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params) {
             JSONObject jsonObject = new JSONHelper().getJSONFromUrl(EXTRA_FILTER);
-            System.out.println("Hello World" + EXTRA_FILTER);
             productList = new ProductParser().parse(jsonObject);
             return null;
         }

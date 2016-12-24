@@ -5,12 +5,20 @@ package com.pands.dev.pands.menubar;
         import android.util.Log;
         import android.widget.Toast;
 
+        import com.pands.dev.pands.MainActivity;
+        import com.pands.dev.pands.ProductViewer;
+
 public class PandSButton {
+
+    public static String EXTRA_FILTER = "EXTRA_FILTER";
 
     public PandSButton(Context context) {
 
         Log.d("Header_menu", "PandSButton");
-        Toast.makeText(context, "Header_menu: PandSButton", Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra(EXTRA_FILTER, "");
+        context.startActivity(intent);
 
     }
 
