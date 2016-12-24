@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements Drawer.OnDrawerIt
                 .withDrawerLayout(R.layout.material_drawer)
                 .withFireOnInitialOnClick(true)
                 .withSliderBackgroundColor(getResources().getColor(R.color.md_black_1000))
+                .withOnDrawerItemClickListener(this)
                 .addDrawerItems(
                         cdl.item5,
                         new DividerDrawerItem(),
@@ -209,11 +210,9 @@ public class MainActivity extends AppCompatActivity implements Drawer.OnDrawerIt
     @Override
     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
 
-        if(drawerItem != null) {
+            switch(position) {
 
-            switch(((String.valueOf(drawerItem.getIdentifier())))) {
-
-                case "14":
+                case 14:
                     Intent last_chance_to_buy = new Intent(activity, MainActivity.class);
                     Log.d("position", ((String.valueOf(position))));
                     Toast.makeText(getApplicationContext(), "Loading Last Chance To Buy", Toast.LENGTH_SHORT).show();
@@ -221,7 +220,7 @@ public class MainActivity extends AppCompatActivity implements Drawer.OnDrawerIt
                     startActivity(last_chance_to_buy);
                     break;
 
-                case "2":
+                case 2:
                     Intent accessories = new Intent(activity, MainActivity.class);
                     Log.d("position", ((String.valueOf(position))));
                     Toast.makeText(getApplicationContext(), "Loading Accessories", Toast.LENGTH_SHORT).show();
@@ -229,7 +228,7 @@ public class MainActivity extends AppCompatActivity implements Drawer.OnDrawerIt
                     startActivity(accessories);
                     break;
 
-                case "3":
+                case 3:
                     Intent handbags = new Intent(activity, MainActivity.class);
                     Log.d("position", ((String.valueOf(position))));
                     Toast.makeText(getApplicationContext(), "Loading Handbags", Toast.LENGTH_SHORT).show();
@@ -237,14 +236,14 @@ public class MainActivity extends AppCompatActivity implements Drawer.OnDrawerIt
                     startActivity(handbags);
                     break;
 
-                case "4":
+                case 4:
                     Intent wallets = new Intent(activity, MainActivity.class);
                     Log.d("position", ((String.valueOf(position))));
                     wallets.putExtra(EXTRA_FILTER, "filter[category]=wallets");
                     startActivity(wallets);
                     break;
 
-                case "5":
+                case 5:
                     Intent hats = new Intent(activity, MainActivity.class);
                     Log.d("position", ((String.valueOf(position))));
                     Toast.makeText(getApplicationContext(), "Loading Hats", Toast.LENGTH_SHORT).show();
@@ -252,7 +251,7 @@ public class MainActivity extends AppCompatActivity implements Drawer.OnDrawerIt
                     startActivity(hats);
                     break;
 
-                case "6":
+                case 6:
                     Intent scarves = new Intent(activity, MainActivity.class);
                     Log.d("position", ((String.valueOf(position))));
                     Toast.makeText(getApplicationContext(), "Loading Scarves", Toast.LENGTH_SHORT).show();
@@ -260,7 +259,7 @@ public class MainActivity extends AppCompatActivity implements Drawer.OnDrawerIt
                     startActivity(scarves);
                     break;
 
-                case "7":
+                case 7:
                     Intent sunglasses = new Intent(activity, MainActivity.class);
                     Log.d("position", ((String.valueOf(position))));
                     Toast.makeText(getApplicationContext(), "Loading Sunglasses", Toast.LENGTH_SHORT).show();
@@ -268,7 +267,7 @@ public class MainActivity extends AppCompatActivity implements Drawer.OnDrawerIt
                     startActivity(sunglasses);
                     break;
 
-                case "8":
+                case 8:
                     Intent clothes = new Intent(activity, MainActivity.class);
                     Log.d("position", ((String.valueOf(position))));
                     Toast.makeText(getApplicationContext(), "Loading Clothes", Toast.LENGTH_SHORT).show();
@@ -276,7 +275,7 @@ public class MainActivity extends AppCompatActivity implements Drawer.OnDrawerIt
                     startActivity(clothes);
                     break;
 
-                case "9":
+                case 9:
                     Intent outerwear = new Intent(activity, MainActivity.class);
                     Log.d("position", ((String.valueOf(position))));
                     Toast.makeText(getApplicationContext(), "Loading Outerwear", Toast.LENGTH_SHORT).show();
@@ -284,7 +283,7 @@ public class MainActivity extends AppCompatActivity implements Drawer.OnDrawerIt
                     startActivity(outerwear);
                     break;
 
-                case "10":
+                case 10:
                     Intent jewellry = new Intent(getApplicationContext(), MainActivity.class);
                     Log.d("position", ((String.valueOf(position))));
                     Toast.makeText(getApplicationContext(), "Loading Jewellry", Toast.LENGTH_SHORT).show();
@@ -292,7 +291,7 @@ public class MainActivity extends AppCompatActivity implements Drawer.OnDrawerIt
                     startActivity(jewellry);
                     break;
 
-                case "11":
+                case 11:
                     Intent bracelet = new Intent(activity, MainActivity.class);
                     Log.d("position", ((String.valueOf(position))));
                     Toast.makeText(getApplicationContext(), "Loading Bracelets", Toast.LENGTH_SHORT).show();
@@ -300,7 +299,7 @@ public class MainActivity extends AppCompatActivity implements Drawer.OnDrawerIt
                     startActivity(bracelet);
                     break;
 
-                case "12":
+                case 12:
                     Intent earrings = new Intent(activity, MainActivity.class);
                     Log.d("position", ((String.valueOf(position))));
                     Toast.makeText(getApplicationContext(), "Loading Earrings", Toast.LENGTH_SHORT).show();
@@ -308,7 +307,7 @@ public class MainActivity extends AppCompatActivity implements Drawer.OnDrawerIt
                     startActivity(earrings);
                     break;
 
-                case "13":
+                case 13:
                     Intent necklace = new Intent(activity, MainActivity.class);
                     Log.d("position", ((String.valueOf(position))));
                     Toast.makeText(getApplicationContext(), "Loading Necklace", Toast.LENGTH_SHORT).show();
@@ -316,8 +315,6 @@ public class MainActivity extends AppCompatActivity implements Drawer.OnDrawerIt
                     startActivity(necklace);
                     break;
             }
-        }
-
 
         return false;
     }

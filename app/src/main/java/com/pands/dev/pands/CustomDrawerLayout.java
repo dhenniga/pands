@@ -53,7 +53,7 @@ public class CustomDrawerLayout extends DrawerLayout {
             .withName("Handbags")
             .withIcon(R.drawable.handbag_icon)
             .withTypeface(RalewayRegular)
-            .withTextColor(Color.parseColor("#777777"))
+            .withTextColor(Color.parseColor("#ffffff"))
             .withSelectedColor(Color.parseColor("#1a1a1a"))
             .withSelectedTextColor(Color.parseColor("#FF595f"));
 
@@ -62,7 +62,7 @@ public class CustomDrawerLayout extends DrawerLayout {
             .withName("Wallets")
             .withIcon(R.drawable.wallet_icon)
             .withTypeface(RalewayRegular)
-            .withTextColor(Color.parseColor("#777777"))
+            .withTextColor(Color.parseColor("#ffffff"))
             .withSelectedTextColor(Color.parseColor("#FF595f"))
             .withSelectedColor(Color.parseColor("#1a1a1a"));
 
@@ -71,7 +71,7 @@ public class CustomDrawerLayout extends DrawerLayout {
             .withName("Hats")
             .withIcon(R.drawable.hats_icon)
             .withTypeface(RalewayRegular)
-            .withTextColor(Color.parseColor("#777777"))
+            .withTextColor(Color.parseColor("#ffffff"))
             .withSelectedTextColor(Color.parseColor("#FF595f"))
             .withSelectedColor(Color.parseColor("#1a1a1a"));
 
@@ -80,7 +80,7 @@ public class CustomDrawerLayout extends DrawerLayout {
             .withName("Scarves")
             .withIcon(R.drawable.scarves_icon)
             .withTypeface(RalewayRegular)
-            .withTextColor(Color.parseColor("#777777"))
+            .withTextColor(Color.parseColor("#ffffff"))
             .withSelectedTextColor(Color.parseColor("#FF595f"))
             .withSelectedColor(Color.parseColor("#1a1a1a"));
 
@@ -89,7 +89,7 @@ public class CustomDrawerLayout extends DrawerLayout {
             .withName("Sunglasses")
             .withIcon(R.drawable.sunglasses_icon)
             .withTypeface(RalewayRegular)
-            .withTextColor(Color.parseColor("#777777"))
+            .withTextColor(Color.parseColor("#ffffff"))
             .withSelectedTextColor(Color.parseColor("#FF595f"))
             .withSelectedColor(Color.parseColor("#1a1a1a"));
 
@@ -106,7 +106,7 @@ public class CustomDrawerLayout extends DrawerLayout {
             .withName("Outerwear")
             .withIcon(R.drawable.cart_icon)
             .withTypeface(RalewayRegular)
-            .withTextColor(Color.parseColor("#777777"))
+            .withTextColor(Color.parseColor("#ffffff"))
             .withSelectedTextColor(Color.parseColor("#FF595f"))
             .withSelectedColor(Color.parseColor("#1a1a1a"));
 
@@ -123,7 +123,7 @@ public class CustomDrawerLayout extends DrawerLayout {
             .withName("Bracelet")
             .withIcon(R.drawable.cart_icon)
             .withTypeface(RalewayRegular)
-            .withTextColor(Color.parseColor("#777777"))
+            .withTextColor(Color.parseColor("#ffffff"))
             .withSelectedTextColor(Color.parseColor("#FF595f"))
             .withSelectedColor(Color.parseColor("#1a1a1a"));
 
@@ -132,7 +132,7 @@ public class CustomDrawerLayout extends DrawerLayout {
             .withName("Earrings")
             .withIcon(R.drawable.cart_icon)
             .withTypeface(RalewayRegular)
-            .withTextColor(Color.parseColor("#777777"))
+            .withTextColor(Color.parseColor("#ffffff"))
             .withSelectedTextColor(Color.parseColor("#FF595f"))
             .withSelectedColor(Color.parseColor("#1a1a1a"));
 
@@ -141,7 +141,7 @@ public class CustomDrawerLayout extends DrawerLayout {
             .withName("Necklace")
             .withIcon(R.drawable.cart_icon)
             .withTypeface(RalewayRegular)
-            .withTextColor(Color.parseColor("#777777"))
+            .withTextColor(Color.parseColor("#ffffff"))
             .withSelectedTextColor(Color.parseColor("#FF595f"))
             .withSelectedColor(Color.parseColor("#1a1a1a"));
 
