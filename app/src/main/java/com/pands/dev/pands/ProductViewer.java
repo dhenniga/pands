@@ -56,6 +56,8 @@ public class ProductViewer extends AppCompatActivity {
     private AppCompatActivity activity = ProductViewer.this;
     ImageView iv;
 
+    private CustomDrawerLayout cdl;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +67,7 @@ public class ProductViewer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_viewer);
 
-        new DrawerBuilder().withActivity(this).build();
+        cdl = new CustomDrawerLayout(getApplicationContext(), ProductViewer.this);
 
 
         Log.i(TAG, "start");
@@ -264,6 +266,16 @@ public class ProductViewer extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        if (cdl.mDrawer != null && cdl.mDrawer.isDrawerOpen()) {
+            cdl.mDrawer.closeDrawer();
+        } else {
+            super.onBackPressed();
+        }
     }
 
 

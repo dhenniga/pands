@@ -15,12 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
-
 import com.mikepenz.materialdrawer.Drawer;
-import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.DividerDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.pands.dev.pands.listener.RecyclerClickListener;
 import com.pands.dev.pands.listener.RecyclerTouchListener;
 import com.pands.dev.pands.product.ProductAdapter;
@@ -29,7 +24,7 @@ import com.pands.dev.pands.product.ProductValue;
 import org.json.JSONObject;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements Drawer.OnDrawerItemClickListener {
+public class MainActivity extends AppCompatActivity {
 
     private static final String EXTRA_FEATURED_SRC = "EXTRA_FEATURED_SRC";
     private static final String EXTRA_SHORT_DESCRIPTION = "EXTRA_SHORT_DESCRIPTION";
@@ -50,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements Drawer.OnDrawerIt
     private RecyclerView rvProducts;
     public static int numberOfColumns;
 
-    private Drawer mDrawer;
+    private CustomDrawerLayout cdl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,25 +63,7 @@ public class MainActivity extends AppCompatActivity implements Drawer.OnDrawerIt
             EXTRA_FILTER = extras.getString("EXTRA_FILTER");
         }
 
-        CustomDrawerLayout cdl = new CustomDrawerLayout(getApplicationContext());
-
-        mDrawer = new DrawerBuilder().withActivity(this)
-                .withDrawerLayout(R.layout.material_drawer)
-                .withFireOnInitialOnClick(true)
-                .withSliderBackgroundColor(getResources().getColor(R.color.md_black_1000))
-                .withOnDrawerItemClickListener(this)
-                .addDrawerItems(
-                        cdl.item5,
-                        new DividerDrawerItem(),
-                        cdl.item2, cdl.item2_1, cdl.item2_2, cdl.item2_3, cdl.item2_4, cdl.item2_5,
-                        new DividerDrawerItem(),
-                        cdl.item3, cdl.item3_1,
-                        new DividerDrawerItem(),
-                        cdl.item4, cdl.item4_1, cdl.item4_2, cdl.item4_3
-
-                )
-
-                .build();
+        cdl = new CustomDrawerLayout(getApplicationContext(), MainActivity.this);
 
         initViews();
 
@@ -95,8 +72,8 @@ public class MainActivity extends AppCompatActivity implements Drawer.OnDrawerIt
 
     @Override
     public void onBackPressed() {
-        if (mDrawer != null && mDrawer.isDrawerOpen()) {
-            mDrawer.closeDrawer();
+        if (cdl.mDrawer != null && cdl.mDrawer.isDrawerOpen()) {
+            cdl.mDrawer.closeDrawer();
         } else {
             super.onBackPressed();
         }
@@ -108,35 +85,25 @@ public class MainActivity extends AppCompatActivity implements Drawer.OnDrawerIt
     {
         super.onStart();
         App.getBus().register(this);
-        mDrawer.closeDrawer();
         networkStatusCheck(getApplicationContext());
 
     }
+
 
     @Override
     protected void onDestroy()
     {
         super.onDestroy();
         App.getBus().unregister(this);
-        mDrawer.closeDrawer();
         EXTRA_FILTER = "EXTRA_FILTER";
     }
+
 
     @Override
     public void onResume() {
         super.onResume();
         Log.d("onResume","OK");
     }
-
-//    @Override
-//    protected void onRestart() {
-//        super.onRestart();
-//        Intent i = new Intent(MainActivity.this, MainActivity.class);
-//        startActivity(i);
-//        finish();
-//    }
-
-
 
 
     private void initViews() {
@@ -204,118 +171,6 @@ public class MainActivity extends AppCompatActivity implements Drawer.OnDrawerIt
         } catch (Exception e) {
             return false;
         }
-        return false;
-    }
-
-    @Override
-    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-
-            switch(position) {
-
-                case 14:
-                    Intent last_chance_to_buy = new Intent(activity, MainActivity.class);
-                    Log.d("position", ((String.valueOf(position))));
-                    Toast.makeText(getApplicationContext(), "Loading Last Chance To Buy", Toast.LENGTH_SHORT).show();
-                    last_chance_to_buy.putExtra(EXTRA_FILTER, "filter[category]=last-chance-to-buy");
-                    startActivity(last_chance_to_buy);
-                    break;
-
-                case 2:
-                    Intent accessories = new Intent(activity, MainActivity.class);
-                    Log.d("position", ((String.valueOf(position))));
-                    Toast.makeText(getApplicationContext(), "Loading Accessories", Toast.LENGTH_SHORT).show();
-                    accessories.putExtra(EXTRA_FILTER, "filter[category]=accessories");
-                    startActivity(accessories);
-                    break;
-
-                case 3:
-                    Intent handbags = new Intent(activity, MainActivity.class);
-                    Log.d("position", ((String.valueOf(position))));
-                    Toast.makeText(getApplicationContext(), "Loading Handbags", Toast.LENGTH_SHORT).show();
-                    handbags.putExtra(EXTRA_FILTER, "filter[category]=handbags");
-                    startActivity(handbags);
-                    break;
-
-                case 4:
-                    Intent wallets = new Intent(activity, MainActivity.class);
-                    Log.d("position", ((String.valueOf(position))));
-                    wallets.putExtra(EXTRA_FILTER, "filter[category]=wallets");
-                    startActivity(wallets);
-                    break;
-
-                case 5:
-                    Intent hats = new Intent(activity, MainActivity.class);
-                    Log.d("position", ((String.valueOf(position))));
-                    Toast.makeText(getApplicationContext(), "Loading Hats", Toast.LENGTH_SHORT).show();
-                    hats.putExtra(EXTRA_FILTER, "filter[category]=hats");
-                    startActivity(hats);
-                    break;
-
-                case 6:
-                    Intent scarves = new Intent(activity, MainActivity.class);
-                    Log.d("position", ((String.valueOf(position))));
-                    Toast.makeText(getApplicationContext(), "Loading Scarves", Toast.LENGTH_SHORT).show();
-                    scarves.putExtra(EXTRA_FILTER, "filter[category]=scarves");
-                    startActivity(scarves);
-                    break;
-
-                case 7:
-                    Intent sunglasses = new Intent(activity, MainActivity.class);
-                    Log.d("position", ((String.valueOf(position))));
-                    Toast.makeText(getApplicationContext(), "Loading Sunglasses", Toast.LENGTH_SHORT).show();
-                    sunglasses.putExtra(EXTRA_FILTER, "filter[category]=sunglasses");
-                    startActivity(sunglasses);
-                    break;
-
-                case 8:
-                    Intent clothes = new Intent(activity, MainActivity.class);
-                    Log.d("position", ((String.valueOf(position))));
-                    Toast.makeText(getApplicationContext(), "Loading Clothes", Toast.LENGTH_SHORT).show();
-                    clothes.putExtra(EXTRA_FILTER, "filter[category]=clothes");
-                    startActivity(clothes);
-                    break;
-
-                case 9:
-                    Intent outerwear = new Intent(activity, MainActivity.class);
-                    Log.d("position", ((String.valueOf(position))));
-                    Toast.makeText(getApplicationContext(), "Loading Outerwear", Toast.LENGTH_SHORT).show();
-                    outerwear.putExtra(EXTRA_FILTER, "filter[category]=outerwear");
-                    startActivity(outerwear);
-                    break;
-
-                case 10:
-                    Intent jewellry = new Intent(getApplicationContext(), MainActivity.class);
-                    Log.d("position", ((String.valueOf(position))));
-                    Toast.makeText(getApplicationContext(), "Loading Jewellry", Toast.LENGTH_SHORT).show();
-                    jewellry.putExtra(EXTRA_FILTER, "filter[category]=jewellry");
-                    startActivity(jewellry);
-                    break;
-
-                case 11:
-                    Intent bracelet = new Intent(activity, MainActivity.class);
-                    Log.d("position", ((String.valueOf(position))));
-                    Toast.makeText(getApplicationContext(), "Loading Bracelets", Toast.LENGTH_SHORT).show();
-                    bracelet.putExtra(EXTRA_FILTER, "filter[category]=bracelet");
-                    startActivity(bracelet);
-                    break;
-
-                case 12:
-                    Intent earrings = new Intent(activity, MainActivity.class);
-                    Log.d("position", ((String.valueOf(position))));
-                    Toast.makeText(getApplicationContext(), "Loading Earrings", Toast.LENGTH_SHORT).show();
-                    earrings.putExtra(EXTRA_FILTER, "filter[category]=earrings");
-                    startActivity(earrings);
-                    break;
-
-                case 13:
-                    Intent necklace = new Intent(activity, MainActivity.class);
-                    Log.d("position", ((String.valueOf(position))));
-                    Toast.makeText(getApplicationContext(), "Loading Necklace", Toast.LENGTH_SHORT).show();
-                    necklace.putExtra(EXTRA_FILTER, "filter[category]=earrings");
-                    startActivity(necklace);
-                    break;
-            }
-
         return false;
     }
 
