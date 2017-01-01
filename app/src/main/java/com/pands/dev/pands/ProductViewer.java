@@ -51,7 +51,9 @@ public class ProductViewer extends AppCompatActivity {
     String EXTRA_ON_SALE_PRICE = "EXTRA_ON_SALE_PRICE";
     String EXTRA_STOCK_QUANTITY = "EXTRA_STOCK_QUANTITY";
     String EXTRA_VISIBLE = "EXTRA_VISIBLE";
+
     String EXTRA_FILTER = "EXTRA_FILTER";
+    String EXTRA_SECTION_NAME = "EXTRA_SECTION_NAME";
 
     private AppCompatActivity activity = ProductViewer.this;
     ImageView iv;
@@ -146,12 +148,14 @@ public class ProductViewer extends AppCompatActivity {
                     btn.setTextSize(13);
                     btn.setText(items.get(i));
                     final String categoryName = "filter[category]=" + items.get(i);
+                    final String sectionName = items.get(i);
                     Log.d("DD_Tag", categoryName);
                     flCategoriesContainer.addView(btn, params);
                     btn.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View view) {
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             intent.putExtra(EXTRA_FILTER, categoryName);
+                            intent.putExtra(EXTRA_SECTION_NAME, sectionName);
                             startActivity(intent);
                         }
                     });
@@ -177,12 +181,14 @@ public class ProductViewer extends AppCompatActivity {
                     btn.setTextSize(13);
                     btn.setText(items.get(i));
                     final String tagName = "filter[tag]=" + items.get(i);
+                    final String sectionName = items.get(i);
                     Log.d("DD_Tag", tagName);
                     flTagsContainer.addView(btn, params);
                     btn.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View view) {
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             intent.putExtra(EXTRA_FILTER, tagName);
+                            intent.putExtra(EXTRA_SECTION_NAME, sectionName);
                             startActivity(intent);
                         }
                     });

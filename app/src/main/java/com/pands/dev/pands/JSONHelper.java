@@ -25,6 +25,11 @@ public class JSONHelper {
     private static final String URL_FILTER_SCARVES = "filter[category]=scarves";
     private static final String URL_FILTER_BRACELET = "filter[category]=bracelet";
 
+
+    private static final String URL_PRODUCT_CATEGORIES = "products/categories";
+
+
+
     private static final String URL_FILTER_LAST_CHANCE_TO_BUY = "filter[category]=last-chance-to-buy";
 
     private static final String URL_BASE_FIELDS = "fields=id,title,price,regular_price,visible,sale_price,stock_quantity,featured_src,short_description,on_sale,categories,tags,images";
@@ -46,7 +51,7 @@ public class JSONHelper {
 
     public JSONObject getJSONFromUrl(String filter) {
         try {
-            URL url = new URL(URL_BASE + URL_MAIN_1 + "?" + URL_BASE_FIELDS + "&" + filter + "&" + URL_FILTER_LIMIT_40 + "&" + URL_CONSUMER_KEY + "&" + URL_CONSUMER_SECRET);
+            URL url = new URL(URL_BASE + URL_MAIN_1 + "?" + URL_BASE_FIELDS + "&" + filter + "&" + URL_FILTER_LIMIT_90 + "&" + URL_CONSUMER_KEY + "&" + URL_CONSUMER_SECRET);
             URLConnection urlConnection = url.openConnection();
             BufferedReader in = new BufferedReader(new InputStreamReader(
                     urlConnection.getInputStream()));
@@ -71,4 +76,35 @@ public class JSONHelper {
         }
         return mJsonObject;
     }
+
+
+    public JSONObject getJSONforDrawer() {
+        try {
+            URL url = new URL(URL_BASE + URL_PRODUCT_CATEGORIES + "?" + URL_CONSUMER_KEY + "&" + URL_CONSUMER_SECRET);
+            URLConnection urlConnection = url.openConnection();
+            BufferedReader in = new BufferedReader(new InputStreamReader(
+                    urlConnection.getInputStream()));
+            StringBuilder builder = new StringBuilder();
+            String line;
+            while ((line = in.readLine()) != null) {
+                builder.append(line).append("\n");
+            }
+            json = builder.toString();
+            Log.i(TAG, json);
+            in.close();
+        } catch (Exception e) {
+            Log.e(TAG, "Exception: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        try {
+            // Convert the JSON String from InputStream to a JSONObject
+            mJsonObject = new JSONObject(json);
+        } catch (JSONException e) {
+            Log.e(TAG, "Exception: " + e.getMessage());
+        }
+        return mJsonObject;
+    }
+
+
 }

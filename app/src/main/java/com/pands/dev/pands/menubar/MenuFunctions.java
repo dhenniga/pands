@@ -1,5 +1,6 @@
 package com.pands.dev.pands.menubar;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.pands.dev.pands.App;
 import com.pands.dev.pands.LoginActivity;
+import com.pands.dev.pands.MainActivity;
 import com.pands.dev.pands.R;
 import com.pands.dev.pands.UserDetailsActivity;
 import com.pands.dev.pands.helper.DatabaseHelper;
