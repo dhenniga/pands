@@ -60,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView rvSideDrawer;
     public static int numberOfColumns;
 
-    public RelativeLayout rlSideMenuContainer;
+    public static RelativeLayout rlSideMenuContainer;
+    public static RecyclerViewHeader recyclerViewHeader;
     private int width;
 
     @Override
@@ -154,17 +155,19 @@ public class MainActivity extends AppCompatActivity {
 
         rlSideMenuContainer = (RelativeLayout) findViewById(R.id.rlSideMenuContainer);
 
-//        rlSideMenuContainer.setX(width);
-
-
         View child = getLayoutInflater().inflate(R.layout.fragment_side_drawer, rlSideMenuContainer, false);
         rlSideMenuContainer.addView(child);
 
         rvSideDrawer = (RecyclerView) findViewById(R.id.rvSideDrawer);
         rvSideDrawer.setLayoutManager(new LinearLayoutManager(this));
 
-        RecyclerViewHeader recyclerViewHeader = (RecyclerViewHeader) findViewById(R.id.recyclerViewHeader);
+        recyclerViewHeader = (RecyclerViewHeader) findViewById(R.id.recyclerViewHeader);
         recyclerViewHeader.attachTo(rvSideDrawer);
+
+//        rvSideDrawer.setX(width);
+        rlSideMenuContainer.setX(width);
+        recyclerViewHeader.setX(width);
+
 
 //        RelativeLayout rlMainGalleryContainer = (RelativeLayout) findViewById(R.id.rlMainGalleryContainer);
 //        rlMainGalleryContainer.setX(width - 220);
@@ -230,8 +233,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void openSideMenu() {
-        rlSideMenuContainer.setX(width - width);
+    public void openSideMenu(View v1, View v2) {
+        v1.setX(width - width);
+        v2.setX(width - width);
     }
 
     private void networkStatusCheck(Context context) {

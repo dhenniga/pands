@@ -11,10 +11,10 @@ public class SideNavMenu {
     public SideNavMenu(Context context) {
 
         Log.d("Header_menu", "SideNavMenu");
-        Toast.makeText(context, "Header_menu: SideBarNav", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, "Header_menu: SideBarNav", Toast.LENGTH_SHORT).show();
 
         MainActivity mainActivity = new MainActivity();
-        mainActivity.openSideMenu();
+        mainActivity.openSideMenu(mainActivity.rlSideMenuContainer, mainActivity.recyclerViewHeader);
 
     }
 }
