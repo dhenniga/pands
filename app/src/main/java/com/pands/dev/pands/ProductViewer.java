@@ -24,11 +24,14 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.pands.dev.pands.menubar.MenuFunctions;
 import com.pands.dev.pands.product.ProductValue;
+import com.pands.dev.pands.sideMenu.SideDrawerFragment;
 import com.squareup.picasso.Picasso;
 
 import org.apmem.tools.layouts.FlowLayout;
@@ -58,7 +61,8 @@ public class ProductViewer extends AppCompatActivity {
     private AppCompatActivity activity = ProductViewer.this;
     ImageView iv;
 
-    private CustomDrawerLayout cdl;
+    public static RelativeLayout activity_product_viewer;
+    public static ScrollView svProductContainer;
 
 
     @Override
@@ -69,8 +73,6 @@ public class ProductViewer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_viewer);
 
-        cdl = new CustomDrawerLayout(getApplicationContext(), ProductViewer.this);
-
 
         Log.i(TAG, "start");
 
@@ -80,6 +82,8 @@ public class ProductViewer extends AppCompatActivity {
         final Typeface RalewayRegular = Typeface.createFromAsset(activity.getAssets(), "Raleway-Regular.otf");
         final Typeface RalewayBold = Typeface.createFromAsset(activity.getAssets(), "Raleway-Bold.otf");
         final Typeface PlayFairDisplayItalic = Typeface.createFromAsset(activity.getAssets(), "PlayfairDisplay-Italic.otf");
+
+        svProductContainer = (ScrollView) findViewById(R.id.svProductContainer);
 
         TextView tvProductTitle = (TextView) findViewById(R.id.tvProductTitle);
         tvProductTitle.setTypeface(PlayFairDisplayItalic);
@@ -240,6 +244,7 @@ public class ProductViewer extends AppCompatActivity {
         btnAddStock.setTypeface(RalewayExtraLight);
 
 
+
         /**
          *
          */
@@ -275,15 +280,6 @@ public class ProductViewer extends AppCompatActivity {
     }
 
 
-    @Override
-    public void onBackPressed() {
-        if (cdl.mDrawer != null && cdl.mDrawer.isDrawerOpen()) {
-            cdl.mDrawer.closeDrawer();
-        } else {
-            super.onBackPressed();
-        }
-    }
-
 
     /**
      * @param html
@@ -294,16 +290,4 @@ public class ProductViewer extends AppCompatActivity {
         return Html.fromHtml(html).toString();
 
     }
-
-
-
-    /**
-     *
-     */
-    @Override
-    protected void onResume() {
-
-        super.onResume();
-    }
-
 }

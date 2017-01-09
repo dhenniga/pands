@@ -15,6 +15,7 @@ import java.io.File;
 public class MenuFunctions extends FrameLayout {
 
     public ImageButton menuButton, searchButton, memberButton, cartButton, pandsLogoButton;
+    public static FrameLayout flMenuBarContainer;
     SQLiteDatabase db;
 
     public MenuFunctions(Context context) {
@@ -48,8 +49,10 @@ public class MenuFunctions extends FrameLayout {
         cartButton = (ImageButton) rootView.findViewById(R.id.btnCart);
         pandsLogoButton = (ImageButton) rootView.findViewById(R.id.pands_logo);
 
-        memberButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        memberButton.setPadding(30,30,30,30);
+        flMenuBarContainer = (FrameLayout) rootView.findViewById(R.id.flMenuBarContainer);
+
+//        memberButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
+//        memberButton.setPadding(30,30,30,30);
 
         memberIconRefresh(context);
 
@@ -93,6 +96,7 @@ public class MenuFunctions extends FrameLayout {
     }
 
 
+
     /**
      *
      * @param context
@@ -101,13 +105,18 @@ public class MenuFunctions extends FrameLayout {
         if (!doesDatabaseExist(context)) {
             memberButton.setImageResource(R.drawable.member_icon);
         } else {
-             memberButton.setImageResource(R.drawable.pands_logo);
+            memberButton.setImageResource(R.drawable.pands_logo);
+            memberButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            memberButton.setPadding(18,18,18,18);
         }
     }
 
 
 
     /**
+ * Check to   []'
+     * \]-343t
+     *
      *
      * @param context
      * @return

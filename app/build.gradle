@@ -43,4 +43,6 @@ dependencies {
     compile 'org.apmem.tools:layouts:1.10@aar'
     compile 'com.mikepenz:materialdrawer:5.8.1@aar'
     compile 'com.bartoszlipinski:recyclerviewheader2:2.0.1'
+    compile 'com.daasuu:EasingInterpolator:1.0.0'
+    compile files('libs/ease-interpolator-1.1.jar')
 }

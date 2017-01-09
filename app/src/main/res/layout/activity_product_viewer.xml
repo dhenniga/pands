@@ -29,7 +29,14 @@
 
     </RelativeLayout>
 
+    <fragment
+        android:name="com.pands.dev.pands.sideMenu.SideDrawerFragment"
+        android:id="@+id/sideMenuFragment"
+        android:layout_width="220dp"
+        android:layout_height="match_parent" />
+
     <ScrollView
+        android:id="@+id/svProductContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="-2dp"

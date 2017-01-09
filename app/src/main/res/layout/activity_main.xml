@@ -28,52 +28,12 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/rlSideMenuContainer"
+    <fragment
+        android:name="com.pands.dev.pands.sideMenu.SideDrawerFragment"
+        android:id="@+id/sideMenuFragment"
         android:layout_width="220dp"
-        android:background="#ee000000"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
-    <com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader
-        android:id="@+id/recyclerViewHeader"
-        android:layout_width="220dp"
-        android:layout_height="150dp"
-        android:layout_gravity="center_horizontal|top">
-
-        <LinearLayout
-            android:layout_width="220dp"
-            android:layout_height="100dp"
-            android:gravity="center">
-
-<ImageView
-
-    android:layout_width="match_parent"
-    android:layout_height="43dp"
-    android:layout_centerInParent="true"
-    android:src="@drawable/pands_logo_white"/>
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tvHeaderNotification"
-            android:layout_width="220dp"
-            android:layout_height="50dp"
-            android:text="Christmas Sale"
-            android:textColor="#ffffff"
-            android:gravity="center"
-            android:background="#000000"
-            android:textSize="20sp"
-            android:visibility="gone"
-            android:layout_alignParentBottom="true"/>
-
-        <WebView
-            android:id="@+id/wvHeaderPromo"
-            android:layout_width="220dp"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:background="#ee000000"></WebView>
-
-    </com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvProducts"

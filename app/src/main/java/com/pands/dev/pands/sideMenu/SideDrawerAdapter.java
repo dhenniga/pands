@@ -34,7 +34,6 @@ public class SideDrawerAdapter extends RecyclerView.Adapter<SideDrawerAdapter.Vi
         this.sideDrawerList = sideDrawerList;
         this.inflater = LayoutInflater.from(context);
         this.mContext = context;
-        notifyDataSetChanged();
     }
 
 
@@ -56,8 +55,15 @@ public class SideDrawerAdapter extends RecyclerView.Adapter<SideDrawerAdapter.Vi
     }
 
 
+
+    /**
+     *
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
-    public ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         final Typeface RalewayMedium = Typeface.createFromAsset(mContext.getAssets(), "Raleway-Medium.otf");
 
@@ -70,6 +76,13 @@ public class SideDrawerAdapter extends RecyclerView.Adapter<SideDrawerAdapter.Vi
         return new ViewHolder(sideDrawerView);
     }
 
+
+
+    /**
+     *
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
@@ -100,18 +113,11 @@ public class SideDrawerAdapter extends RecyclerView.Adapter<SideDrawerAdapter.Vi
     }
 
 
-//    public void swapItems(int itemAIndex, int itemBIndex) {
-//        //make sure to check if dataset is null and if itemA and itemB are valid indexes.
-////        String itemA = sideDrawerList.get(itemAIndex).toString();
-////        String itemB = sideDrawerList.get(itemBIndex).toString();
-//        sideDrawerList.set(itemAIndex, itemBIndex);
-//        sideDrawerList.set(itemBIndex, itemAIndex);
-//
-//        notifyDataSetChanged(); //This will trigger onBindViewHolder method from the adapter.
-//    }
 
-
-
+    /**
+     *
+     * @return
+     */
     @Override
     public int getItemCount() {
         return sideDrawerList == null ? 0 : sideDrawerList.size();
