@@ -15,10 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader;
+import com.pands.dev.pands.App;
 import com.pands.dev.pands.JSONHelper;
 
 import org.json.JSONObject;
@@ -43,6 +45,8 @@ public class SideDrawerFragment extends Fragment {
     public static RecyclerViewHeader recyclerViewHeader;
 
     public static int closedMenu;
+
+    int pageNumber;
 
 
     @Override
@@ -91,11 +95,15 @@ public class SideDrawerFragment extends Fragment {
         recyclerViewHeader = (RecyclerViewHeader) view.findViewById(R.id.recyclerViewHeader);
         recyclerViewHeader.attachTo(rvSideDrawer);
 
+        final App mApp = ((App)getActivity().getApplicationContext());
+        pageNumber = mApp.getPageNumber();
+
 
         rvSideDrawer.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), rvSideDrawer, new RecyclerClickListener() {
             @Override
             public void onClick(View view, int position) {
 
+                mApp.setPageNumber(0);
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 intent.putExtra(EXTRA_FILTER, "filter[category]=" + sideDrawerList.get(position).getSlug());
                 intent.putExtra(EXTRA_SECTION_NAME, sideDrawerList.get(position).getName());
@@ -107,7 +115,10 @@ public class SideDrawerFragment extends Fragment {
             }
         }));
 
-        new JSONAsyncMenu().execute();
+        try {
+            new JSONAsyncMenu().execute();
+        } catch (Exception e) {
+        }
 
     }
 

@@ -25,6 +25,8 @@ public class JSONHelper {
     private static final String URL_FILTER_SCARVES = "filter[category]=scarves";
     private static final String URL_FILTER_BRACELET = "filter[category]=bracelet";
 
+    private static final String URL_PAGE = "page=";
+
 
     private static final String URL_PRODUCT_CATEGORIES = "products/categories";
 
@@ -49,9 +51,9 @@ public class JSONHelper {
     private JSONObject mJsonObject = null;
     private String json = "";
 
-    public JSONObject getJSONFromUrl(String filter) {
+    public JSONObject getJSONFromUrl(String filter, int page) {
         try {
-            URL url = new URL(URL_BASE + URL_MAIN_1 + "?" + URL_BASE_FIELDS + "&" + filter + "&" + URL_FILTER_LIMIT_90 + "&" + URL_CONSUMER_KEY + "&" + URL_CONSUMER_SECRET);
+            URL url = new URL(URL_BASE + URL_MAIN_1 + "?" + URL_BASE_FIELDS + "&" + filter + "&" + URL_FILTER_LIMIT_20 + "&" + URL_PAGE + page + "&" + URL_CONSUMER_KEY + "&" + URL_CONSUMER_SECRET);
             URLConnection urlConnection = url.openConnection();
             BufferedReader in = new BufferedReader(new InputStreamReader(
                     urlConnection.getInputStream()));

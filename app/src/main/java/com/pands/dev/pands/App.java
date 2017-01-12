@@ -7,6 +7,15 @@ import com.squareup.otto.Bus;
 public class App extends Application
 {
     private static Bus bus;
+    int pageNumber = 1;
+
+    public int getPageNumber() {
+        return pageNumber;
+    }
+
+    public void setPageNumber(int pageNumber) {
+        this.pageNumber = pageNumber;
+    }
 
     @Override
     public void onCreate()

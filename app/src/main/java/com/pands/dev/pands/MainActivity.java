@@ -11,17 +11,26 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.pands.dev.pands.listener.RecyclerClickListener;
 import com.pands.dev.pands.listener.RecyclerTouchListener;
+import com.pands.dev.pands.menubar.SideNavMenu;
 import com.pands.dev.pands.product.ProductAdapter;
 import com.pands.dev.pands.product.ProductParser;
 import com.pands.dev.pands.product.ProductValue;
+import com.pands.dev.pands.sideMenu.SideDrawerAdapter;
+import com.pands.dev.pands.sideMenu.SideDrawerFragment;
+import com.pands.dev.pands.sideMenu.SideDrawerValue;
+
 import org.json.JSONObject;
 import java.util.List;
 
@@ -46,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
     public static RecyclerView rvProducts;
     public static int numberOfColumns;
 
+    private static int pageNumber;
+
+    Button btnPageNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +69,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         networkStatusCheck(getApplicationContext());
+
+
+        final App mApp = ((App)getApplicationContext());
+        pageNumber = mApp.getPageNumber();
+        btnPageNumber = (Button) findViewById(R.id.btnPageNumber);
+
+        btnPageNumber.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mApp.setPageNumber(mApp.getPageNumber() + 1);
+                Toast.makeText(getApplicationContext(), "pageNumber: " + ((String.valueOf(pageNumber))), Toast.LENGTH_LONG).show();
+                Intent activityChangeIntent = new Intent(MainActivity.this, MainActivity.class);
+                MainActivity.this.startActivity(activityChangeIntent);
+            }
+        });
+
+
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -78,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
     @Override
     protected void onStart()
     {
@@ -97,13 +126,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 
     @Override
     public void onResume() {
         super.onResume();
         Log.d("onResume","OK");
-
     }
+
 
 
 
@@ -204,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-
+//recyclerView.scrollToPosition(messages.size()-1);
 
     /**
      *  Get Products from database
@@ -222,7 +255,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            JSONObject jsonObject = new JSONHelper().getJSONFromUrl(EXTRA_FILTER);
+            JSONObject jsonObject = new JSONHelper().getJSONFromUrl(EXTRA_FILTER, pageNumber);
             productList = new ProductParser().parse(jsonObject);
             return null;
         }

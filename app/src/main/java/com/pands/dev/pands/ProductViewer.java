@@ -244,7 +244,6 @@ public class ProductViewer extends AppCompatActivity {
         btnAddStock.setTypeface(RalewayExtraLight);
 
 
-
         /**
          *
          */
@@ -280,6 +279,15 @@ public class ProductViewer extends AppCompatActivity {
     }
 
 
+//    @Override
+//    public void onBackPressed() {
+//        if (cdl.mDrawer != null && cdl.mDrawer.isDrawerOpen()) {
+//            cdl.mDrawer.closeDrawer();
+//        } else {
+//            super.onBackPressed();
+//        }
+//    }
+
 
     /**
      * @param html
@@ -290,4 +298,21 @@ public class ProductViewer extends AppCompatActivity {
         return Html.fromHtml(html).toString();
 
     }
+
+
+
+    /**
+     *
+     */
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+
+//        SideDrawerFragment.rlSideMenuContainer.setX(SideDrawerFragment.rlSideMenuContainer.getMeasuredWidth() - SideDrawerFragment.rlSideMenuContainer.getMeasuredWidth() - SideDrawerFragment.rlSideMenuContainer.getMeasuredWidth());
+//        ProductViewer.svProductContainer.setX(0);
+//        MenuFunctions.flMenuBarContainer.setX(0);
+
+    }
+
 }

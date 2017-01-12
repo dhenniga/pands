@@ -201,9 +201,10 @@ public class ProductParser {
                 productValue.setImages(imagesProcessed);
 
 
-                if (posts.getBoolean("visible") != false) {
+//                if (posts.getBoolean("visible") != false ) {
+//                if (posts.getInt("stock_quantity") > 0) {
                     postList.add(productValue);
-                }
+//                }
 
             }
 

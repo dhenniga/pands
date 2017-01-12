@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rlSideMenuContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="start"
     android:background="#000000">
 
     <com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader
@@ -52,5 +54,6 @@
         android:elevation="100dp"
         tools:context=".sideMenu.SideDrawerFragment"
         android:gravity="top"/>
+
 
 </RelativeLayout>
