@@ -114,17 +114,17 @@ public class MenuFunctions extends FrameLayout {
 
 
     /**
- * Check to   []'
-     * \]-343t
-     *
      *
      * @param context
      * @return
      */
     private static boolean doesDatabaseExist(Context context) {
         DatabaseHelper databaseHelper = new DatabaseHelper(context);
-        File dbFile = context.getDatabasePath(databaseHelper.DATABASE_NAME);
-        return dbFile.exists();
+        if (databaseHelper.DATABASE_NAME != null) {
+            File dbFile = context.getDatabasePath(databaseHelper.DATABASE_NAME);
+            return dbFile.exists();
+        }
+        return true;
     }
 
 }

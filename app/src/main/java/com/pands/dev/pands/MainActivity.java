@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static String EXTRA_FILTER = "EXTRA_FILTER";
     private static String EXTRA_SECTION_NAME = "Latest Products";
+
     private AppCompatActivity activity = MainActivity.this;
     private List<ProductValue> productList;
     public static RecyclerView rvProducts;
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static int pageNumber;
 
-    Button btnPageNumber;
+    Button btnNextPage, btnPrevPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,19 +71,49 @@ public class MainActivity extends AppCompatActivity {
 
         networkStatusCheck(getApplicationContext());
 
+        Typeface RalewayRegular = Typeface.createFromAsset(getAssets(), "Raleway-Regular.otf");
+
 
         final App mApp = ((App)getApplicationContext());
         pageNumber = mApp.getPageNumber();
-        btnPageNumber = (Button) findViewById(R.id.btnPageNumber);
 
-        btnPageNumber.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                mApp.setPageNumber(mApp.getPageNumber() + 1);
-                Toast.makeText(getApplicationContext(), "pageNumber: " + ((String.valueOf(pageNumber))), Toast.LENGTH_LONG).show();
-                Intent activityChangeIntent = new Intent(MainActivity.this, MainActivity.class);
-                MainActivity.this.startActivity(activityChangeIntent);
-            }
-        });
+        btnNextPage = (Button) findViewById(R.id.btnNextPage);
+        btnNextPage.setTypeface(RalewayRegular);
+        btnPrevPage = (Button) findViewById(R.id.btnPrevPage);
+        btnPrevPage.setTypeface(RalewayRegular);
+
+        btnNextPage.setAlpha(0.3f);
+        btnPrevPage.setAlpha(0.3f);
+
+        if (mApp.getPageNumber() >= 1) {
+
+            btnNextPage.setAlpha(1f);
+
+            btnNextPage.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    mApp.setPageNumber(mApp.getPageNumber() + 1);
+                    Toast.makeText(getApplicationContext(), "pageNumber: " + ((String.valueOf(mApp.getPageNumber()))), Toast.LENGTH_LONG).show();
+                    pageNumber = mApp.getPageNumber();
+                    Intent activityChangeIntent = new Intent(MainActivity.this, MainActivity.class);
+                    MainActivity.this.startActivity(activityChangeIntent);
+                }
+            });
+        }
+
+        if (mApp.getPageNumber() > 1) {
+
+            btnPrevPage.setAlpha(1f);
+
+            btnPrevPage.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    mApp.setPageNumber(mApp.getPageNumber() - 1);
+                    Toast.makeText(getApplicationContext(), "pageNumber: " + ((String.valueOf(mApp.getPageNumber()))), Toast.LENGTH_LONG).show();
+                    pageNumber = mApp.getPageNumber();
+                    Intent activityChangeIntent = new Intent(MainActivity.this, MainActivity.class);
+                    MainActivity.this.startActivity(activityChangeIntent);
+                }
+            });
+        }
 
 
 
@@ -92,8 +123,6 @@ public class MainActivity extends AppCompatActivity {
             EXTRA_SECTION_NAME = extras.getString("EXTRA_SECTION_NAME");
         }
 
-
-        Typeface RalewayRegular = Typeface.createFromAsset(getAssets(), "Raleway-Regular.otf");
 
         TextView tvSectionName = (TextView) findViewById(R.id.tvSectionName);
         tvSectionName.setText(EXTRA_SECTION_NAME);

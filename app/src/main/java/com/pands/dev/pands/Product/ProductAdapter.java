@@ -99,9 +99,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.tvPriceColTwo.setText("€" + ((String.valueOf(currentPost.getPrice()))));
         holder.tvTitleColTwo.setText(currentPost.getTitle());
 
-        if (currentPost.getStock_quantity() == 0){
-            holder.llProductDetailsContainer.setAlpha(0.3f);
-        }
+//        if (currentPost.getStock_quantity() == 0){
+//            holder.llProductDetailsContainer.setAlpha(0.3f);
+//        }
 
 
         String imageURL = currentPost.getFeatured_src();

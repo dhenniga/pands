@@ -12,4 +12,7 @@
     <string name="minus_symbol">-</string>
     <string name="categories_header">Categories</string>
     <string name="tags_header">Tags</string>
+
+    <string name="button_prev">❮❮</string>
+    <string name="button_next">❯❯</string>
 </resources>

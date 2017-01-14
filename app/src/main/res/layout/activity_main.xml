@@ -28,12 +28,6 @@
 
     </RelativeLayout>
 
-    <fragment
-        android:name="com.pands.dev.pands.sideMenu.SideDrawerFragment"
-        android:id="@+id/sideMenuFragment"
-        android:layout_width="220dp"
-        android:layout_height="match_parent"/>
-
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvProducts"
@@ -43,16 +37,32 @@
         android:layout_alignParentTop="true"
         android:elevation="-20dp"/>
 
+
     <Button
-        android:id="@+id/btnPageNumber"
+        android:id="@+id/btnNextPage"
         android:layout_width="100dp"
         android:layout_height="35dp"
         android:background="#000000"
         android:layout_alignParentEnd="true"
         android:textColor="#ffffff"
+        android:gravity="center"
         android:layout_alignParentBottom="true"
-        android:textSize="11sp"
-        android:text="NEXT"/>
+        android:textSize="12sp"
+        android:text="@string/button_next"/>
+
+
+
+    <Button
+        android:id="@+id/btnPrevPage"
+        android:layout_width="100dp"
+        android:layout_height="35dp"
+        android:background="#000000"
+        android:layout_alignParentStart="true"
+        android:textColor="#ffffff"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:textSize="12sp"
+        android:text="@string/button_prev"/>
 
     <TextView
         android:id="@+id/tvSectionName"
@@ -67,5 +77,12 @@
         android:visibility="visible"
         android:layout_alignParentBottom="true"
         android:padding="0dp"/>
+
+    <fragment
+        android:name="com.pands.dev.pands.sideMenu.SideDrawerFragment"
+        android:id="@+id/sideMenuFragment"
+        android:layout_width="220dp"
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_side_drawer" />
 
 </RelativeLayout>

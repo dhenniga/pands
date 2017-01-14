@@ -103,7 +103,7 @@ public class SideDrawerFragment extends Fragment {
             @Override
             public void onClick(View view, int position) {
 
-                mApp.setPageNumber(0);
+                mApp.setPageNumber(1);
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 intent.putExtra(EXTRA_FILTER, "filter[category]=" + sideDrawerList.get(position).getSlug());
                 intent.putExtra(EXTRA_SECTION_NAME, sideDrawerList.get(position).getName());
