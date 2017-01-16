@@ -3,6 +3,7 @@ package com.pands.dev.pands.menubar;
         import android.app.Activity;
         import android.content.Context;
         import android.content.Intent;
+        import android.support.v7.app.AppCompatActivity;
         import android.util.Log;
         import android.widget.Toast;
 
@@ -19,7 +20,7 @@ public class PandSButton {
 
         Log.d("Header_menu", "PandSButton");
 
-        final App mApp = ((App)context);
+        final App mApp = ((App)context.getApplicationContext());
         mApp.setPageNumber(1);
 
         Intent intent = new Intent(context, MainActivity.class);

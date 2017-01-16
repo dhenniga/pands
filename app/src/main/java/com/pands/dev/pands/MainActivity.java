@@ -11,7 +11,6 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -27,9 +26,7 @@ import com.pands.dev.pands.menubar.SideNavMenu;
 import com.pands.dev.pands.product.ProductAdapter;
 import com.pands.dev.pands.product.ProductParser;
 import com.pands.dev.pands.product.ProductValue;
-import com.pands.dev.pands.sideMenu.SideDrawerAdapter;
 import com.pands.dev.pands.sideMenu.SideDrawerFragment;
-import com.pands.dev.pands.sideMenu.SideDrawerValue;
 
 import org.json.JSONObject;
 import java.util.List;
@@ -71,8 +68,19 @@ public class MainActivity extends AppCompatActivity {
 
         networkStatusCheck(getApplicationContext());
 
+
         Typeface RalewayRegular = Typeface.createFromAsset(getAssets(), "Raleway-Regular.otf");
 
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            EXTRA_FILTER = extras.getString("EXTRA_FILTER");
+            EXTRA_SECTION_NAME = extras.getString("EXTRA_SECTION_NAME");
+        }
+
+
+        TextView tvSectionName = (TextView) findViewById(R.id.tvSectionName);
+        tvSectionName.setText(EXTRA_SECTION_NAME);
+        tvSectionName.setTypeface(RalewayRegular);
 
         final App mApp = ((App)getApplicationContext());
         pageNumber = mApp.getPageNumber();
@@ -115,18 +123,6 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-
-
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            EXTRA_FILTER = extras.getString("EXTRA_FILTER");
-            EXTRA_SECTION_NAME = extras.getString("EXTRA_SECTION_NAME");
-        }
-
-
-        TextView tvSectionName = (TextView) findViewById(R.id.tvSectionName);
-        tvSectionName.setText(EXTRA_SECTION_NAME);
-        tvSectionName.setTypeface(RalewayRegular);
 
         initViews();
 

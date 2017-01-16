@@ -86,7 +86,6 @@ public class SideDrawerFragment extends Fragment {
             }
         });
 
-
         rlSideMenuContainer = (RelativeLayout) view.findViewById(R.id.rlSideMenuContainer);
 
         rvSideDrawer = (RecyclerView) view.findViewById(R.id.rvSideDrawer);
